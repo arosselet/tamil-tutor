@@ -407,20 +407,21 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         klog_path.write_bytes(saved[1])
 
 
-def s33_catch_response_pairs(mk, sb: Path):
-    """Catch-and-response is a first-class curriculum kind, and the schema had no
-    way to say it (2026-07-26 audit). The pairing lived as English prose in
-    `note`/`gloss` — "the maami's line at the table" — so nothing could drill a
-    pair as a pair, and nothing noticed when `seed-deck` dropped the response
-    while its prompt kept its slot. `pairs_with` is the one relation the schema
-    carries; it must resolve inside the seed file, ride onto the lexicon, and
-    reach both surfaces that show catch items.
+def s33_seed_deck_lands_static_fields(mk, sb: Path):
+    """`seed-deck` is the one writer of a row's curated static fields, and it no
+    longer carries a relation (2026-11-09, Andrew).
 
-    `seed-deck` outlived the trip deck (2026-08-18): curated-set seeding is
-    useful for any future set, and only the *trip* framing retired. So this case
-    keeps exercising it — and now also guards the field the retirement added,
-    `register`, whose writer path this command is."""
-    print("\n33. Catch/response pairs: hear X → say Y is representable (2026-07-26)")
+    This case was written on 2026-07-26 for `pairs_with`, the catch-and-response
+    relation: a catch line naming the chunk he says back. It was populated on one
+    row of 429 and never grew, while the ticket and the knock menu each kept a
+    branch printing "he answers" for it. The field and its readers are retired.
+
+    What the case still guards is the half that outlived it (2026-08-18):
+    `register` reaches the ROW through this command, the only legitimate way a
+    static field lands in a Python-owned book. And it now guards the retirement
+    itself, in the direction it can silently fail: a deck that still names a
+    pair must seed, and a row that held one must come out without it."""
+    print("\n33. seed-deck lands static fields; the pair relation is retired (2026-11-09)")
     import contextlib
     import io
     st = importlib.import_module("suggest_targets")
@@ -441,19 +442,9 @@ def s33_catch_response_pairs(mk, sb: Path):
             ss.cmd_seed_deck(a)
         return buf.getvalue(), json.loads(lex_path.read_text(encoding="utf-8"))
 
-    def ticket_text():
-        argv, out = sys.argv, io.StringIO()
-        try:
-            sys.argv = ["suggest_targets.py"]
-            with contextlib.redirect_stdout(out):
-                st.main()
-        finally:
-            sys.argv = argv
-        return out.getvalue()
-
     prompt = "இன்னும் கொஞ்சம் சாப்பிடுங்க"
     answer = "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
-    paired = [
+    deck = [
         {"word": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
          "recognition": "struggled",
          "register": "mil-table", "pairs_with": answer},
@@ -462,12 +453,20 @@ def s33_catch_response_pairs(mk, sb: Path):
          "register": "antifreeze"},
     ]
     try:
-        write_json(lex_path, {})
-        out, lex = seed(paired)
-        check("the pair rides from the deck file onto the lexicon",
-              lex[prompt].get("pairs_with") == answer, f"got {lex.get(prompt)}")
-        check("the answer is a FIRE item — the catch half alone is not the win",
-              lex[answer].get("direction") == "fire", f"got {lex.get(answer)}")
+        # A row that still holds the relation, as the live lexicon did.
+        write_json(lex_path, {prompt: {"type": "chunk", "gloss": "eat more",
+                                       "recognition": "untested", "production": "none",
+                                       "seen_in": [], "last_surfaced": None,
+                                       "direction": "catch", "pairs_with": answer}})
+        out, lex = seed(deck)
+        check("a deck that still names a pair seeds both rows",
+              prompt in lex and answer in lex, f"got {sorted(lex)}")
+        check("...and no row carries the relation afterwards, old or new",
+              not any("pairs_with" in r for r in lex.values()),
+              f"got {[w for w, r in lex.items() if 'pairs_with' in r]}")
+        check("the catch line stays ear-only and the answer stays a fire item",
+              lex[prompt].get("direction") == "catch" and lex[answer].get("direction") == "fire",
+              f"got {lex[prompt].get('direction')}/{lex[answer].get('direction')}")
         # THE MIGRATION'S WRITER PATH (2026-08-18). The tier ordering outlived the
         # deck only because `register` reaches the ROW; if it stopped at the
         # curriculum file the ordering would be joined off a container that no
@@ -489,28 +488,17 @@ def s33_catch_response_pairs(mk, sb: Path):
 
         ear = st.ear_targets(lex, today=date_cls.today())
         cp = [t for t in ear["pending"] if t["word"] == prompt]
-        check("ear_targets resolves the pair for the drill",
-              cp and cp[0]["pairs_with"] == answer and cp[0]["response_gloss"] == "no thanks, I'm full",
-              f"got {cp}")
-        check("the ticket names the answer under the line he'll hear",
-              "he answers:" in ticket_text(), "the ear-only block hid the pair")
-        check("the knock menu marks a paired item so Anna plays HER line",
-              "[pair]" in mk.due_menu_block() and "never quiz the catch half alone" in mk.due_menu_block(),
+        check("the catch line still reaches the ear queue, as ear-only",
+              cp and cp[0]["ear_only"] and "pairs_with" not in cp[0], f"got {cp}")
+        check("the knock menu lists it as ear-only, with no pair branch",
+              "[ear-only]" in mk.due_menu_block() and "[pair]" not in mk.due_menu_block(),
               f"got {mk.due_menu_block()}")
-
-        # THE regression: the response was dropped from the seed file while its
-        # prompt stayed. Silent before, then a loud drop — a HARD seed-time
-        # error now (2026-07-26): the seed is refused whole BEFORE any write,
-        # so a split pair can never half-land. Fix the file, re-run.
-        before = lex_path.read_bytes()
-        try:
-            seed([paired[0]])
-            check("a split pair refuses the whole seed", False, "seed did not exit")
-        except SystemExit as e:
-            check("a split pair refuses the whole seed, loudly", e.code == 1,
-                  f"exit code {e.code}")
-        check("a refused seed writes NOTHING — no half-landed set",
-              lex_path.read_bytes() == before, "lexicon changed on a refused seed")
+        # A deck holding only the catch half used to refuse the whole seed as a
+        # split pair. With no relation there is nothing to split.
+        write_json(lex_path, {})
+        out, lex = seed([deck[0]])
+        check("a deck with only the catch half seeds, where it used to refuse",
+              prompt in lex and "pairs_with" not in lex[prompt], f"got {lex}")
     finally:
         deck_file.write_bytes(saved[0])
         lex_path.write_bytes(saved[1])

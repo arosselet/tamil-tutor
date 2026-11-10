@@ -396,13 +396,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     _picked = [q[0] for q in (_machines, _catch) if q][:max_catch]
     _picked += [t for t in _ear if t not in _picked][:max_catch - len(_picked)]
     for t in _picked:
-        if t.get("pairs_with"):
-            # A paired catch item is the one ear-only case he DOES answer: the
-            # line is aimed at him and silence is the failure (2026-07-26).
-            lines.append(f"    [pair] {t['word']} — {t['gloss'] or '[no gloss]'}  "
-                         f"→ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}  "
-                         f"(play HER line, let him answer — never quiz the catch half alone)")
-        elif t.get("ear_only"):
+        if t.get("ear_only"):
             lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
                          f"(soak/eavesdrop dose only — never ask him to fire it)")
         else:

@@ -122,7 +122,7 @@ def main():
         run(knock.s30_anna_speaks_back, mk, kr, sb)
         run(publish.s31_feed_carries_every_pushed_dose, sb)
         run(state.s32_pool_rotation_and_coverage, mk, sb)
-        run(state.s33_catch_response_pairs, mk, sb)
+        run(state.s33_seed_deck_lands_static_fields, mk, sb)
         run(state.s34_focus_and_background, sb)
         run(state.s36_soak_order_carries_shape, sb)
         run(state.s37_repair_earns_the_dose, sb)

@@ -1742,6 +1742,10 @@ TOMBSTONES = (
     ("2026-11-09 The month cut is a review, not a gate (the 10-19 feature gate retired)",
      ("for the cut and says so",
       "never originates in-month")),
+    ("2026-11-09 pairs_with is retired (the 07-26 catch-and-response relation)",
+     ("the ONE relation the schema carries",
+      "never quiz the catch half alone",
+      "drill the PAIR")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

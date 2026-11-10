@@ -1023,10 +1023,9 @@ def cmd_seed_deck(args):
     word_pool.json.
 
     Each entry: {"word", "gloss", "type": "chunk"|"frame",
-    "register"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is stored
+    "register"?, "direction"?: "fire"|"catch"}. A "frame" is stored
     as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
-    viability floor). "catch" marks ear-only items; "pairs_with" names the chunk
-    that answers it and must resolve inside the same file, or the seed refuses.
+    viability floor). "catch" marks ear-only items.
     "register" is the ORDERING (`suggest_targets.REGISTER_TIERS`).
 
     Static fields only. A `recognition` in the file is ignored (2026-09-10): a
@@ -1046,29 +1045,15 @@ def cmd_seed_deck(args):
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
-    # `pairs_with` is the ONE relation the schema carries: a catch item names the
-    # chunk Andrew must say back to it (hear X → say Y). It lives on the catch
-    # side because that is the direction of the drill, and it must resolve inside
-    # the same file — an unresolvable pair is a SPLIT pair, which is exactly the
-    # failure it exists to prevent (2026-07-26: the maami's "eat more" kept its
-    # deck slot while its refusal was dropped, and nothing could notice). A split
-    # pair refuses the whole seed BEFORE any write: fix the file, re-run.
-    # The schema key is "word" (2026-08-28) — see suggest_targets.cluster_gaps.
-    in_file = {e.get("word") for e in entries}
-    split = [(e.get("word"), e.get("pairs_with")) for e in entries
-             if e.get("pairs_with") and e["pairs_with"] not in in_file]
-    if split:
-        for word, pair in split:
-            print(f"  ✗ '{word}' pairs_with '{pair}', which is not in this deck — split pair.")
-        print("  Error: seed refused, nothing written. A pair must resolve inside the file.")
-        sys.exit(1)
+    # The catch-and-response relation retired 2026-11-09 (Andrew): one row in 429
+    # ever carried it. A deck entry that still names one is seeded without it, and
+    # a row that held one loses it here, the only writer the field ever had.
     created = updated = 0
     for e in entries:
         word = e.get("word")
         if not word:
             print(f"  ! deck entry missing 'word' — skipped: {e}")
             continue
-        pair = e.get("pairs_with")
         lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
         # Chunks/words must be canonical Tamil script; frames use the `frame:...`
         # key convention (like add-pattern), so they're exempt from the script check.
@@ -1081,10 +1066,7 @@ def cmd_seed_deck(args):
             if e.get("register"):
                 rec["register"] = e["register"]
             rec.setdefault("type", lex_type)
-            if pair:
-                rec["pairs_with"] = pair
-            else:
-                rec.pop("pairs_with", None)  # the file is the source of truth
+            rec.pop("pairs_with", None)
             if e.get("gloss"):
                 rec["gloss"] = e["gloss"]  # deck file is the curated content source — its gloss wins
             updated += 1
@@ -1098,7 +1080,6 @@ def cmd_seed_deck(args):
                 "last_surfaced": None,
                 "direction": e.get("direction", "fire"),
                 **({"register": e["register"]} if e.get("register") else {}),
-                **({"pairs_with": pair} if pair else {}),
             }
             created += 1
     save_json(LEXICON_PATH, lexicon)

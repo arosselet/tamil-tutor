@@ -539,11 +539,6 @@ def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
         # Ear-only is the CATCH TAG, never "is it in this queue" — a machine sits
         # here precisely because his ear is behind his mouth on it.
         "ear_only": r.get("direction") == "catch",
-        # The pair, resolved for the drill: hear this, say that. A catch item
-        # with a partner is drillable as a UNIT — recognizing it is only half
-        # the win if the answer doesn't arrive (2026-07-26).
-        "pairs_with": r.get("pairs_with"),
-        "response_gloss": lexicon.get(r.get("pairs_with") or "", {}).get("gloss", ""),
         "reps": reps.get(w, 0), "soaked": len(r.get("seen_in", [])),
         "exposures": r.get("exposures", 0),
         "production": r.get("production", "none"),
@@ -1157,9 +1152,6 @@ def main():
             # do-not-fire list and the catch law quietly widens to cover them.
             axis = "" if t["ear_only"] else "  · he FIRES this — the ear is what is behind"
             print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]{axis}")
-            if t.get("pairs_with"):
-                print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
-                      f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")
 
     # BACKGROUND IS NOT PRINTED (Andrew, 2026-08-21). It listed 8 of ~236 rows
     # not yet started under "EXPOSE, don't drill" — a block with no action verb

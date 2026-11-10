@@ -165,7 +165,7 @@ def lex_row(**kw) -> dict:
         lex_row(type="pattern", heard_on="2026-07-26", direction="catch")
 
     Optional fields (`type`, `deck`, `direction`, `register`, `reps`,
-    `pairs_with`, `heard_on`) are absent unless asked for, exactly as in the
+    `heard_on`) are absent unless asked for, exactly as in the
     minted record. `phonetic` left the shape on 2026-09-21 with the stored
     field; `s85` holds this builder to the real mint sites, so it cannot come
     back here without coming back there."""

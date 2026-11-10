@@ -5,8 +5,8 @@ Every evidence field on a lexicon row — `recognition`, `production`, `reps`,
 `exposures`, `heard_on`, `last_surfaced`, `seen_in`, `taught_on` — is written by
 exactly one function, `rebuild`, and it writes what the log supports. No writer
 sets one directly; a writer records an event through `observe` and the rung
-follows. The static half of a row (gloss, type, register, direction,
-pairs_with) is curriculum, not evidence, and stays hand-owned.
+follows. The static half of a row (gloss, type, register,
+direction) is curriculum, not evidence, and stays hand-owned.
 
 THE POLICY, in one sentence: **a rung is what watched tests support —
 recognition climbs one per pass and falls one per miss, production is the best
