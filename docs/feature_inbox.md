@@ -27,7 +27,6 @@ line and leaves; one that dies is deleted, not archived.
 - Populate or retire `pairs_with` — 1 of 362 rows, but four readers print "he answers: …" off it; the hear-her-line/produce-the-refusal pair is a real unit starved of data (2026-09-13, from the sparse-field review, NOT built) awaiting Andrew (2026-10-20): still 1 of 427 rows; recommend retiring the field and its four readers
 - Denominator floor in `suggest_targets.new_candidates_by_cluster` — `body` at 0/2 outranks `verb_root` at 3/49; a Laplace prior or minimum denominator (2026-09-04, from the curriculum expansion review, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
 - A `(word, cluster)` uniqueness ratchet on `curriculum/word_pool.json` in `scripts/smoke/` — the §7.1 validator died with its session (2026-09-04, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
-- `_api_text` HAS NO TRUNCATION GUARD, and the failure is silent (2026-09-07). awaiting Andrew (2026-10-20): still latent; ship-and-say-TRUNCATED vs raise is his call
 - THE BENCHMARK TAPE — felt progress without a meter (2026-08-25) DEFERRED (2026-10-20): needs a real-speech clip; revisit with the coverage corpus
 - RE-RENDER THE ANDREW INTRO AT v8 — next laptop session (2026-07-31) DEFERRED (2026-10-20): waits on an Oracle sitting
 - THE TTS OVER-ARTICULATES — a corpus-wide finding wearing a demo's clothes (2026-07-31) DEFERRED (2026-10-20): the A/B waits on an Oracle sitting

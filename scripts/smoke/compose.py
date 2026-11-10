@@ -209,6 +209,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
                 completions=types.SimpleNamespace(create=create)))
 
     real_client, real_key = w.OpenAI, os.environ.get("OPENROUTER_API_KEY")
+    real_agent = w.have_agent
     os.environ["OPENROUTER_API_KEY"] = "test"
     try:
         w.OpenAI = _client(["Thinking about it...", "Still thinking...", sheet])
@@ -237,7 +238,27 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
             truncated = "TRUNCATED" in str(e)
         check("a truncation fails loudly instead of being re-rolled blind",
               truncated and calls == 1, f"truncated={truncated} after {calls} calls")
+
+        # THE TEXT PATH HAD NO GUARD (filed 2026-09-07, ruled 2026-11-09: raise).
+        # It returned whatever came back, so a cut-off transliteration arrived
+        # short or empty and `to_phonetic`'s `or text` shipped SCRIPT to the lock
+        # screen with every instrument green. Driven through `to_phonetic`, the
+        # real entry point, because the bug was the fallback and not the call.
+        w.have_agent = lambda: False
+        calls = 0
+        w.OpenAI = _client(["vanak"], finish="length")
+        shipped = None
+        try:
+            shipped = w.to_phonetic("வணக்கம்")
+        except ValueError as e:
+            truncated = "TRUNCATED" in str(e)
+        check("a cut-off TEXT answer raises instead of shipping",
+              shipped is None and truncated and calls == 1,
+              f"shipped={shipped!r} after {calls} calls")
+        w.OpenAI = _client(["vanakkam"])
+        check("...and a whole one still comes back", w.to_phonetic("வணக்கம்") == "vanakkam")
     finally:
+        w.have_agent = real_agent
         w.OpenAI = real_client
         if real_key is None:
             os.environ.pop("OPENROUTER_API_KEY", None)

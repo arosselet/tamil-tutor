@@ -421,7 +421,9 @@ CODE_BUDGETS = {
     "scripts/render_sort.py": 196,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
     # 181 -> 192 (2026-10-25, Andrew: voice turns): hear_json, the audio executor, so hear.py builds no client of its own.
-    "scripts/writer.py": 192,
+    # 192 -> 194 (2026-11-09, Andrew, at the drain): the truncation guard on `_api_text`.
+    # Retires the 09-07 residual, a cut-off transliteration shipping script unnoticed.
+    "scripts/writer.py": 194,
     # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the
     # Master Lesson Plan. Nothing was retired for it, and the growth is named
     # rather than dodged: the pass writes `fence_size`/`unfenced_words` and owns

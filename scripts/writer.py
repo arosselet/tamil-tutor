@@ -183,8 +183,10 @@ REASONING_CAP = 4000
 # transliteration arrives as "" and `to_phonetic`'s `or text` falls back to the
 # raw Tamil, warns, and ships SCRIPT to the lock screen. That lane runs at
 # `answer_tokens=300`, i.e. a 4300 ceiling before this diff, under 3.8's median
-# reasoning. The cap is what takes it out of range; the missing guard is a real
-# residual and is Andrew's call, not this diff's.
+# reasoning. The cap is what took it out of range. The guard itself came on
+# 2026-11-09, on Andrew's ruling: a cut-off answer RAISES and the run fails,
+# rather than shipping marked TRUNCATED — held lines already fail closed, and a
+# half line on the lock screen is worse than a red run someone reads.
 REASONING_BUDGET = {"reasoning": {"max_tokens": REASONING_CAP}}
 
 
@@ -593,7 +595,11 @@ def _api_text(system: str, user: str, answer_tokens: int) -> str:
         extra_body=REASONING_BUDGET,
         messages=[{"role": "system", "content": system},
                   {"role": "user", "content": user}])
-    return (resp.choices[0].message.content or "").strip()
+    c = resp.choices[0]
+    if getattr(c, "finish_reason", None) == "length":
+        raise ValueError(f"LLM text response TRUNCATED at the ceiling on {OPENROUTER_MODEL} — a "
+                         f"cut-off line is not shipped; see REASONING_HEADROOM and `answer_tokens`.")
+    return (c.message.content or "").strip()
 
 
 def ask_text(system: str, user: str, answer_tokens: int = 300,
