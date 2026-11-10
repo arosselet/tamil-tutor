@@ -1,0 +1,136 @@
+{
+  "id": "2026-11-10T19:27:54Z",
+  "channel": "cli",
+  "started": "2026-11-10T19:27:54Z",
+  "last_at": "2026-11-10T19:43:59Z",
+  "targets": [
+    {
+      "word": "கனடாவுல இருக்கோம்",
+      "gloss": "We live in Canada (the 'enga irukkeenga?' answer)",
+      "teach": true
+    },
+    {
+      "word": "யாருக்கு தெரியும்?",
+      "gloss": "Who knows? (the shrug)"
+    },
+    {
+      "word": "அது உண்மையா?",
+      "gloss": "Is that true?"
+    },
+    {
+      "word": "எனக்கு ஒன்னும் தெரியாது",
+      "gloss": "I don't know anything (staying out of it — comedy gold fired deadpan)"
+    }
+  ],
+  "at": 2,
+  "phase": "volley",
+  "volleys": 0,
+  "turns": [
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:28:18Z",
+      "text": "Athai tugs your sleeve, eyes gleaming: \"Andrew, kelu da — Karthi's friend's akka, appadiye Canada-ku poyi settle aayidunga!\" She waits, grinning, for your reaction.",
+      "job": "open",
+      "target": "கனடாவுல இருக்கோம்"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:29:59Z",
+      "text": "nalla iruka! Enna Province?"
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:29:59Z",
+      "text": "Athai waves that off — \"province therla, aana kanadaavula irukkom-nu sonnanga\" — just \"we live in Canada,\" that's all she caught.",
+      "job": "teach",
+      "target": "கனடாவுல இருக்கோம்"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:32:03Z",
+      "text": "Canada la iruppom.",
+      "target": "கனடாவுல இருக்கோம்",
+      "verdict": "hinted",
+      "said": "Canada la iruppom.",
+      "recast": "Canada-la irukkom — \"we live in Canada.\" Iruppom is \"we will live\" (future); irukkom is the one for right now.",
+      "slips": [
+        {
+          "tag": "tense-confusion",
+          "said": "iruppom",
+          "want": "irukkom",
+          "note": "future tense (will live) used where present-habitual (live) was needed for the target phrase"
+        }
+      ]
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:32:03Z",
+      "text": "Athai grins — \"arukil, aana iruppom-nu sollama irukkom, da — 'Canada-la irukkom'!\" Already she's onto the akka's husband's new job.",
+      "job": "volley",
+      "target": "கனடாவுல இருக்கோம்"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:33:08Z",
+      "text": "not sure what she's asking me or what to reply?"
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:33:08Z",
+      "text": "She's not asking you anything, da — just gossiping. \"Nalla job-am sollranga... aana yaarukku theriyum,\" she shrugs — who even knows if it's true.",
+      "job": "volley",
+      "target": "யாருக்கு தெரியும்?"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:34:33Z",
+      "text": "ama software-ku paakam."
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:34:33Z",
+      "text": "Athai nods, grinning — \"ama, software job dhaan-nu sonnanga, aana yaarukku theriyum, correct-ah irukkuma!\" Already eyeing the next house's gossip.",
+      "job": "volley",
+      "target": "யாருக்கு தெரியும்?"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:43:19Z",
+      "text": "(not sure what to say next)"
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:43:19Z",
+      "text": "Just shrug like her, da — \"yaarukku theriyum,\" who knows. Try it?",
+      "job": "gate",
+      "target": "யாருக்கு தெரியும்?"
+    },
+    {
+      "who": "andrew",
+      "at": "2026-11-10T19:43:59Z",
+      "text": "yaarukku therium",
+      "target": "யாருக்கு தெரியும்?",
+      "verdict": "hinted",
+      "said": "yaarukku therium",
+      "recast": "yaarukku theriyum",
+      "slips": []
+    },
+    {
+      "who": "anna",
+      "at": "2026-11-10T19:43:59Z",
+      "text": "adhu dhaan — yaarukku theriyum! Full Athai shrug, da, she's impressed.",
+      "job": "judge",
+      "target": "யாருக்கு தெரியும்?"
+    }
+  ],
+  "seen_ids": [],
+  "n": 0,
+  "brief": {
+    "who": "Athai",
+    "mode": "gossip",
+    "wants": "Athai has news about someone in the house and wants his reaction"
+  },
+  "last_time": "",
+  "beat": "Athai gossiped about Karthi's friend's akka settling in Canada with a software job, and Andrew landed the \"who knows\" shrug after a hint.",
+  "closed": "2026-11-10T19:44:39Z"
+}

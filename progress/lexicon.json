@@ -2647,13 +2647,14 @@
     "type": "chunk",
     "gloss": "Who knows? (the shrug)",
     "recognition": "untested",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-10-26",
+    "last_surfaced": "2026-11-10",
     "direction": "fire",
     "exposures": 2,
     "register": "gossip",
-    "taught_on": "2026-10-15"
+    "taught_on": "2026-10-15",
+    "reps": 1
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
@@ -3284,13 +3285,15 @@
     "type": "chunk",
     "gloss": "We live in Canada (the 'enga irukkeenga?' answer)",
     "recognition": "untested",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-11-10",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "faq",
-    "taught_on": null
+    "taught_on": "2026-09-25",
+    "heard_times": 1,
+    "reps": 1
   },
   "ரொம்ப பிடிச்சிருக்கு": {
     "type": "chunk",

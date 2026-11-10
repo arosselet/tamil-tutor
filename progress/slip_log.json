@@ -1145,5 +1145,16 @@
     "note": "read the -laam invitation as already done",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-11-10T19:44:39Z",
+    "date": "2026-11-10",
+    "lane": "live",
+    "modality": "live",
+    "tag": "tense-confusion",
+    "said": "iruppom",
+    "want": "irukkom",
+    "note": "future tense (will live) used where present-habitual (live) was needed for the target phrase",
+    "word": ""
   }
 ]

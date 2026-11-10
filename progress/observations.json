@@ -26351,5 +26351,53 @@
     "medium": "audio",
     "source": "knock:2026-11-10T19:29:35.191499+00:00",
     "note": ""
+  },
+  {
+    "id": "6c311330fdb3",
+    "at": "2026-11-10T19:29:59Z",
+    "word": "கனடாவுல இருக்கோம்",
+    "channel": "live",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "live:2026-11-10T19:27:54Z",
+    "note": ""
+  },
+  {
+    "id": "2076ed437e83",
+    "at": "2026-11-10T19:29:59Z",
+    "word": "கனடாவுல இருக்கோம்",
+    "channel": "live",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "live:2026-11-10T19:27:54Z",
+    "note": ""
+  },
+  {
+    "id": "9188771684d1",
+    "at": "2026-11-10T19:44:39Z",
+    "word": "கனடாவுல இருக்கோம்",
+    "channel": "live",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "live:2026-11-10T19:27:54Z",
+    "note": "Canada la iruppom."
+  },
+  {
+    "id": "edb545270e92",
+    "at": "2026-11-10T19:44:39Z",
+    "word": "யாருக்கு தெரியும்?",
+    "channel": "live",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "live:2026-11-10T19:27:54Z",
+    "note": "yaarukku therium"
   }
 ]
