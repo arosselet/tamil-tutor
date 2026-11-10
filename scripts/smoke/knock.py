@@ -3820,6 +3820,86 @@ def s159_a_live_scene_has_a_brief_and_leaves_a_beat(sb: Path):
             sess_path.write_bytes(saved)
 
 
+def s161_a_live_answer_counts_when_he_says_it(sb: Path):
+    """An early answer is booked, and he can see the size and the ask (2026-11-10,
+    Andrew). The verdict was read only on the "judge" turn; the scene says the
+    target twice before the gate, so in the 11-10 sandbox run two correct
+    productions of two booked nothing. And after his 11-10 session he asked for
+    the end to be visible and for an exact-line ask to be told from an open one.
+
+    Gate 7.2, out loud: the silent failure is a pleasant chat whose close prints
+    "0 gate(s) booked", and a frame the model is trusted to write and does not.
+    So the writer is stubbed, the observation file is re-read after close, and
+    the frame is asserted on the string he is actually sent."""
+    print("")
+    print("161. A live answer counts when he says it, and the size is said (2026-11-10)")
+    lv = importlib.import_module("live")
+    prog = sb / "progress"
+    obs_path, sess_path = prog / "observations.json", prog / "live_session.json"
+    saved = {p: p.read_bytes() for p in (obs_path, prog / "lexicon.json", sess_path) if p.exists()}
+    originals = (lv.ask_json, lv.drill_menu)
+    replies = []
+
+    def line(**kw):
+        return {"reply_line": "seri da", "gate_verdict": "", "said": "", "recast": "",
+                "meta_note": "", "slips": [], "beat": "", **kw}
+
+    try:
+        lv.ask_json = lambda system, user, schema, answer_tokens=0: replies.pop(0)
+        lv.drill_menu = lambda lex: [{"word": "வெளிய", "gloss": "outside", "unseen": False},
+                                     {"word": "சாப்டியா", "gloss": "did you eat?", "unseen": False}]
+        sess_path.unlink(missing_ok=True)
+        replies[:] = [line(), line(gate_verdict="miss", said="veliya"),
+                      line(gate_verdict="cold", said="veliya poren"),
+                      line(), line(), line(), line(gate_verdict="hinted", said="saptiya")]
+        with contextlib.redirect_stdout(io.StringIO()):
+            sess = lv.new_session("cli")
+            out = [lv.take_turn(sess, t) for t in
+                   ["", "hmm veliya", "veliya poren", "ha", "ok", "what", "saptiya"]]
+        mine = [t for t in sess["turns"] if t["who"] == "andrew"]
+        anna = [t for t in sess["turns"] if t["who"] == "anna"]
+        check("the opening says how many there are and what the mark means",
+              out[0].endswith(lv.OPEN_NOTE.format(n=2)) and lv.MARK in out[0], out[0])
+        check("...and the frame never enters the transcript the model is handed back",
+              all(lv.MARK not in t["text"] and lv.LAST_NOTE not in t["text"] for t in anna))
+        check("a miss on a turn that never asked is no grade, and the clock stays",
+              "verdict" not in mine[0] and anna[2]["target"] == "வெளிய", str(mine[0]))
+        check("a fire on a volley turn is graded there, capped at hinted",
+              mine[1].get("verdict") == "hinted" and mine[1].get("target") == "வெளிய", str(mine[1]))
+        check("...and the clock moves to the next target without a gate",
+              [(t["job"], t["target"]) for t in anna]
+              == [("open", "வெளிய"), ("volley", "வெளிய"), ("volley", "வெளிய"),
+                  ("volley", "சாப்டியா"), ("volley", "சாப்டியா"), ("gate", "சாப்டியா"),
+                  ("judge", "சாப்டியா")], str([(t["job"], t["target"]) for t in anna]))
+        check("only the turn that wants one exact line carries the mark, and the last is named",
+              out[5].startswith(lv.MARK + "Last one: ")
+              and not any(o.startswith(lv.MARK) for o in out[1:5]), str(out))
+        check("the end is said when the last target closes",
+              out[6].endswith(lv.LAST_NOTE) and not any(lv.LAST_NOTE in o for o in out[:6]), out[6])
+        # A new word he already has: said on the Teach Beat itself, it is booked there.
+        lv.drill_menu = lambda lex: [{"word": "புதுசு", "gloss": "new", "unseen": True}]
+        replies[:] = [line(), line(gate_verdict="cold", said="puthusu")]
+        with contextlib.redirect_stdout(io.StringIO()):
+            lv.close(sess)
+            s2 = lv.new_session("cli")
+            lv.take_turn(s2, "")
+            end = lv.take_turn(s2, "puthusu bag")
+        check("said on the Teach Beat, a new word is graded there and the one-target session ends",
+              s2["turns"][-1]["job"] == "teach" and s2["turns"][-2].get("verdict") == "hinted"
+              and end.endswith(lv.LAST_NOTE), str(s2["turns"][-2:]))
+        booked = [(e["word"], e["result"]) for e in read_json(obs_path)
+                  if e.get("source") == f"live:{sess['id']}" and e.get("kind") == "tested"]
+        check("close books both answers, the early one included",
+              booked == [("வெளிய", "partial"), ("சாப்டியா", "partial")], str(booked))
+        check("the mandate tells the host what to do when he is early",
+              "ALREADY SAID THE TARGET" in importlib.import_module("mandates").LIVE_MANDATE)
+    finally:
+        lv.ask_json, lv.drill_menu = originals
+        sess_path.unlink(missing_ok=True)
+        for p, b in saved.items():
+            p.write_bytes(b)
+
+
 def s156_a_live_session_books_only_at_close(sb: Path):
     """The live lane (2026-10-26, Andrew; `docs/live_conversation.md`).
 

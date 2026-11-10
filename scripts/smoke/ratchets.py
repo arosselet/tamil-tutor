@@ -85,7 +85,8 @@ PROSE_BUDGETS = {
     # here would be re-litigating a decision that is Andrew's. THE NEXT MOVE ON
     # THIS FILE IS A SPLIT, not a third number: Targeting and The Arc are both
     # now large enough to be their own surfaces.
-    "protocol/daily_session.md": 1540,
+    # 1540 -> 1560 (2026-11-10, Andrew): "Say the size; mark the ask", after his 11-10 session. Retires "Clarify ambiguity before grading" (the ask now says which kind it is) and the moves line's glosses, which `persona.md` owns.
+    "protocol/daily_session.md": 1560,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget: channel routing is its own concern and Anna loads it only when choosing. · 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by crud. · 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such). · 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded — "what it carries" left for commissioning.md; this file keeps only routing and format, re-censused …
     "protocol/audio_channels.md": 475,
     # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
@@ -124,7 +125,8 @@ PROSE_BUDGETS = {
     # one person of the house who wants something of Andrew, and one sentence is
     # carried to the next scene. Retires the canon-wide "open" and the gate
     # worded as "he says the target back".
-    "LIVE_MANDATE": 380,
+    # 380 -> 412 (2026-11-10, Andrew): the early answer. Retires the judge-turn-only booking.
+    "LIVE_MANDATE": 412,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
     # is the one place continuity lives, so it is the one place canon-creep can
@@ -249,7 +251,9 @@ CODE_BUDGETS = {
     # 235 -> 250 (2026-11-09, Andrew with Rio): MODES, `brief`, and the beat carried
     # from the closed session file. A mode is a brief on the one clock, so this
     # is what stands in for four more lanes.
-    "scripts/live.py": 250,   # 235 was -8: its copy of the clock backstop (2026-10-12)
+    # 250 -> 262 (2026-11-10, Andrew): an answer is graded on the turn he gives it, and `framed`
+    # says the size, marks the exact-line ask and names the end. Retires the judge-only booking.
+    "scripts/live.py": 262,   # 235 was -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
@@ -278,7 +282,8 @@ CODE_BUDGETS = {
     # 500 -> 510 (2026-10-26, Andrew): LIVE_MANDATE + LIVE_TURN_WORDS, the live lane's
     # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.
     # 510 -> 513 (2026-11-09): LIVE_MANDATE's brief and beat lines.
-    "scripts/mandates.py": 513,
+    # 513 -> 515 (2026-11-10): LIVE_MANDATE's early-answer line.
+    "scripts/mandates.py": 515,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).

@@ -66,6 +66,14 @@ IDLE_CLOSE_HOURS = 3   # WhatsApp has no "end": a turn after this long closes th
 END_RE = re.compile(r"^\s*(bye|stop|end|done)\b[\s.!]*$", re.I)
 VERDICTS = {"cold", "hinted", "miss", "none"}
 SIGN_OFF = "Nalla pesinom — booked. Poittu vaa!"
+# THE SIZE AND THE MARK (2026-11-10, Andrew, after his 11-10 session: "is there an
+# end to this?" and "am I steering, or hinted into the exact answer being fished
+# for?"). Python owns the clock, so Python says how long it runs and which turn
+# wants one exact line. Written here, never by the model, and never stored in the
+# transcript: the model is handed its own words back, not the frame around them.
+MARK = "🎯 "
+OPEN_NOTE = "{n} to try this time. " + MARK + "marks a line I want said exactly; anything else, answer how you like."
+LAST_NOTE = "That was the last one."
 
 LIVE_SCHEMA = obj(reply_line=STR, gate_verdict=STR, said=STR, recast=STR, meta_note=STR, beat=STR,
                   slips=arr(tag=STR, said=STR, want=STR, note=STR))
@@ -222,6 +230,17 @@ def grade(d: dict, text: str) -> str:
     return "hinted" if v == "cold" else v
 
 
+def framed(sess: dict, job: str, line: str, asks: bool, moved: bool) -> str:
+    """What he reads: the model's line, with the session's size on the opening, the
+    mark on a gate that is really asking, and the end named when the last target closes."""
+    n = len(sess["targets"])
+    if job == "open" and n:
+        return line + "\n\n" + OPEN_NOTE.format(n=n)
+    if asks:
+        return MARK + ("Last one: " if sess["at"] == n - 1 else "") + line
+    return line + "\n\n" + LAST_NOTE if moved and sess["at"] == n else line
+
+
 def take_turn(sess: dict, text: str) -> str:
     """One turn: his line in, Anna's line out, the clock advanced. Writes nothing
     to the books — only the session dict, which the caller saves."""
@@ -233,10 +252,18 @@ def take_turn(sess: dict, text: str) -> str:
     # simulation, "sariyாna") goes to phonetics like every other read surface.
     line = to_phonetic((d.get("reply_line") or "").strip() or REPLY_FALLBACK, label="live turn")
     at = now_iso()
+    # A RIGHT ANSWER COUNTS WHEN HE SAYS IT (2026-11-10). The verdict was read only on
+    # the "judge" turn, and the scene says the target twice before the gate, so he
+    # often answers a turn early: in the 11-10 sandbox run two correct productions of
+    # two booked nothing and the beat said he dodged. A fire on any turn before the judge
+    # is graded by the same `grade` (quoted from his text, capped at hinted) and moves
+    # the clock on. Only a fire: a miss he was never asked for is no grade.
+    verdict = grade(d, text) if text and tgt else "none"
+    early = job != "judge" and verdict == "hinted"
     if text:
         mine = {"who": "andrew", "at": at, "text": text}
-        if job == "judge" and tgt:
-            mine.update(target=tgt["word"], verdict=grade(d, text),
+        if (job == "judge" or early) and tgt:
+            mine.update(target=tgt["word"], verdict=verdict,
                         said=d.get("said", ""), recast=d.get("recast", ""),
                         slips=d.get("slips") or [])
         if (d.get("meta_note") or "").strip():
@@ -248,14 +275,14 @@ def take_turn(sess: dict, text: str) -> str:
                           **({"held": len(held)} if held else {})})
     if text and (d.get("beat") or "").strip():
         sess["beat"] = d["beat"].strip()   # only a scene he took part in is carried
-    if job == "gate":
-        sess["phase"] = "gate"
-    elif job == "judge":
+    if job == "judge" or early:
         sess.update(phase="volley", volleys=0, at=sess["at"] + 1)
+    elif job == "gate":
+        sess["phase"] = "gate"
     elif job in ("volley", "teach"):
         sess["volleys"] += 1
     sess["last_at"] = at
-    return line
+    return framed(sess, job, line, job == "gate" and not early, job == "judge" or early)
 
 
 def close(sess: dict) -> list[Path]:

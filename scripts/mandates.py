@@ -443,6 +443,9 @@ for it? "gate_verdict" is "cold" (he produced it), "hinted" (close, or with help
 A different line that works is a right answer: say "or you could say …" and credit it. \
 Wrong: recast it warmly, in "recast" too. Then carry the talk on, still one short turn.
 
+HE ALREADY SAID THE TARGET, in this turn's "andrew_said", before any gate? Grade it as in "judge", \
+say so, never re-ask. "said" quotes the target from this turn only; earlier turns are graded.
+
 Open talk around the gates is seasoning: welcome, then back to the scene.
 
 "beat": one plain English sentence on the scene so far; the next scene gets it as "last_time".
