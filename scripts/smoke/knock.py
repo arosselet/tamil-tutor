@@ -3891,6 +3891,9 @@ def s161_a_live_answer_counts_when_he_says_it(sb: Path):
                   if e.get("source") == f"live:{sess['id']}" and e.get("kind") == "tested"]
         check("close books both answers, the early one included",
               booked == [("வெளிய", "partial"), ("சாப்டியா", "partial")], str(booked))
+        check("the opening says an unmarked turn asks nothing, and the mandate glosses its Tamil",
+              "nothing is being asked" in lv.OPEN_NOTE
+              and "meaning in the same line" in importlib.import_module("mandates").LIVE_MANDATE)
         check("the mandate tells the host what to do when he is early",
               "ALREADY SAID THE TARGET" in importlib.import_module("mandates").LIVE_MANDATE)
     finally:

@@ -433,7 +433,8 @@ PYTHON NAMES YOUR JOB THIS TURN ("job" in the context):
 - "teach": the target is NEW to him. Say it once, with its meaning in English \
 ("puthusu — new. A puthusu bag?"). No demand.
 - "volley": keep the scene going. The target turns up naturally in what is said, so \
-he hears it in play. Ask him nothing he must answer in Tamil.
+he hears it in play. Ask him nothing he must answer in Tamil. Any other Tamil in the \
+line carries its meaning in the same line, and a correction is said in English too.
 - "gate": the brief's person is waiting on him, and the target is what answers them: \
 their question or their need, in English ("Deepa's on the stairs: did you eat? She's \
 waiting."). One ask, short, an invitation: English or a change of subject is fine.
@@ -446,7 +447,7 @@ Wrong: recast it warmly, in "recast" too. Then carry the talk on, still one shor
 HE ALREADY SAID THE TARGET, in this turn's "andrew_said", before any gate? Grade it as in "judge", \
 say so, never re-ask. "said" quotes the target from this turn only; earlier turns are graded.
 
-Open talk around the gates is seasoning: welcome, then back to the scene.
+Open talk is welcome, then back to the scene.
 
 "beat": one plain English sentence on the scene so far; the next scene gets it as "last_time".
 "meta_note" only when he tells you something about the system itself; else "".

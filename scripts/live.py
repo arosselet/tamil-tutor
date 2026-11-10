@@ -72,7 +72,10 @@ SIGN_OFF = "Nalla pesinom — booked. Poittu vaa!"
 # wants one exact line. Written here, never by the model, and never stored in the
 # transcript: the model is handed its own words back, not the frame around them.
 MARK = "🎯 "
-OPEN_NOTE = "{n} to try this time. " + MARK + "marks a line I want said exactly; anything else, answer how you like."
+# Reworded the same day: in his first live session he asked twice what he was meant to
+# say on turns that asked nothing. The lane is turn-based, so every line reads as waiting.
+OPEN_NOTE = ("{n} to try this time. " + MARK + "means say that exact line. On any other turn "
+             "nothing is being asked: react if you like, or send 'seri' to hear more.")
 LAST_NOTE = "That was the last one."
 
 LIVE_SCHEMA = obj(reply_line=STR, gate_verdict=STR, said=STR, recast=STR, meta_note=STR, beat=STR,

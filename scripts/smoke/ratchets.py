@@ -126,7 +126,8 @@ PROSE_BUDGETS = {
     # carried to the next scene. Retires the canon-wide "open" and the gate
     # worded as "he says the target back".
     # 380 -> 412 (2026-11-10, Andrew): the early answer. Retires the judge-turn-only booking.
-    "LIVE_MANDATE": 412,
+    # 412 -> 430 (2026-11-10, Andrew, after his first live session): Tamil on an unasked turn is glossed.
+    "LIVE_MANDATE": 430,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
     # is the one place continuity lives, so it is the one place canon-creep can
@@ -253,7 +254,7 @@ CODE_BUDGETS = {
     # is what stands in for four more lanes.
     # 250 -> 262 (2026-11-10, Andrew): an answer is graded on the turn he gives it, and `framed`
     # says the size, marks the exact-line ask and names the end. Retires the judge-only booking.
-    "scripts/live.py": 262,   # 235 was -8: its copy of the clock backstop (2026-10-12)
+    "scripts/live.py": 263,   # 235 was -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
@@ -283,7 +284,7 @@ CODE_BUDGETS = {
     # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.
     # 510 -> 513 (2026-11-09): LIVE_MANDATE's brief and beat lines.
     # 513 -> 515 (2026-11-10): LIVE_MANDATE's early-answer line.
-    "scripts/mandates.py": 515,
+    "scripts/mandates.py": 516,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).
