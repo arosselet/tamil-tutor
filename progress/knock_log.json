@@ -9950,5 +9950,24 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-09T21-15.mp3",
     "memo_script": "சாவி எங்க இருக்கு?",
     "mp3": "published_audio/knocks/knock_2026-11-09T21-15.mp3"
+  },
+  {
+    "date": "2026-11-10",
+    "timestamp": "2026-11-10T19:29:35.191499+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: cant-mudiyala",
+    "rationale": "Eavesdrop rail due (4d quiet); Athai gossips to Priya about Mama throwing his back out on Andrew's upstairs trunk, catching cant-முடியல by ear.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-10T23:29:35.191499+00:00",
+    "body": "Athai is on the phone with Priya about Mama and the upstairs trunk — one line tells you why he's grumpy 🎧",
+    "body_script": "Athai is on the phone with Priya about Mama and the upstairs trunk — one line tells you why he's grumpy 🎧",
+    "expected_target": "frame:cant-முடியல",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-10T19-29.mp3",
+    "memo_script": "பிரியா, கேளு... காலையில இருந்து மாமாவுக்கு ஒரே கோபம் பாரு. ஆண்ட்ரூ அந்த மாடி ரூமுக்கு வந்தாச்சு இல்ல? அந்த பெரிய மர பெட்டியை மேல கொண்டு போகணும்-னு மாமா காலையிலேயே கிளம்பிட்டாரு. கார்த்தி வேற எங்கயோ போயிட்டான், வண்டிய எடுத்துட்டு.\n\nமாமா தனியா போயி அந்த பெட்டியை புடிச்சாரு. அப்புறம் என்ன... இடுப்பு புடிச்சுக்கிச்சு! அவரால தூக்கவே முடியல. ஆண்ட்ரூ ஓடி வந்து பாக்குறான், மாமா என்னடா-ன்னா வழக்கம் போல ஒன்னும் இல்ல-னு சமாளிக்கிறாரு.\n\nகடைசில ஆண்ட்ரூவும் நம்ம ரவியும் தான் சேர்ந்து அந்த பெட்டியை மெதுவா தள்ளுறாங்க. ரவிக்கு ஒரே சிரிப்பு பாரு. நீ சாயங்காலம் வரும்போது மாமாவுக்கு அந்த தைலம் வாங்கிட்டு வா, சரியா?",
+    "mp3": "published_audio/knocks/knock_2026-11-10T19-29.mp3"
   }
 ]

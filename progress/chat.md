@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-11-10
+
+**14:29 · Anna** 🎧  ·  eavesdrop / overheard: cant-mudiyala
+> Athai is on the phone with Priya about Mama and the upstairs trunk — one line tells you why he's grumpy 🎧
+
+
 ## Monday 2026-11-09
 
 **16:01 · Andrew** — **CHAT**  ·  ↩ 11-06 18:54 · eavesdrop: theriyuma
