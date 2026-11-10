@@ -957,6 +957,23 @@ def s95_the_payoff_closes_the_tape(sb: Path):
     check("...and a tape with nothing in it produces no lines",
           rp.tape_lines("") == [] and rp.tape_lines("\n\n") == [])
 
+    # ── THE BRIEF NAMES EVERY KEY THE LANE READS (2026-11-10). The API path
+    # never sends the schema, so the brief is the only place the model learns a
+    # key's name. It said "one gloss per number" and never said `glosses`; the
+    # model called the list `lines` about half the time, `align` found nothing,
+    # and five tapes of fourteen were refused for good between 09-07 and 10-20,
+    # each logged as "no meaning for line [1, 2, 3, 4, 5, 6]". Replayed against
+    # three of those tapes: 3 of 6 calls came back keyed `lines`.
+    props = rp.PAYOFF_SHEET["properties"]
+    keys = list(props) + list(props["glosses"]["items"]["properties"])
+    unnamed = [k for k in keys if f"`{k}`" not in rp.PAYOFF_BRIEF]
+    check("the payoff brief names every key its sheet requires", not unnamed,
+          f"unnamed: {unnamed} — the model will invent a name and the sheet reads empty")
+    wrong_key = {"opener": "o", "closer": "c",
+                 "lines": [{"n": i, "en": "meaning"} for i in (1, 2, 3)]}
+    check("...and a sheet keyed any other way is still refused, never rendered",
+          rp.align(lines, wrong_key)[0] == [], f"got {rp.align(lines, wrong_key)}")
+
     # ── WHEN IT FIRES. Publishing the meaning while the drift question is live
     # hands him the answer key to a question he has not been asked yet.
     now = rp._ts("2026-09-06T06:00:00+00:00")

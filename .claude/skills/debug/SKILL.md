@@ -77,6 +77,7 @@ One line each; the write-up is the commit of that date, and the smoke case named
 - **KF-13** — `chat` froze a volley — a verdict overloaded with control flow (2026-08-04, fixed)
 - **KF-14** — A blown token ceiling wearing KF-7's face (2026-08-05, fixed)
 - **KF-15** — The picker's list ran on a different clock than the feed (2026-09-01, fixed)
+- **KF-16** — The payoff brief never named its list; the model called it `lines` and five tapes were refused (2026-11-10, fixed)
 - **KF-8** — Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 
 ---

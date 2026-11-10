@@ -138,7 +138,7 @@ You are giving it back to him with its meaning attached, so he can play it again
 and actually follow it. This is not a rep: nothing is graded and nothing is \
 withheld — he has already answered, or the moment has passed.
 
-The tape's lines are numbered below. Return ONE gloss per number: `n` is the \
+The tape's lines are numbered below. Return ONE gloss per number, as a list under the key `glosses`: `n` is the \
 line's number exactly as given, `en` is what that line MEANS in natural spoken \
 English — what the speaker is saying, not a word-by-word decoding. One sentence \
 each. No commentary, and never quote the original line back inside `en`.
