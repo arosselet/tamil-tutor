@@ -12,7 +12,7 @@ Two episode segments. Four voices. Each segment has its own pair.
 
 **The Intercept is performed by the household cast.** `content/household.md` is
 the canon: who they are, how each one talks, and the TTS voice pinned to each.
-The learner is an observer of their world, never an addressee.
+The visitor (`content/household.md`) may be spoken to and named; he has no line of his own, and the hosts never address the listener.
 
 **Tagging convention:** the character's name plus a gender marker —
 `**Paati (F):**`, `**Karthi (M):**`. The gender tag is always present; the

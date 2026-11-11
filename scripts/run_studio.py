@@ -97,8 +97,9 @@ PREAMBLE = """\
 You are ONE pass of the Studio pipeline (protocol/studio/studio.md) for the
 Tamil learning repo in the current directory. You are print-only: PRINT your
 artifact as your response. Write NO files, run NO commands, touch NO git —
-Python persists your output and runs the next pass. You never address the
-learner; the fourth wall stays up (protocol/studio/hosts.md).
+Python persists your output and runs the next pass. The household may speak to
+the visitor and say his name (content/household.md); he never has a line, and
+the hosts never address the listener (protocol/studio/hosts.md).
 """
 
 DIRECTOR = PREAMBLE + """
@@ -551,6 +552,19 @@ MIN_VOICE_LINES = 5   # below this a voice is a walk-on, not the scene
 VOICE_CARRIES = 0.50
 
 
+def fourth_wall(script: str, learner: str) -> list[str]:
+    """HE MAY BE NAMED; HE NEVER SPEAKS (2026-11-10, Andrew). The 11-09 canon seats
+    him in the house as the visitor people talk to, and the old check still failed
+    any script holding his name: M99, the first episode ordered from a session, died
+    on it. What stays refused is a line of his own, under his name or a LEARNER label."""
+    who = "|".join(["learner", "student"] + ([re.escape(learner)] if learner else []))
+    if re.search(rf"^\s*(?:\*\s*)?\*\*\s*(?:the\s+)?(?:{who})\b", script,
+                 re.IGNORECASE | re.MULTILINE):
+        return ["fourth wall: a speaker is labeled as the learner — "
+                "self-insert characters break the podcast's own world"]
+    return []
+
+
 def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     """Deterministic post-checks — every rule here earned its place from an
     observed failure mode (2026-07-09: the probe broke the fourth wall by
@@ -611,12 +625,7 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
                 f"narrating, so the Tamil is quoted evidence rather than the scene")
     learner = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
                .get("learner") or "")
-    if learner and re.search(rf"\b{re.escape(learner)}\b", script, re.IGNORECASE):
-        problems.append(f"fourth wall: script names the learner ({learner})")
-    if re.search(r"^\s*(?:\*\s*)?\*\*\s*(?:the\s+)?(?:learner|student)\b", script,
-                 re.IGNORECASE | re.MULTILINE):
-        problems.append("fourth wall: a speaker is labeled LEARNER/STUDENT — "
-                        "self-insert characters break the podcast's own world")
+    problems += fourth_wall(script, learner)
 
     # Payload fidelity — the check both 2026-07-09 bad samples earned: every
     # lexicon item the sidecar claims must appear in the script VERBATIM

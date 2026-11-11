@@ -1166,6 +1166,34 @@ def s97_a_commission_brief_is_not_material(sb: Path):
           boundary.strip() not in bare, "a fence around nothing is noise")
 
 
+def s162_an_episode_may_name_the_visitor(sb: Path):
+    """He may be named; he never speaks (2026-11-10, Andrew). The 11-09 canon has
+    the household speak to him, and the episode checker failed any script that
+    held his name, so the first episode ordered from a session (M99) was written
+    in full and then refused.
+
+    Gate 7.2, out loud: the silent failure runs both ways. A checker that still
+    refuses the name kills every episode the canon asks for; a checker that lets
+    him speak hands him a voice the canon denies him. Both are asserted on the
+    function the lint calls, and the three prompts that told writers otherwise
+    are read."""
+    print("")
+    print("162. An episode may name the visitor, and he never speaks (2026-11-10)")
+    rs = importlib.import_module("run_studio")
+    said_to = "**Karthi (M):** நாம மேல போலாமா, Andrew?\n**Analyst Maya (F):** Even Andrew is counted in."
+    check("a script where the household says his name passes",
+          rs.fourth_wall(said_to, "Andrew") == [], str(rs.fourth_wall(said_to, "Andrew")))
+    check("a line spoken under his name is refused",
+          rs.fourth_wall("**Andrew (M):** ஆமா, சாப்பிட்டேன்.", "Andrew") != [])
+    check("...and so is a speaker labelled as the learner",
+          rs.fourth_wall("**Learner:** ஆமா.", "Andrew") != [] and rs.fourth_wall("**The Student (M):** ஆமா.", "") != [])
+    hosts = (REAL_BASE / "protocol" / "studio" / "hosts.md").read_text(encoding="utf-8")
+    agent = (REAL_BASE / ".claude" / "agents" / "studio.md").read_text(encoding="utf-8")
+    check("the writers are told the same thing the checker enforces",
+          all("never has a line" in t for t in (rs.PREAMBLE, agent)) and "no line of his own" in hosts
+          and "never an addressee" not in hosts and "never address the learner" not in rs.PREAMBLE + agent)
+
+
 def s114_the_studio_lives_in_the_household(sb: Path):
     """THE CANON IS READ, AND THE CANON REMEMBERS (2026-09-19).
 

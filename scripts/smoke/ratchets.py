@@ -455,7 +455,8 @@ CODE_BUDGETS = {
     # the learner and lexicon, which swallowed a decode error, went through state_io.
     # 480 -> 495 (the judge seat (2026-10-12, Andrew)): one repair pass on the Producer's script,
     # before the caption pass so captions follow what is spoken.
-    "scripts/run_studio.py": 495,
+    # 495 -> 497 (2026-11-10, Andrew): `fourth_wall`, split out so it can be tested. Retires the ban on his name in a script.
+    "scripts/run_studio.py": 497,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
     # rather than the 55 census: headroom for diagnosis, not for a second job —
     # what happens IN the household is Anna's and the Architect's, and the day
