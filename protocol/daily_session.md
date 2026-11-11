@@ -59,7 +59,7 @@ Moves any shape may reach for: `persona.md`'s masks, eavesdrop drill and lore ta
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved.
 2. **Record the learning and the obstacle.** Chat-taught words get `--teach` that day, or no lane sees them. Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
-3. **Commission when useful; Anna may produce audio at any time.** Repair, discovery and enjoyment all qualify; no request or capacity answer is required (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. For a soak order, add the `scene_seed` and a `focus` naming what the dose permutes.
+3. **A session that taught orders its ear (2026-11-10, Andrew):** an episode covering what was taught, ordered and dispatched at close. Anna may produce audio at any time (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. Add the `scene_seed` and a `focus` naming what the dose permutes.
 4. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
