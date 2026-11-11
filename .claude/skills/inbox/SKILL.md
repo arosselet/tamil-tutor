@@ -94,8 +94,8 @@ sentence, and his next two messages were still *"OK so how do I chat with Anna?"
 written goes under its own heading, **Ruled, build owed**, with the next step named. The summary is the point of the drain: an item that leaves the
 inbox without Andrew hearing why has just moved its silence somewhere else.
 
-## Budgets
+## Before each commit
 
-`docs/feature_inbox.md` is 1500 words and a `DECISIONS.md` entry is 70
-(`PROSE_BUDGETS`, `DECISION_ENTRY_BUDGET`). Run `python scripts/smoke_test.py` before
+A line in the inbox is one idea; a `DECISIONS.md` entry is a conclusion and its reason,
+with the story in the commit (the word limits retired 2026-11-10). Run `python scripts/smoke_test.py` before
 each commit; a drain that turns the build red is not a drain.

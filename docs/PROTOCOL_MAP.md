@@ -125,4 +125,4 @@ The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 
 ## Structure
 
-Not frozen (the "Anna 1.0" freeze retired 2026-09-10 — stated in three files, lifted in one, read by nobody). The structure control is the ratchet: every prose surface and every script carries a budget in `scripts/smoke/ratchets.py`, a new file is budgeted in the diff that creates it, and `/extend` Gate 4 makes every addition name what it replaces. Rows of data are always free; a schema field is a budgeted addition like any other.
+Not frozen (the "Anna 1.0" freeze retired 2026-09-10 — stated in three files, lifted in one, read by nobody). The structure control is the ratchet: every script carries a code-line budget in `scripts/smoke/ratchets.py` (the word limits on prose retired 2026-11-10), a new script is budgeted in the diff that creates it, and `/extend` Gate 4 makes every addition name what it replaces. Rows of data are always free; a schema field is a budgeted addition like any other.

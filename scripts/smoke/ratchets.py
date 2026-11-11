@@ -23,158 +23,13 @@ from ._fixtures import (
 )
 
 
-# Word budgets for the protocol's prose surfaces (2026-07-16): every incident since
-# April landed as a paragraph, and prose only accumulates — "earn its place" didn't
-# enforce itself. Growth past a budget is a red run; raising a budget must ride the
-# same diff as the growth, and the commit names the lines it retired (/extend Gate 4).
-# Word budgets for the protocol's prose surfaces (2026-07-16): growth past a budget
-# is a red run; a raise rides the same diff as the growth and the commit names what it
-# retired; a file that keeps hitting its ceiling is doing two jobs — split, never bump.
-# One line per entry (2026-09-10): the narrative is the commit of that date.
-PROSE_BUDGETS = {
-    # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this file stopped being studio craft. · 625 -> 680 (2026-09-10): the Register Default arrived from profile.md's Touchdown Doctrine, 841 words retired whole.
-    "protocol/dialect.md": 680,
-    # 2000 -> 1750 (2026-09-03).
-    # 1890 -> 1620 (2026-09-20): RE-CENSUSED DOWN, and the 09-19 raise is paid
-    # back rather than kept. The Heist left for `protocol/heist.md` — 339 words
-    # that `voice_canon()` was shipping to ten call sites across seven lanes,
-    # none of which can assign a mission, hand an anchor or keep a secret. The
-    # same split `toolbelt.md` took on 2026-09-03, for the reason that file
-    # already states. What made the cost visible was the section growing by a
-    # third when somatic anchors came back the day before.
-    # 1620 -> 1480 (2026-09-25): RE-CENSUSED DOWN. Ten Years In left for `protocol/user.md`, the one home for the standing fact it shared with the constitution.
-    "protocol/persona.md": 1480,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-20). 600
-    # rather than the 541 census: headroom for ops, not for a second job. If
-    # this file starts explaining Anna's VOICE it has grown back into the one
-    # it was split out of.
-    "protocol/heist.md": 600,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the prose half of the law CODE_BUDGETS has enforced since 2026-08-23.
-    "protocol/toolbelt.md": 600,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Census 219. It ships in `voice_canon()` to ten call sites, so every word is paid ten times: standing facts only, no commitments (`learner_contract.md`) and no live state.
-    "protocol/user.md": 240,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-09).
-    "protocol/learner_contract.md": 605,
-    # Budgeted 2026-09-03, not because it grew but because the completeness sweep added below demanded it: this file has been unbudgeted since it was written, and nothing could see …
-    "protocol/diagnosis.md": 400,
-    # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
-    # 1790 -> 1760 (2026-09-25): RE-CENSUSED DOWN. The 2026-08-04 raise above was this very fact; it now lives once, in `protocol/user.md`.
-    # 1760 -> 1775 (2026-10-19, Andrew): "Show the map, never the debt" joins Ground Covered. Retires the 08-17/08-25 blanket number bans (persona's "recites a number", daily_session's "No number leaves Anna's mouth", the arc's "never name the words").
-    "protocol/constitution.md": 1775,
-    # NEW FILE, budgeted in the same diff that creates it (2026-10-05, Andrew). Census
-    # ~700. Four or five contrasting days, never more: past this number it is a
-    # template library. It replaced reading past scripts as models and paid for itself
-    # in history cut from director.md and architect.md.
-    "protocol/exemplars.md": 800,
-    # 1250 -> 1320 (2026-08-25, Andrew).
-    # 1320 -> 1460 (2026-09-19): the household. This file gained a job — the
-    # session now has a SETTING, and the contract for it (a premise that names
-    # no words, opening inside the household, the finale ear test as the win)
-    # is law that only this file can carry. What the diff retired for it sits in
-    # the files that owned those rules: `hosts.md`'s two unnamed hosts and its
-    # no-fixed-characters rule, `director.md`'s "the Scenario is a sandbox"
-    # paragraph, and profile.md's dateless two-phase model. The Arc section was
-    # censused twice on the way down before this number moved.
-    # 1460 -> 1540 (2026-09-19, SECOND raise in one day and flagged as such).
-    # The growth is the priming rule Andrew asked for by name: the ticket now
-    # carries `heard Nx`, and the conduct that goes with it — never cold-ask a
-    # word he has not played, say at the dose what you will ask about later —
-    # is session law and only this file can carry it. NOTHING WAS RETIRED FOR
-    # IT, which is stated rather than dressed up. Field missions were the
-    # obvious candidate and they are not settled as retired, so retiring them
-    # here would be re-litigating a decision that is Andrew's. THE NEXT MOVE ON
-    # THIS FILE IS A SPLIT, not a third number: Targeting and The Arc are both
-    # now large enough to be their own surfaces.
-    # 1540 -> 1560 (2026-11-10, Andrew): "Say the size; mark the ask", after his 11-10 session. Retires "Clarify ambiguity before grading" (the ask now says which kind it is) and the moves line's glosses, which `persona.md` owns.
-    "protocol/daily_session.md": 1560,
-    # Split out of daily_session.md (2026-07-23) rather than raise its budget: channel routing is its own concern and Anna loads it only when choosing. · 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by crud. · 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such). · 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded — "what it carries" left for commissioning.md; this file keeps only routing and format, re-censused …
-    "protocol/audio_channels.md": 475,
-    # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
-    "protocol/commissioning.md": 300,
-    # 2000 -> 950 (2026-09-23): re-censused DOWN at the rewrite (census 862). The old mandate sat at 1992 with a rule per complaint and no voice left; the regrowth is the thing this number exists to catch.
-    # 950 -> 1070 (2026-10-04, Andrew): THE BALANCE (at least one ask and one gift a day)
-    # and FIELDING back as a fifth kind. Retires the gifts-only default that took replies
-    # from ~2 in 3 (July) to 3 of 23 (09-23 -> 10-04).
-    # 1070 -> 1115 (2026-10-06, Andrew: "gifts/lore are intended to be varying in
-    # substance"): lore widened, FUN FACT added, the progress law scoped to asks/echoes/
-    # patterns. Offset by trimming the second tease example and SCHEDULING (census 1111).
-    # 1115 -> 900 (2026-10-08, Andrew with Rio): re-censused DOWN (census 885).
-    # Every push tugs a live THREADS id or is silence; GIFT, THE BALANCE and the
-    # fun-fact vein retired — 32 standalone gifts drew 6 replies or taps.
-    # 900 -> 930 (2026-10-19, Andrew: "I need Anna to let me know"): kind 5, THE MAP — one push a week carries its headline. Retires the pull-only wall as his only window on the books.
-    "OUTREACH_MANDATE": 930,
-    "JUDGE_MANDATE": 1500,
-    # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
-    "REACH_MANDATE": 150,
-    # New surface, budgeted in the diff that creates it (census 161).
-    "VOICE_MANDATE": 175,
-    # Split out of JUDGE_MANDATE (2026-07-30) for the third time that file has paid for growth by splitting rather than raising.
-    "SLIP_MANDATE": 250,
-    # Split out of JUDGE_MANDATE (2026-08-02), the FOURTH time that file has paid for growth by splitting instead of raising.
-    "THREAD_MANDATE": 250,
-    # 300 -> 333 (2026-08-31, Andrew).
-    "CATCH_JUDGE_MANDATE": 333,
-    "MESSAGE_MANDATE": 230,
-    # NEW 2026-09-13, budgeted in the diff that creates it: the escalation net's model check (it retired a substring match on stored phonetics).
-    "OPEN_ASK_MANDATE": 70,
-    # NEW 2026-10-25, budgeted in the diff that creates it (census 142): the voice-turn ear. Blind, so it stays short.
-    "HEAR_MANDATE": 160,
-    # NEW (2026-10-26, Andrew: the live lane). Census ~290; short on purpose — the rhythm is
-    # Python's, so the prose says only how each named job sounds.
-    # 320 -> 380 (2026-11-09, Andrew with Rio): the brief and the beat. The scene is
-    # one person of the house who wants something of Andrew, and one sentence is
-    # carried to the next scene. Retires the canon-wide "open" and the gate
-    # worded as "he says the target back".
-    # 380 -> 412 (2026-11-10, Andrew): the early answer. Retires the judge-turn-only booking.
-    # 412 -> 430 (2026-11-10, Andrew, after his first live session): Tamil on an unasked turn is glossed.
-    "LIVE_MANDATE": 430,
-    # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
-    # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
-    # is the one place continuity lives, so it is the one place canon-creep can
-    # hide: a cast that grows a backstory every month is a plot, and a plot is
-    # what the 06-28 decision rejected for good reasons. Compressed at the month
-    # boundary — the beat log collapses into its one-line past-arc entry — and
-    # never raised to fit more lore.
-    # 1200 -> 1350 (2026-11-09, Andrew): the visitor. The canon gained a job, not
-    # lore: Andrew's own seat in the house and how each person treats him. At
-    # 1200 the seat left no room for one beat line. Retires the rule that he is
-    # only ever an overhearer of the household.
-    "content/household.md": 1350,
-    # docs/DECISIONS.md HAS NO SIZE BUDGET, RETIRED 2026-09-20 BY ANDREW, and
-    # this comment is the guard that replaces it.
-    #
-    # MEASURED BEFORE RETIRING IT. The ratchet's own law says a file at its
-    # ceiling is "carrying crud or doing too many jobs" — so the log was swept
-    # for crud: of 296 entries, exactly ONE names an identifier that no longer
-    # exists in `scripts/`, and that one is a false positive (`alaichal` is a
-    # Tamil word, not a symbol). There is no dead law in there. And nothing
-    # ships it into a prompt — `grep` finds only source comments citing it by
-    # name — so unlike every other surface here it costs nothing per call.
-    #
-    # WHAT THE CEILING ACTUALLY DID, on 2026-09-19, twice in one day: it made
-    # the author hunt for settled law to DELETE in order to hit a number. One
-    # of those deletions ("deck and floor share one ledger") had a live half
-    # that now survives only in a docstring. A budget that converts into
-    # pressure to delete law is the ratchet pointed at the wrong quantity: the
-    # number of decisions a system has made is not a thing to minimise, and a
-    # log that grows because the system keeps learning is a log working.
-    #
-    # THE CONTROL THAT STAYS is `DECISION_ENTRY_BUDGET` (70 words, below), which
-    # is the one that matters — it keeps an entry to a claim and a clause and
-    # forces the narrative into the commit, which is this file's stated
-    # contract. Shape, not size. If this file ever needs bounding again, bound
-    # the shape further; do not put the word count back.
-    "docs/feature_inbox.md": 1500,
-    # Commissioned audit replaces its interim handoff and chat-only findings;
-    # engineering reference only, never added to Anna's prompt load.
-    "docs/ASTRA_REVIEW.md": 3000,
-    "docs/ASTRA_CHARGE.md": 800,
-    # Target design replaces the obsolete forecast and duplicated habit plan.
-    "docs/comprehension_plan.md": 2400,
-    # Worked experience replaces abstract curriculum prose in the target design.
-    "docs/learning_week.md": 1900,
-    ".claude/skills/debug/SKILL.md": 1500,
-}
+# THE WORD LIMITS ARE RETIRED (2026-11-10, Andrew). From 2026-07-16 every prose surface
+# (each `protocol/*.md`, the mandates, the inbox, `/debug`) carried a word budget, and from
+# 2026-08-01 every DECISIONS entry a 70-word cap. Read back over four months they recorded
+# growth more than they prevented it: 118 raises against 45 cuts, protocol prose up 56%
+# regardless, and on 11-10 a twelve-line fix needed six budget edits and three trims of
+# one decision note. What stays is what bounds mechanism: the code-line budgets, pyflakes
+# at zero, the prohibition count and the arc block. Git holds the old table.
 
 
 # PROHIBITIONS ALLOWED across the law Anna and the writers read (2026-10-05,
@@ -191,11 +46,6 @@ PROHIBITION_RE = re.compile(r"(?i)\b(?:never|must not|do not|don['’]t)\b")
 # Census 197 at birth; 195 after this diff's own trims. Only ever moves down,
 # or up in a diff that names what it could not retire and why.
 PROHIBITION_BUDGET = 195
-
-
-# Words allowed per docs/DECISIONS.md entry — title, date, one clause (150 -> 70,
-# 2026-09-10, the whole log compressed to that shape; the narrative is the commit).
-DECISION_ENTRY_BUDGET = 70
 
 
 # Words allowed in profile.md's ARC block: the month's name, what is happening in
@@ -561,7 +411,7 @@ SUITE = "scripts/smoke/"
 
 
 def s18_size_budgets(mk, kr, sb: Path):
-    print("\n18. Size budgets — prose (words) + Python (code lines) + static clean (0)")
+    print("\n18. Size budgets — Python (code lines) + static clean (0) + prohibitions")
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
                "REACH_MANDATE": kr.REACH_MANDATE,
@@ -576,15 +426,9 @@ def s18_size_budgets(mk, kr, sb: Path):
                # knock cases reach reply_common — no re-export just for a test
                "MESSAGE_MANDATE":
                    sys.modules[kr.handle_message.__module__].MESSAGE_MANDATE}
-    for rel, budget in PROSE_BUDGETS.items():
-        words = (len(strings[rel].split()) if rel in strings
-                 else len((sb / rel).read_text(encoding="utf-8").split()))
-        check(f"{rel}: {words}/{budget} words", words <= budget,
-              f"over by {words - budget} — retire lines, or raise the budget in this "
-              f"same diff and name what it retired")
 
     # THE PROHIBITION RATCHET — see PROHIBITION_BUDGET. protocol/ in the
-    # sandbox plus every mandate string the loop above measures.
+    # sandbox plus every mandate string named above.
     law = [f.read_text(encoding="utf-8") for f in sorted((sb / "protocol").rglob("*.md"))]
     nevers = sum(len(PROHIBITION_RE.findall(t)) for t in law + list(strings.values()))
     check("the prohibition scan still sees the law it counts",
@@ -672,30 +516,6 @@ def s18_size_budgets(mk, kr, sb: Path):
         check(f"pyflakes: {found}/0 findings across scripts/", found == 0,
               f"undefined names, unused imports and dead locals are all defects "
               f"or dead code — fix them, never budget for them:\n{report.getvalue()}")
-
-    # The decision log's forward entry cap — same law, third unit. Only entries
-    # dated on/after 2026-08-02 are bound; a long conclusion goes in the commit
-    # message, where the header says details live.
-    entries, cur = [], None
-    for line in (REAL_BASE / "docs" / "DECISIONS.md").read_text(encoding="utf-8").splitlines():
-        if line.startswith("- **"):
-            cur = [line]
-            entries.append(cur)
-        elif cur is not None and (line.startswith("  ") or not line.strip()):
-            cur.append(line)
-        else:
-            cur = None
-    over = []
-    for e in entries:
-        m = re.search(r"\((\d{4}-\d{2}-\d{2})", " ".join(e[:2]))
-        if m and m.group(1) >= "2026-08-02":
-            words = sum(len(ln.split()) for ln in e)
-            if words > DECISION_ENTRY_BUDGET:
-                over.append(f"“{e[0][4:50]}…” at {words}")
-    check(f"new DECISIONS entries stay ≤{DECISION_ENTRY_BUDGET} words "
-          f"({len(entries)} entries scanned)", not over,
-          "; ".join(over) + " — the log is an index of conclusions; the "
-          "narrative belongs in the commit message (2026-08-01)")
 
     # ── NAME, NEVER LINE NUMBER (2026-08-01, and §9 of the spine plan repeats
     # it). A pointer like "`state_io.py` line 54" is wrong the moment anything
@@ -794,42 +614,6 @@ def s18_size_budgets(mk, kr, sb: Path):
           not unbudgeted,
           f"unbudgeted: {', '.join(unbudgeted)} — add each to CODE_BUDGETS in "
           f"the same diff that adds the file")
-
-    # THE SAME LAW, ONE DIRECTORY OVER (2026-09-03). The check above has said
-    # since 2026-08-23 that "a new file is the obvious way past a ceiling, so an
-    # unbudgeted one is a red run rather than a silent exemption" — and prose is
-    # where this system's ceilings actually bind: `constitution.md` sits at
-    # 1789/1790 and `daily_session.md` at 1320/1320 as this lands. Yet the prose
-    # half of the ratchet had no completeness guard at all, so `PROSE_BUDGETS`
-    # policed only the files that had already volunteered.
-    #
-    # Found while splitting `toolbelt.md` out of `persona.md` — i.e. by doing the
-    # exact move the code-side comment describes. Splitting to escape a ceiling
-    # is the SANCTIONED move here (daily_session -> audio_channels 2026-07-23;
-    # audio_channels -> commissioning 2026-08-01; JUDGE_MANDATE four times), and
-    # every one of those splits could have landed its new file unbudgeted with
-    # the suite green.
-    #
-    # GATE 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? Like a
-    # passing suite, forever, which is what it did look like. So the first
-    # assertion is teeth on the SET, not on the law: a glob that matches nothing
-    # would satisfy the emptiness check below while proving nothing at all.
-    #
-    # TOP LEVEL ONLY, and the boundary is deliberate. `protocol/studio/` is the
-    # production crew's craft prose, five files under a different regime that has
-    # never been budgeted; sweeping them in here would be a structure decision
-    # riding a split's coattails. Routed to `docs/feature_inbox.md` instead.
-    prose_on_disk = {p.relative_to(REAL_BASE).as_posix()
-                     for p in (REAL_BASE / "protocol").glob("*.md")}
-    check(f"the prose sweep sees the protocol surface ({len(prose_on_disk)} files)",
-          len(prose_on_disk) >= 8 and "protocol/persona.md" in prose_on_disk,
-          f"got {sorted(prose_on_disk)} — a sweep that matches nothing passes the "
-          f"assertion below while checking zero files")
-    prose_unbudgeted = sorted(prose_on_disk - set(PROSE_BUDGETS))
-    check("every top-level protocol file carries a prose budget",
-          not prose_unbudgeted,
-          f"unbudgeted: {', '.join(prose_unbudgeted)} — add each to PROSE_BUDGETS "
-          f"in the same diff that adds the file")
 
 
 def s72_a_stub_never_outlives_its_case(mk, kr):
@@ -1181,7 +965,7 @@ LAYERS = {
 
 # An edge that points the wrong way and is allowed to. Each carries WHY, so the
 # next one is an argument someone has to write down rather than a merge nobody
-# noticed — the same mechanism PROSE_BUDGETS and CODE_BUDGETS already run on.
+# noticed — the same mechanism CODE_BUDGETS already runs on.
 # This list shrinking is the measure of the next pass; it must never grow
 # quietly.
 UP_EXCEPTIONS = {
@@ -1670,16 +1454,6 @@ def s118_the_heist_left_the_voice_canon(sb: Path):
           all(f in shim for f in ("persona.md", "toolbelt.md", "heist.md")),
           "Anna boots without his ops and the session looks perfect — he just "
           "never hands a mission or an anchor again")
-
-    # ── AND THE BUDGET WAS PAID BACK, not kept. A split that banks the raise it
-    # was supposed to retire is a split that bought nothing.
-    import re as _re
-    rt = raw_source(REAL_BASE / "scripts" / "smoke" / "ratchets.py")
-    m = _re.search(r'"protocol/persona\.md":\s*(\d+)', rt)
-    check("persona's budget was re-censused DOWN past its pre-split ceiling",
-          m and int(m.group(1)) < 1750,
-          f"persona budget is {m and m.group(1)} — the 09-19 raise was kept, so the "
-          f"split freed room and nothing reclaimed it")
 
 
 # Retired claims that must not survive anywhere but the decision that retired them

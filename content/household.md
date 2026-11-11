@@ -10,9 +10,8 @@ funny, awkward and wrong about things, which a portrait of real in-laws cannot.
 the arc premise at the month cut, and the studio's Producer pass appends one beat
 line per rendered episode. Andrew overrides anything, any time.
 
-**Budget: 1,350 words** (`scripts/smoke/ratchets.py`; raised once, 2026-11-09, for the visitor's seat). Canon that outgrows it is
+**Kept short: about 1,350 words**, because it ships whole to every lane that writes a scene (a habit since 2026-11-10, no longer a tested limit). Canon that outgrows it is
 compressed at the month boundary: the beat log collapses to one past-arc line.
-The number is never raised to fit more lore.
 
 ---
 

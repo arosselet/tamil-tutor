@@ -75,14 +75,12 @@ Every addition must earn its place. Before writing any code, state out loud:
 The list ban, the taught-only check and palatability-first each outlived the symptom
 that wrote them and blocked the next fix. Naming Y is what lets a later audit retire X.
 
-**The size budgets.** Every surface below is ratcheted, asserted by the same smoke case
+**The size budgets.** The word limits on prose and on a DECISIONS entry retired 2026-11-10 (they recorded growth more than they prevented it). Every surface below is still ratcheted, asserted by the same smoke case
 (`scripts/smoke/ratchets.py` → `s18_size_budgets`):
 
 | Surface | Table | Unit | Since |
 |---|---|---|---|
-| Every `protocol/*.md`, the LLM mandates, and the narrative surfaces (`DECISIONS.md`, `feature_inbox.md`, `/debug`) | `PROSE_BUDGETS` | words | 2026-07-16 |
 | `profile.md`'s campaign block | `CAMPAIGN_BUDGET` | words | 2026-09-06 |
-| A `DECISIONS.md` entry | `DECISION_ENTRY_BUDGET` | words | 2026-08-01 |
 | Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
 | Every `scripts/*.py` | pyflakes | findings, **budget 0** | 2026-08-04 |
 | Every `protocol/**/*.md` + the LLM mandates | `PROHIBITION_BUDGET` | never / must not / do not / don't | 2026-10-05 |

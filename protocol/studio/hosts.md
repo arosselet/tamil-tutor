@@ -39,7 +39,7 @@ episode.
 
 ### Writing the next scene
 
-Moved here from the canon (2026-10-08), which is at its word budget and ships
+Moved here from the canon (2026-10-08), which is kept short and ships
 whole to the knock lane; the overheard-tape writer carries its own one-line
 version in the outreach mandate.
 
