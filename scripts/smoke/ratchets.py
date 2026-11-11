@@ -1537,7 +1537,7 @@ TOMBSTONES = (
 # fork is told to trust. DECISIONS.md and the reflections are history, not law.
 _LAW_GLOBS = ("scripts/**/*.py", "protocol/**/*.md", ".claude/**/*.md", "docs/*.md",
               "references/**/*.md", "content/household.md", "*.md")
-_HISTORY = {"docs/DECISIONS.md", "scripts/smoke/ratchets.py"}
+_HISTORY = {"docs/DECISIONS.md", "docs/DECISIONS_ARCHIVE.md", "scripts/smoke/ratchets.py"}
 
 
 def _fold(text: str) -> str:
