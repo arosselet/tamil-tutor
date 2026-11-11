@@ -26399,5 +26399,17 @@
     "medium": "text",
     "source": "live:2026-11-10T19:27:54Z",
     "note": "yaarukku therium"
+  },
+  {
+    "id": "e805d7491c5a",
+    "at": "2026-11-11T00:28:48Z",
+    "word": "கனடாவுல இருக்கோம்",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "knock:2026-11-11T00:22:17.284757+00:00",
+    "note": "capped fire"
   }
 ]

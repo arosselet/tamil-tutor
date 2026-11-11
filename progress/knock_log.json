@@ -9986,14 +9986,18 @@
     "thread": "word:கனடாவுல இருக்கோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Canada-la iruppom",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Kanasavula irukkom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "கனடாவுல இருக்கோம்"
+    ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line_script": "இருப்போம் means 'we will be' da — since you live there right now, இருக்கோம். கனடாவுல இருக்கோம்.",
-    "reply_line": "Iruppom means 'we will be' da — since you live there right now, irukkom. Kanadavula irukkom.",
-    "reply_at": "2026-11-11T00:26:16Z",
+    "reply_fired_capped": [
+      "கனடாவுல இருக்கோம்"
+    ],
+    "reply_line_script": "adhu dhaan! கனடாவுல இருக்கோம் — keyboard slip aside, you nailed the tense.",
+    "reply_line": "adhu dhaan! Kanadavula irukkom — keyboard slip aside, you nailed the tense.",
+    "reply_at": "2026-11-11T00:28:52Z",
     "exchanges": [
       {
         "at": "2026-11-11T00:26:16Z",
@@ -10008,6 +10012,24 @@
         "slips": [
           "tense-confusion"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-11-11T00:28:52Z",
+        "reply": "Kanasavula irukkom",
+        "verdict": "hinted",
+        "fired": [
+          "கனடாவுல இருக்கோம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "கனடாவுல இருக்கோம்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Kanadavula irukkom — keyboard slip aside, you nailed the tense.",
+        "reply_line_script": "adhu dhaan! கனடாவுல இருக்கோம் — keyboard slip aside, you nailed the tense.",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }

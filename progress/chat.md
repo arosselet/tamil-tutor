@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Iruppom means 'we will be' da — since you live there right now, irukkom. Kanadavula irukkom.
 
+**19:28 · Andrew** — **HINTED**
+> Kanasavula irukkom
+
+**Anna ↩**
+> adhu dhaan! Kanadavula irukkom — keyboard slip aside, you nailed the tense.
+
 
 ## Monday 2026-11-09
 
