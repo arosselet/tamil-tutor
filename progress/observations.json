@@ -26555,5 +26555,101 @@
     "medium": "text",
     "source": "queue:q1794357188",
     "note": ""
+  },
+  {
+    "id": "b97d329b4f8a",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "அது உண்மையா?",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "aa80b5eaf448",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "கடைசில பாக்கலாம்",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "52b47498be55",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "ஃப்ரீயா விடுங்க",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "2998f3f2c736",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "e747dbafece0",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "நாம",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "0882b9a345ae",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "அட்டா",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "9949e40ac425",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "கிட்ட இருக்கு",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
+  },
+  {
+    "id": "e647db7ece48",
+    "at": "2026-11-11T15:49:21Z",
+    "word": "நாங்க",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-11-11_1549",
+    "note": ""
   }
 ]

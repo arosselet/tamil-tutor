@@ -1006,7 +1006,7 @@
       99
     ],
     "last_surfaced": "2026-11-11",
-    "exposures": 3,
+    "exposures": 1,
     "taught_on": "2026-02-25",
     "reps": 1,
     "heard_on": null
@@ -2673,9 +2673,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-26",
+    "last_surfaced": "2026-11-11",
     "direction": "fire",
-    "exposures": 4,
+    "exposures": 5,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2706,9 +2706,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-03",
+    "last_surfaced": "2026-11-11",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -3666,9 +3666,9 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-11-09",
+    "last_surfaced": "2026-11-11",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "social",
     "taught_on": "2026-08-14",
     "reps": 1,
@@ -3791,7 +3791,7 @@
     "seen_in": [
       57
     ],
-    "last_surfaced": "2026-09-04",
+    "last_surfaced": "2026-11-11",
     "exposures": 1,
     "reps": 1,
     "taught_on": "2026-07-09"
@@ -3841,9 +3841,9 @@
       60,
       86
     ],
-    "last_surfaced": "2026-11-09",
+    "last_surfaced": "2026-11-11",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "social",
     "taught_on": "2026-07-13",
     "reps": 1,
@@ -4089,9 +4089,10 @@
     "seen_in": [
       64
     ],
-    "last_surfaced": "2026-09-21",
+    "last_surfaced": "2026-11-11",
     "taught_on": "2026-09-21",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "இல்லன்னா": {
     "gloss": "otherwise / if not",
@@ -4945,7 +4946,7 @@
       99
     ],
     "last_surfaced": "2026-11-11",
-    "exposures": 1,
+    "exposures": 2,
     "taught_on": "2026-11-10"
   },
   "ஒன்னும்": {
