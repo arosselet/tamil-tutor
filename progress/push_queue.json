@@ -1,15 +1,1 @@
-[
-  {
-    "id": "q1794357188",
-    "due": "2026-11-11T14:30:00+00:00",
-    "body": "Deepa is at your door with her shoes on: \"Naama terrace-ku polaama?\" She wants an answer 👟",
-    "body_script": "",
-    "expected_target": "போலாம்",
-    "target_revealed": true,
-    "audio_url": null,
-    "memo_script": "",
-    "move": "fielding: polaam",
-    "force": false,
-    "queued_at": "2026-11-11T00:33:08.556972+00:00"
-  }
-]
+[]

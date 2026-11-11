@@ -10034,5 +10034,19 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-11-11",
+    "timestamp": "2026-11-11T15:48:26.980127+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1794357188",
+    "modality": "text",
+    "move": "fielding: polaam",
+    "rationale": "scheduled at 2026-11-11T00:33 for 2026-11-11T14:30",
+    "body": "Deepa is at your door with her shoes on: \"Naama terrace-ku polaama?\" She wants an answer 👟",
+    "body_script": "",
+    "expected_target": "போலாம்",
+    "target_revealed": true
   }
 ]

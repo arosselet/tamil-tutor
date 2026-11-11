@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-11-11
+
+**10:48 · Anna**  ·  text / fielding: polaam
+> Deepa is at your door with her shoes on: "Naama terrace-ku polaama?" She wants an answer 👟
+
+
 ## Tuesday 2026-11-10
 
 **14:29 · Anna** 🎧  ·  eavesdrop / overheard: cant-mudiyala

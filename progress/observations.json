@@ -26543,5 +26543,17 @@
     "medium": "audio",
     "source": "episode:M99",
     "note": ""
+  },
+  {
+    "id": "fb8a80c14ec6",
+    "at": "2026-11-11T15:48:27Z",
+    "word": "போலாம்",
+    "channel": "knock",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "queue:q1794357188",
+    "note": ""
   }
 ]
