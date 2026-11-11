@@ -1,9 +1,6 @@
----
-name: validate
-description: Routine health check for the Tamil learning system. Run the smoke test, verify state invariants, confirm feed/registry coherence, and check CI green. Use proactively — after any machinery change, after a clone, before trusting state, or before a session. (For a specific symptom or failure, start with /debug instead.)
----
+# The routine health check
 
-# Validate — Routine Health Check
+Was the `/validate` skill until 2026-11-10; now a reference of `/verify`.
 
 Run these layers in order. Stop at the first failure and route to `/debug`.
 
@@ -116,7 +113,7 @@ gh run list --workflow=smoke.yml --limit=5
 
 One owner, no restating (2026-07-18): the full inventory — every script, every
 flag, safe vs mutating, exactly what each writes — lives in
-**`/verify` → `references/flags.md`**. Read it before running anything you're
+**`references/flags.md`**, beside this file. Read it before running anything you're
 not certain about; `progress/` holds real, irreplaceable learner state.
 
 ---

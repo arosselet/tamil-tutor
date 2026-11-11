@@ -1,7 +1,7 @@
 # Command Safety & Flag Semantics — Full Reference
 
 The single owner of "what does this command touch" (2026-07-18 consolidation —
-`/validate` §3 and `/verify` §4 point here instead of restating). All claims
+`references/health_check.md` §3 and `/verify` §4 point here instead of restating). All claims
 verified in source. Claims anchor to **function names**, never line numbers —
 two resyncs (07-18 → 08-01) proved line numbers drift by hundreds within weeks;
 grep the named function when you need the exact spot.

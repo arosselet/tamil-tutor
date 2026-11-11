@@ -81,7 +81,7 @@ A word the learner recognizes (comfortable or solid) but cannot yet produce cold
 
 It is no longer the whole selectable population: since 2026-08-18 the **pool** admits any row not yet firing cold, `struggled` ones included, because the retired deck's rows were 31/35 struggled and a recognition gate would have made the ordering it left behind unreachable. Teach-first still guards those (`is_unseen`).
 
-Defined: `protocol/daily_session.md` — Targeting section ("Floor-gap targets")
+Defined: `protocol/daily_session.md` — Targeting section
 
 ---
 

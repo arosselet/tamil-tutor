@@ -94,9 +94,8 @@ whole portability contract; there is no mirror to keep in sync.
 |---|---|---|
 | `orient` | `.claude/skills/orient/SKILL.md` | Onboarding; "where does X live?"; the glossary |
 | `debug` | `.claude/skills/debug/SKILL.md` | A symptom — knock missed, reply misjudged, feed stale, CI red |
-| `validate` | `.claude/skills/validate/SKILL.md` | Routine health check after a change or a clone |
 | `extend` | `.claude/skills/extend/SKILL.md` | **Before** adding/editing/removing any file, prompt, script or field |
-| `verify` | `.claude/skills/verify/SKILL.md` | Proving a change works end-to-end |
+| `verify` | `.claude/skills/verify/SKILL.md` | Proving a change works end-to-end; the routine health check after a change or a clone |
 | `recalibrate` | `.claude/skills/recalibrate/SKILL.md` | The pedagogy feels off — evidence before mechanisms |
 | `backport` | `.claude/skills/backport/SKILL.md` | A milestone worth porting to the language-tutor template repo |
 | `inbox` | `.claude/skills/inbox/SKILL.md` | "Drain the inbox" — a disposition for every item in `docs/feature_inbox.md` |

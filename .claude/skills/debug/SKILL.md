@@ -46,6 +46,7 @@ Start with `/orient` → `references/glossary.md`.
 | CI red — knock/queue workflow | Missing secret, commit conflict, JSON parse fail | `gh run view <id> --log` |
 | Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `publish.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
+| A push that reads "Line check: nothing from your phone has reached Anna since …" | `morning_knock.line_silence` tripped: several reaches with no inbound, usually the expired reply token | `docs/home_assistant_knock_buttons.md` §10; it clears on the next inbound message |
 | **I replied and NOTHING happened — no run, no error, no trace** | Inbound leg dead: expired PAT, or the ANNA_REPLY automation (KF-12) | Actions list → filter `repository_dispatch`. **Zero since a datestamp = the return path, not your reply.** Knocks still arriving PROVES HA is alive — outbound crosses the same HA — so suspect the one thing unique to inbound: the token |
 | Anna over-uses a format / doses feel same-shaped | Incentive drift in the decide prompt (a preference line, a reward framing) — not persona | `grep -o '"move": "[^"]*"' progress/knock_log.json \| tail -15` → then read the prompt's incentive lines in `morning_knock.py` |
 | Every **lesson** takes the same shape | Several boot lines each leaning one way — no single rule requires it (2026-10-16: clip-then-questions) | `python scripts/sync_state.py open` and `status`: read them as Anna does and mark every line worded as an instruction. Then `/recalibrate` — the fix is a deletion, never a new meter |
@@ -94,4 +95,4 @@ One line each; the write-up is the commit of that date, and the smoke case named
 
 ---
 
-**Scope:** This skill owns triage only. Routine health checks → `/validate`. Making the fix → `/extend`. Proving it → `/verify`.
+**Scope:** This skill owns triage only. Routine health checks → `/verify` (§0). Making the fix → `/extend`. Proving it → `/verify`.

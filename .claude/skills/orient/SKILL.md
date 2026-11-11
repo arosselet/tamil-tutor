@@ -60,7 +60,7 @@ For the Python brain: read the script you intend to change, plus the `scripts/sm
 | Task | Skill |
 |---|---|
 | Diagnose a failure | `/debug` |
-| Routine health checks | `/validate` |
+| Routine health checks | `/verify` (§0) |
 | Make a change to the system | `/extend` |
 | Prove a change works end-to-end | `/verify` |
 | Pedagogy feels wrong (chore/drill/samey) | `/recalibrate` |

@@ -1,9 +1,13 @@
 ---
 name: verify
-description: Prove a change works end-to-end — change-type → verification-path map, flag semantics (what each --dry-run actually skips, verified in source), sandbox pattern, and the honest-residual rule. Use when you want to confirm a fix holds, verify a code change is wired correctly, or understand what a flag actually skips before running it.
+description: Prove a change works end-to-end, and run the routine health check (smoke suite, state invariants, feed coherence, CI) after a change, a clone or a merge — change-type → verification-path map, flag semantics (what each --dry-run actually skips, verified in source), sandbox pattern, and the honest-residual rule. Use when you want to confirm a fix holds, verify a code change is wired correctly, or understand what a flag actually skips before running it.
 ---
 
 # Verify — End-to-End Change Verification
+
+## 0. The routine health check
+
+Five layers, in order, stopping at the first failure and routing it to `/debug`: the smoke suite, a clean `sync_state.py status`, the state invariants (and a rebuild-and-diff after any merge that touched `progress/`), feed and registry coherence, CI green. The commands and pass conditions are in **`references/health_check.md`**. Run it after any machinery change, after a clone, and before trusting state.
 
 ## 1. Rails — read before touching anything
 

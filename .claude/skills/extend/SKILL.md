@@ -1,16 +1,27 @@
 ---
 name: extend
-description: The change discipline for @build — gates that every modification must pass before code is written. Use when adding, editing, or removing any file, prompt, script, constant, or schema field in the Tamil system.
+description: The change discipline for @build — four questions every modification must answer before code is written. Use when adding, editing, or removing any file, prompt, script, constant, or schema field in the Tamil system.
 ---
 
 # Extend — Change Discipline
 
-Every change to the machine passes these seven gates in order. Each gate has an
+Every change to the machine answers four questions, in order: **is it decided, what
+does it replace, is it tested, and is it in plain words and in the repo.** Each has an
 explicit stop-condition. Do not jump ahead.
+
+Regrouped from seven numbered gates on 2026-11-10 (Andrew). Older citations still
+resolve:
+
+| Cited as | Now under |
+|---|---|
+| Gate 1, Gate 3 | Decided? |
+| Gate 2, Gate 4, Gate 5 | Replaces? |
+| Gate 7.1 to 7.3 (**Gate 7.2 is the silent no-op test**) | Tested? |
+| Gate 6 (the port-surface table), Gate 7.4 to 7.7 | Plain, and in the repo? |
 
 ---
 
-## Gate 1 — DECISIONS check
+## Decided?
 
 Read `docs/DECISIONS.md` (thin index of conclusions; substance lives in git history).
 
@@ -25,22 +36,7 @@ proper move?'"* Give him the entry's reason in a sentence, test whether that rea
 still holds today, and say which way it came out. The stop-condition above is for an
 agent drifting, never for Andrew's own question.
 
----
-
-## Gate 2 — Budget test
-
-The structure freeze retired 2026-09-10; the budgets are the structure control
-(`docs/PROTOCOL_MAP.md` → "Structure"). Ask: *does this add a row of data, or a file, a
-field, a meter, a rule?*
-
-- Row of data (a word, a scene, a memory) → proceed.
-- Anything else → it is budgeted in this same diff (`scripts/smoke/ratchets.py`), and
-  Gate 4 names what it replaces. If Andrew has not commissioned it, one line in
-  `docs/feature_inbox.md` and **stop**.
-
----
-
-## Gate 3 — Explore before implement
+### Andrew has said yes
 
 Andrew is an architect. When he names a problem he wants the shape and tradeoffs
 explored together first. (`docs/DECISIONS.md` → "Explore before implementing.")
@@ -66,7 +62,11 @@ precedent lives in `/debug` → KF-8).
 
 ---
 
-## Gate 4 — What does this replace?
+## Replaces?
+
+A row of data (a word, a scene, a memory) is always free. Anything else — a file, a
+field, a meter, a rule — names what it replaces, and if Andrew has not commissioned it,
+it is one line in `docs/feature_inbox.md` and **stop**.
 
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
@@ -113,9 +113,7 @@ If you cannot name what it replaces, that is the signal to stop.
 
 **Name what it pulls on in the live lesson** (2026-10-16). A meter, cue or rule that Anna reads at boot leans on the session's shape every day; say which way. Several such leans together turned every lesson into clip-then-questions though no single rule required it. Prefer a deletion: a new meter added to answer drift is the drift (2026-10-16).
 
----
-
-## Gate 5 — Surgical-edit routing
+### One owner, one file
 
 Concerns are separated on purpose. Find the one file that owns the concern you are
 touching; edit only that file. (`docs/DECISIONS.md` → "Surgical edits to the relevant file.")
@@ -127,38 +125,7 @@ supersedes a claim adds its `TOMBSTONES` row (`scripts/smoke/ratchets.py`) in th
 
 ---
 
-## Gate 6 — Port-surface check
-
-The three items below are invisible to a `swap-the-.md-files` pass. Changing any of
-them silently breaks a port to another language. Document what you changed and why in
-the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Layer 1.)
-
-| Item | Location |
-|---|---|
-| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish, worked examples that are Tamil morphology — `-ōm`, `-nga`) | `scripts/mandates.py` — all fourteen mandates and addenda; and `scripts/run_studio.py` — the studio's own `DIRECTOR` / `ARCHITECT` / `PRODUCER`. Guarded by `s93` |
-| The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`) and the questions lanes ask of them (`is_canonical`, `has_target`, `target_runs`, `stem`, `host_stem` — lanes import these, never a range; `s91`), the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), `voice_locale`, `REFERENT_NOUNS`, the surface fragments (`VOICE_FORM`, `READ_FORM` — spliced into every prompt, never restated; `s129`), the repo identity (`REPO`) and the feed identity (`FEED_TITLE`, `FEED_SUMMARY`, `CAPTION_COLUMNS`) | `scripts/language.py` — THE LANGUAGE PACK, one file. **Two guards, two jobs** (2026-09-03): `s70` needles each declared value so it cannot acquire a second home; `s91` sweeps every lane for target script on a mechanism line, so a language fact that was never declared here cannot hide — the needle list is read off the pack, so it can never look for a fact the pack has not heard of |
-| Episode voice POOLS (Chirp / WaveNet / Edge catalogues) | `scripts/render_audio.py` — one reader, one file; the PINNED choice from them lives in the pack |
-
-A fork edits `scripts/language.py` and the `protocol/` prose, and nothing else in
-`scripts/`. `s70` fails the build if any value in the pack acquires a second home —
-including a value ADDED to the pack later, since the needles are read off the module.
-`s91` closes the other half: uniqueness is not completeness, and on 2026-09-03 it found
-`render_audio` classifying script with a character comparison at two sites while
-importing nothing from the pack. Its `SCRIPT_OWNERS` ratchet names the files allowed to
-carry target script at all, with a reason and a ceiling each.
-The one thing the pack cannot contain is the LLM prompt prose in `mandates.py`: a port
-rewrites those worked examples rather than substituting a constant, and that is the
-irreducible half of an extraction.
-
-**Cloud rendering:** the cloud renders knock memos and scheduled voice doses in `anna.yml`,
-the one workflow that carries every secret. Episode TTS is local today — a build not yet
-done, not a law (`docs/DECISIONS.md` → "Cloud produces episodes").
-
----
-
-## Gate 7 — Post-change duties
-
-Run these after every non-trivial change to the machinery:
+## Tested?
 
 1. **New smoke case for every fixed plumbing bug**, in the layer file that owns the lane
    (`scripts/smoke/`). (`scripts/smoke_test.py` docstring:
@@ -201,18 +168,22 @@ Run these after every non-trivial change to the machinery:
 
 3. **Run `/verify`** — the sibling skill that proves the change end-to-end.
 
-4. **Never hand-edit Python-owned JSON.** State advances through `sync_state.py`;
+---
+
+## Plain, and in the repo?
+
+1. **Never hand-edit Python-owned JSON.** State advances through `sync_state.py`;
    `progress/*.json` files are the brain. (`docs/DECISIONS.md` → "LLM is the writer,
    Python is the brain.")
 
-5. **Commit hygiene.** Match the house style from the real log:
+2. **Commit hygiene.** Match the house style from the real log:
    `Subsystem: what changed (context if needed)` — short subject, sentence case,
    parenthetical for date/feedback attribution. No ticket numbers.
 
-6. **CI git identity is `github-actions[bot]`** — never a noreply alias that credits
+3. **CI git identity is `github-actions[bot]`** — never a noreply alias that credits
    a real GitHub user. (`docs/DECISIONS.md` → "CI git identity is `github-actions[bot]`.")
 
-7. **A ruling lives in the repo, never in an assistant's memory** (2026-10-13, 10-14).
+4. **A ruling lives in the repo, never in an assistant's memory** (2026-10-13, 10-14).
    Andrew, twice in two days: *"Memory is the wrong place to file that information. It
    has to live in the repo somewhere"* and *"it's only legitimate if it lives in the repo
    not in your memories on this machine."* A decision, a preference about the system or
@@ -220,14 +191,40 @@ Run these after every non-trivial change to the machinery:
    `protocol/user.md`, `progress/profile.md` — where every agent and every machine
    reads it. Host memory is for one machine's quirks.
 
+### The port surface
+
+The three items below are invisible to a `swap-the-.md-files` pass. Changing any of
+them silently breaks a port to another language. Document what you changed and why in
+the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Layer 1.)
+
+| Item | Location |
+|---|---|
+| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish, worked examples that are Tamil morphology — `-ōm`, `-nga`) | `scripts/mandates.py` — all fourteen mandates and addenda; and `scripts/run_studio.py` — the studio's own `DIRECTOR` / `ARCHITECT` / `PRODUCER`. Guarded by `s93` |
+| The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`) and the questions lanes ask of them (`is_canonical`, `has_target`, `target_runs`, `stem`, `host_stem` — lanes import these, never a range; `s91`), the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), `voice_locale`, `REFERENT_NOUNS`, the surface fragments (`VOICE_FORM`, `READ_FORM` — spliced into every prompt, never restated; `s129`), the repo identity (`REPO`) and the feed identity (`FEED_TITLE`, `FEED_SUMMARY`, `CAPTION_COLUMNS`) | `scripts/language.py` — THE LANGUAGE PACK, one file. **Two guards, two jobs** (2026-09-03): `s70` needles each declared value so it cannot acquire a second home; `s91` sweeps every lane for target script on a mechanism line, so a language fact that was never declared here cannot hide — the needle list is read off the pack, so it can never look for a fact the pack has not heard of |
+| Episode voice POOLS (Chirp / WaveNet / Edge catalogues) | `scripts/render_audio.py` — one reader, one file; the PINNED choice from them lives in the pack |
+
+A fork edits `scripts/language.py` and the `protocol/` prose, and nothing else in
+`scripts/`. `s70` fails the build if any value in the pack acquires a second home —
+including a value ADDED to the pack later, since the needles are read off the module.
+`s91` closes the other half: uniqueness is not completeness, and on 2026-09-03 it found
+`render_audio` classifying script with a character comparison at two sites while
+importing nothing from the pack. Its `SCRIPT_OWNERS` ratchet names the files allowed to
+carry target script at all, with a reason and a ceiling each.
+The one thing the pack cannot contain is the LLM prompt prose in `mandates.py`: a port
+rewrites those worked examples rather than substituting a constant, and that is the
+irreducible half of an extraction.
+
+**Cloud rendering:** the cloud renders knock memos and scheduled voice doses in `anna.yml`,
+the one workflow that carries every secret. Episode TTS is local today — a build not yet
+done, not a law (`docs/DECISIONS.md` → "Cloud produces episodes").
+
 ---
 
 ## Sibling skills
 
 - `/orient` — what the system is; glossary of project jargon
 - `/debug` — symptom → evidence triage; per-subsystem failure playbooks
-- `/validate` — routine health checks; safe/mutating command inventory
-- `/verify` — proving a change works end-to-end
+- `/verify` — proving a change works end-to-end; the routine health check and the safe/mutating command inventory
 - `/recalibrate` — pedagogy felt-signals; felt signal → evidence → one move
 - `/inbox` — ruling on the queued ideas in `docs/feature_inbox.md`
 - `/backport` — milestone re-extraction to the template repo
