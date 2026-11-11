@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:29 · Anna** 🎧  ·  eavesdrop / overheard: cant-mudiyala
 > Athai is on the phone with Priya about Mama and the upstairs trunk — one line tells you why he's grumpy 🎧
 
+**19:22 · Anna**  ·  text / one-try: canada-irukkom
+> An uncle at the gate asks where you both live — 'we live in Canada'. sollu 🍁
+
 
 ## Monday 2026-11-09
 
