@@ -9984,6 +9984,33 @@
     "expected_target": "கனடாவுல இருக்கோம்",
     "stance": "ask",
     "thread": "word:கனடாவுல இருக்கோம்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Canada-la iruppom",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "இருப்போம் means 'we will be' da — since you live there right now, இருக்கோம். கனடாவுல இருக்கோம்.",
+    "reply_line": "Iruppom means 'we will be' da — since you live there right now, irukkom. Kanadavula irukkom.",
+    "reply_at": "2026-11-11T00:26:16Z",
+    "exchanges": [
+      {
+        "at": "2026-11-11T00:26:16Z",
+        "reply": "Canada-la iruppom",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Iruppom means 'we will be' da — since you live there right now, irukkom. Kanadavula irukkom.",
+        "reply_line_script": "இருப்போம் means 'we will be' da — since you live there right now, இருக்கோம். கனடாவுல இருக்கோம்.",
+        "slips": [
+          "tense-confusion"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

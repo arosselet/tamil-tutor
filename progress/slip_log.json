@@ -1156,5 +1156,17 @@
     "want": "irukkom",
     "note": "future tense (will live) used where present-habitual (live) was needed for the target phrase",
     "word": ""
+  },
+  {
+    "at": "2026-11-11T00:26:16Z",
+    "date": "2026-11-10",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "tense-confusion",
+    "said": "iruppom",
+    "want": "இருக்கோம்",
+    "note": "used future tense 'will be' instead of present இருக்கோம் for living somewhere",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

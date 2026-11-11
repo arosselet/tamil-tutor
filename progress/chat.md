@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:22 · Anna**  ·  text / one-try: canada-irukkom
 > An uncle at the gate asks where you both live — 'we live in Canada'. sollu 🍁
 
+**19:26 · Andrew** — **MISS**
+> Canada-la iruppom
+
+**Anna ↩**
+> Iruppom means 'we will be' da — since you live there right now, irukkom. Kanadavula irukkom.
+
 
 ## Monday 2026-11-09
 
