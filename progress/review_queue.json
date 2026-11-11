@@ -368,5 +368,17 @@
     "source": "drill_2026-11-09_2116",
     "queued_at": "2026-11-09T21:16:20",
     "status": "pending"
+  },
+  {
+    "id": "cf473b6286",
+    "form": "Then right at the end — \"இப்போ நாம எல்லாம் ஒரு வீடு.\" Same \"we,\" one vowel different: நாம். Inclusive. Andrew's suddenly in it.",
+    "en": "",
+    "unattested": [],
+    "where": "line",
+    "reason": "wrong: calque from English; native speakers say 'நாம எல்லாம் ஒரே குடும்பம்' or 'ஒரே வீட்டு ஆளுங்க'",
+    "lane": "episode",
+    "source": "tier2_mission99",
+    "queued_at": "2026-11-11T08:10:30",
+    "status": "pending"
   }
 ]
