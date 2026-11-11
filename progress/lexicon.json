@@ -1002,9 +1002,10 @@
       11,
       12,
       75,
-      78
+      78,
+      99
     ],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-11-11",
     "exposures": 3,
     "taught_on": "2026-02-25",
     "reps": 1,
@@ -2156,8 +2157,9 @@
     "seen_in": [
       42
     ],
-    "last_surfaced": "2026-04-15",
-    "taught_on": null
+    "last_surfaced": "2026-11-11",
+    "taught_on": null,
+    "exposures": 1
   },
   "வந்தேன்": {
     "gloss": "I came",
@@ -2290,8 +2292,9 @@
     "seen_in": [
       44
     ],
-    "last_surfaced": "2026-04-22",
-    "taught_on": null
+    "last_surfaced": "2026-11-11",
+    "taught_on": null,
+    "exposures": 1
   },
   "குளிர்": {
     "gloss": "Cold",
@@ -2402,8 +2405,8 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-08",
-    "exposures": 4,
+    "last_surfaced": "2026-11-11",
+    "exposures": 1,
     "heard_on": "2026-09-08",
     "reps": 2
   },
@@ -4018,8 +4021,8 @@
     "seen_in": [
       62
     ],
-    "last_surfaced": "2026-09-07",
-    "exposures": 1,
+    "last_surfaced": "2026-11-11",
+    "exposures": 2,
     "heard_on": "2026-09-02",
     "reps": 3,
     "taught_on": "2026-07-15"
@@ -4603,10 +4606,13 @@
     "gloss": "I am / I'm here (-ஏன் = I)",
     "recognition": "untested",
     "production": "hinted",
-    "seen_in": [],
-    "last_surfaced": "2026-11-03",
+    "seen_in": [
+      99
+    ],
+    "last_surfaced": "2026-11-11",
     "reps": 1,
-    "exposures": 4
+    "exposures": 4,
+    "taught_on": null
   },
   "போனோம்": {
     "gloss": "We went (the -om we-tail — the trip is a we trip)",
@@ -4614,9 +4620,10 @@
     "production": "cold",
     "seen_in": [
       78,
-      98
+      98,
+      99
     ],
-    "last_surfaced": "2026-11-10",
+    "last_surfaced": "2026-11-11",
     "exposures": 2,
     "reps": 6,
     "taught_on": "2026-07-31"
@@ -4934,8 +4941,10 @@
     "gloss": "we (INCLUSIVE — you are in it)",
     "recognition": "untested",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-11-10",
+    "seen_in": [
+      99
+    ],
+    "last_surfaced": "2026-11-11",
     "exposures": 1,
     "taught_on": "2026-11-10"
   },
@@ -5190,9 +5199,10 @@
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
-      94
+      94,
+      99
     ],
-    "last_surfaced": "2026-11-10",
+    "last_surfaced": "2026-11-11",
     "taught_on": "2026-11-10",
     "reps": 1
   },
@@ -5654,6 +5664,26 @@
     "seen_in": [],
     "last_surfaced": "2026-11-03",
     "gloss": "Ask / Listen",
+    "taught_on": null
+  },
+  "நான் பாத்துக்கிறேன்": {
+    "gloss": "I'll manage / I'll take care of it",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      99
+    ],
+    "last_surfaced": "2026-11-11",
+    "taught_on": null
+  },
+  "இன்னைக்கு வர முடியாது": {
+    "gloss": "Cannot come today",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      99
+    ],
+    "last_surfaced": "2026-11-11",
     "taught_on": null
   }
 }

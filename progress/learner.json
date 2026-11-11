@@ -10,7 +10,12 @@
     "scene_seed": "First night in the upstairs room: Paati, Deepa and Karthi each speak to the visitor - who has eaten, who is going up to the terrace, whose house it is",
     "from": "2026-11-10",
     "focus": "What the 11-10 session taught, by ear: the tail rhymes with its person (naan -en, nee -a/-iya, avan -aan, avanga -aanga, neenga -eenga) and naanga/naama -om; naama (we, you too) against naanga (we, not you); polaam (let's go) against ponom (we went); irukku for a thing against irukken for me. Two stems throughout: saapidu, po.",
-    "channel": "episode"
+    "channel": "episode",
+    "attempted": {
+      "at": "2026-11-11",
+      "episode": "99",
+      "unclaimed": []
+    }
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {

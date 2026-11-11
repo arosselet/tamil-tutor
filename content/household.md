@@ -114,7 +114,7 @@ Opened 2026-11-09.
 > One line per rendered episode, appended by the Producer pass after render,
 > saying what happened. This is the continuity — callbacks are read from here.
 
-*(empty)*
+- 2026-11-10 · M99 — Karthi asks the uncle in Chennai to quietly cover the scooter debt before Mama sees the bill.
 
 ---
 

@@ -1,0 +1,40 @@
+{
+  "mission": 99,
+  "register": "defiance",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "story",
+  "shape": "transaction",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.8,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 155,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "நாம": 1,
+    "நாங்க": 2,
+    "போலாம்": 1,
+    "போனோம்": 1,
+    "இருக்கேன்": 1,
+    "நான் பாத்துக்கிறேன்": 1,
+    "இன்னைக்கு வர முடியாது": 1
+  },
+  "callbacks_used": {
+    "கொடுத்தேன்": 1,
+    "frame:idum": 1,
+    "frame:present-future-toggle": 1,
+    "சூடு": 1
+  },
+  "host_roles": {
+    "Paati": "call_anchor_and_closer",
+    "Karthi": "nervous_debtor",
+    "Deepa": "excited_messenger",
+    "Mama": "offstage_alarm"
+  },
+  "beat": "Karthi asks the uncle in Chennai to quietly cover the scooter debt before Mama sees the bill.",
+  "notes": "Fixed in the dialect/integrity pass: dropped வா entirely (reserved for the ambush) in two spots — Paati's 'வா' invite became just calling his name, and the Saturday confirmation became 'சரி சரி, Saturday-தான்!'; normalized எல்லாரும் to the fenced எல்லாம் everywhere; elided the first-person pronoun on the phone-pickup line; swapped கவலைப்படாதீங்க for the fenced பரவாயில்ல and வாங்குங்க for the fenced குடிங்க to hold the unfenced count at 2 (பேசணும், கோவில்), both answered in-beat. Karthi's -nga-off-first-person discipline holds throughout. Person-tail pattern landed across all five target forms (ஏன்/ஆன்/ஆங்க/ஈங்க + the -ஓம் tail) plus incidental extensions on வா and கேள் stems.",
+  "glosses": {
+    "நான் பாத்துக்கிறேன்": "I'll manage / I'll take care of it",
+    "இன்னைக்கு வர முடியாது": "Cannot come today"
+  }
+}
