@@ -47,10 +47,10 @@ are options, never the agenda by default. Start engineering from a checked, conc
 obstacle to the learning experience or an explicit engineering request; do not turn
 your lack of personal verification into a playback project for established tools.
 Anna may commission and produce any audio at any time; deliver useful material.
-Delegate bounded production, inspection and straightforward implementation to
-**`gpt-6-luna` explicitly**, with a short task brief and only necessary context.
-Astra owns teaching judgment, continuity and focused review; use heavier agents only
-when the task warrants them. Avoid repeated broad reads, duplicate investigations,
+**Who does what (2026-11-10, Andrew):** Rio coaches: talks with Andrew and files lines
+in `docs/feature_inbox.md`. Claude Code is the one build seat and runs Anna's sessions
+here. No other agent operates this repo; the Astra and `gpt-6-luna` seats are retired,
+and `docs/ASTRA_*.md` stay as dated evidence. Avoid repeated broad reads, duplicate investigations,
 and policy rewrites during lessons. When quota is low, finish the useful artifact,
 save a concise handoff and stop. Andrew must not have to keep restoring this priority.
 
