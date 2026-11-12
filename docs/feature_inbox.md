@@ -11,7 +11,6 @@ line and leaves; one that dies is deleted, not archived.
 
 ## Inbox
 - For the Oracle (2026-11-09, Fable's examination): do `nee vaangina / nee senja / nee pona` mean "you bought / did / went", as the 10-31 soak sheet has it, or "if you buy / do / go"? And is `freeya vidunga` Kovai or an English calque (the judge and Anna disagree)? awaiting Andrew (2026-11-10): his to carry.
-- Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it"). awaiting Andrew (2026-11-10): he said yes; @build owes him the consequence in plain words first (386 pool words he has never met would join the 429-row lexicon, and the sweep and the check draw from it).
 
 ## Backlog
 - Telegram leg for the live thread (2026-11-09, Andrew's ruling at the drain): a bot webhook into the existing Cloud Run bridge and a Bot API send beside the Meta one; voice notes both ways. DEFERRED (2026-11-10, Andrew: "not sure whether we need Telegram at this juncture"): the push thread already follows a session's teaching and he answers it. Reopen if push turns stop being enough.
