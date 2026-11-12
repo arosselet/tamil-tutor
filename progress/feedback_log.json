@@ -715,5 +715,11 @@
     "note": "[audio rating] [mission] Ep 99 — The Call From Chennai — lost the thread. ← COVERAGE BROKE HERE: he stayed with the tape and could not follow it. This is the 95%-known-words rule failing on a specific artifact, which is the one audio diagnostic the ledger could never collect before.",
     "id": "tier2_mission99",
     "minutes": 3.35
+  },
+  {
+    "date": "2026-11-12",
+    "note": "[audio rating] [knock/eavesdrop] Knock — 2026-11-12 20:36 · overheard: theriyuma — lost the thread. ← COVERAGE BROKE HERE: he stayed with the tape and could not follow it. This is the 95%-known-words rule failing on a specific artifact, which is the one audio diagnostic the ledger could never collect before.",
+    "id": "knock_2026-11-12T20-36",
+    "minutes": 0.5333333333333333
   }
 ]
