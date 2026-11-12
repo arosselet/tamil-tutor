@@ -147,6 +147,7 @@ def main():
         run(state.s56_timezone_is_one_dial, sb)
         run(render.s48_drill_answer_key_lint, sb)
         run(render.s57_rotation_tape, sb)
+        run(render.s164_rotation_scenes_live_in_the_household, sb)
         run(render.s89_every_voice_lane_carries_the_dialect, sb)
         run(render.s95_the_payoff_closes_the_tape, sb)
         run(render.s96_an_empty_sheet_is_not_a_dose, sb)

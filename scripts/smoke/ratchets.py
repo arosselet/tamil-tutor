@@ -250,7 +250,8 @@ CODE_BUDGETS = {
     # judge that cannot run holds the movement; an all-held tape publishes
     # nothing. The writer's prompt is now one function the repair pass shares.
     # 430 -> 410 (2026-10-15): the shelf (`--if-short`, its gate) moved out to shelf.py; re-censused down, not held.
-    "scripts/render_rotation.py": 410,
+    # 410 -> 429 (2026-11-10, Andrew): `people` and the household in the movement prompt; scenes and the call are cast from the canon. Retires nameless per-movement scene voices (kept only as the empty-cast fallback).
+    "scripts/render_rotation.py": 429,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     # 195 -> 211 (2026-10-12, Andrew): the judge seat. Retires the unchecked hand-off
     # from the writer to the TTS — the focus brief invited novel inflections and

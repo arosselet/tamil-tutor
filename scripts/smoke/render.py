@@ -424,6 +424,42 @@ def s48_drill_answer_key_lint(sb: Path):
             queue_path.write_bytes(queue_before)
 
 
+def s164_rotation_scenes_live_in_the_household(sb: Path):
+    """The tapes live in the house (2026-11-10, Andrew). Rotation scenes were two
+    nameless voices drawn fresh from the pool, and the overheard call an unnamed
+    aunty, while the episodes and the phone live in the household.
+
+    Gate 7.2, out loud: the silent failures are a plan that names people the
+    writer is never told, a writer told and a renderer that still deals random
+    voices, and one person cast against themselves. Each is asserted on what the
+    writer is handed and on the voices the tape would use."""
+    print("")
+    print("164. Rotation scenes live in the household (2026-11-10)")
+    rl = importlib.import_module("render_rotation")
+    pins = rl.household.cast()
+    check("the canon has a cast to draw from", len(pins) >= 2, str(pins))
+    pairs = [rl.people("scene", i)["people"] for i in range(40)]
+    check("a scene names two different people of the house, every time",
+          all(len(set(p)) == 2 and set(p) <= set(pins) for p in pairs), str(pairs[:5]))
+    check("...and the pairs rotate across a tape", len({tuple(p) for p in pairs}) >= 5)
+    check("the overheard call is Athai", rl.people("eavesdrop", 0) == {"people": ["Athai"]})
+    check("teaching shapes name nobody", rl.people("machine", 0) == {} and rl.people("lore", 1) == {})
+    mv = {"shape": "scene", "items": [], "people": ["Paati", "Deepa"]}
+    system = rl.movement_system(mv)
+    check("the writer is handed the canon and who speaks as a and b",
+          "## 2. Cast" in system and 'Paati speaks as "a" and Deepa as "b"' in system)
+    voices = []
+
+    class Tape:
+        async def header(self, text): pass
+        async def add(self, text, voice, gap, tamil=False): voices.append(voice)
+
+    import asyncio
+    sheet = {"frame": "x", "beats": [{"say": "ம்", "en": "", "who": "a"}, {"say": "ம்", "en": "", "who": "b"}]}
+    asyncio.run(rl.render_movement(Tape(), mv, sheet, 3))
+    check("each person is voiced by their own pin", voices == [pins["Paati"], pins["Deepa"]], str(voices))
+
+
 def s57_rotation_tape(sb: Path):
     """The fourth audio lane (2026-08-10) — a 40-60 minute press-once tape for the
     flight, where the other three channels' 10-15 minute dose is the wrong shape:

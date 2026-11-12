@@ -82,13 +82,14 @@ import re
 import shutil
 import sys
 import tempfile
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import audible as claim_audible, deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
+import household
 from language import ANNA_VOICE, EAVESDROP_VOICE
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
@@ -367,8 +368,29 @@ def plan_movements(pool: list[dict], spine: str, count: int) -> list[dict]:
             items = [pool[(cursor + j) % len(pool)] for j in range(min(n, len(pool)))]
             cursor += n
             taught.extend(items)
-        plan.append({"shape": shape, "items": items})
+        plan.append({"shape": shape, "items": items, **people(shape, i)})
     return plan
+
+
+# THE TAPES LIVE IN THE HOUSE (2026-11-10, Andrew). Rotation scenes were two
+# nameless voices drawn fresh from the pool each movement, and the overheard call
+# an unnamed aunty: the shelf, which builds most of the unattended audio, stood
+# outside the household the episodes and the phone live in. A scene now names two
+# people of the canon, voiced by their pins, rotating by day and slot; the call is
+# Athai, who already carries the pinned eavesdrop voice. Python picks, the writer
+# is told. An empty cast keeps the old voices and says so.
+def people(shape: str, i: int) -> dict:
+    if shape == "eavesdrop":
+        return {"people": ["Athai"]}
+    if shape != "scene":
+        return {}
+    names = sorted(household.cast())
+    if len(names) < 2:
+        print("   ⚠ no household cast — this scene keeps nameless voices")
+        return {}
+    k, n = date.today().toordinal() + 3 * i, len(names)
+    a = k % n
+    return {"people": [names[a], names[(a + 1 + (k // n) % (n - 1)) % n]]}   # offset 1..n-1: never the same person
 
 
 # ── The sheets: one small call per movement ─────────────────────────────────
@@ -404,7 +426,12 @@ def write_movement(mv: dict, spine: str, brief: str | None = None) -> dict:
 def movement_system(mv: dict) -> str:
     """The writer's system prompt for one movement — shared with the judge seat's
     repair pass, so a mended line is written in the voice the movement was."""
-    return f"{voice_canon()}\n\n---\n\n{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
+    who = mv.get("people") or []
+    cast = (f"\n\nTHE HOUSEHOLD (content/household.md):\n{household.load()}\n\nTHIS MOVEMENT'S PEOPLE: "
+            + (f'{who[0]} speaks as "a" and {who[1]} as "b". They may talk to Andrew, the visitor '
+               "upstairs; he has no line." if len(who) == 2 else f"{who[0]} is the one on the phone.")
+            ) if who else ""
+    return f"{voice_canon()}\n\n---\n\n{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}{cast}"
 
 
 # Shapes whose beats are a CONVERSATION: a line cut out of one breaks it, so a
@@ -535,8 +562,11 @@ def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
                   f"**ANNA:** {spoken_frame(mv['shape'], sheet)}", ""]
         for beat in sheet["beats"]:
             say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
-            who = WHO.get(beat.get("who"), "ANNA") if mv["shape"] == "scene" else \
-                ("AUNTY" if mv["shape"] == "eavesdrop" else "ANNA")
+            names = [p.upper() for p in mv.get("people") or []]
+            if mv["shape"] == "scene":
+                who = names[beat.get("who") == "b"] if len(names) == 2 else WHO.get(beat.get("who"), "ANNA")
+            else:
+                who = (names[0] if names else "AUNTY") if mv["shape"] == "eavesdrop" else "ANNA"
             if say:
                 lines.append(f"**{who}:** {say}")
             if en:
@@ -562,6 +592,9 @@ async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
     follows something he was handed five minutes ago."""
     after_say, after_en, after_beat = RHYTHM[mv["shape"]]
     voice_a, voice_b = movement_voices(n)
+    if mv["shape"] == "scene" and len(mv.get("people") or []) == 2:
+        pins = household.cast()
+        voice_a, voice_b = (pins.get(p, v) for p, v in zip(mv["people"], (voice_a, voice_b)))
     await tape.header(spoken_frame(mv["shape"], sheet))
     for beat in sheet["beats"]:
         say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
