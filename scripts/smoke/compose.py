@@ -1194,6 +1194,24 @@ def s162_an_episode_may_name_the_visitor(sb: Path):
           and "never an addressee" not in hosts and "never address the learner" not in rs.PREAMBLE + agent)
 
 
+def s163_the_breakdown_has_an_asker(sb: Path):
+    """One asks, one explains (2026-11-10, Andrew, on Rio's filing). Both analysts
+    explained, so nobody asked the listener's questions and nobody was ever wrong
+    on the way to an answer.
+
+    Gate 7.2, out loud: the silent failure is a rule in a file no pass reads. The
+    cloud writer sees only what `inline_canon` carries, so the assertion is on the
+    Architect's carried prompt, not on the file."""
+    print("")
+    print("163. The Breakdown has an asker, and he is corrected once (2026-11-10)")
+    rs = importlib.import_module("run_studio")
+    carried = rs.inline_canon(rs.ARCHITECT)
+    check("the Architect is carried the asker rule from hosts.md",
+          "One asks, one explains" in carried and "gets something wrong" in carried)
+    check("...and the Breakdown section names it where the structure is set",
+          "Raj asks, Maya explains" in carried)
+
+
 def s114_the_studio_lives_in_the_household(sb: Path):
     """THE CANON IS READ, AND THE CANON REMEMBERS (2026-09-19).
 

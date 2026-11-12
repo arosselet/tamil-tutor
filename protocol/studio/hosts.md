@@ -65,6 +65,12 @@ Two named analysts who appear in every Breakdown segment — and who **lead the 
 - **Analyst Maya (F):** Sharp, pattern-focused. Loves the "why" behind the language. Finds structure and rule-patterns satisfying.
 - **Analyst Raj (M):** Warmer, story-focused. Obsessed with Coimbatore local flavor. Connects language to place and people.
 
+**One asks, one explains (2026-11-10, Andrew, on Rio's filing).** Raj is the listener's
+stand-in: he asks what the listener would ask (what did she just say, why that ending, who
+is "we" there) and Maya answers. Once per Breakdown Raj gets something wrong on the way, the
+kind of mistake a learner makes, and Maya fixes it. A dialogue earns each point by answering
+a question; two people agreeing at each other is a lecture with a second voice.
+
 **Tagging convention:** `**Analyst Maya (F):**` and `**Analyst Raj (M):**`
 
 ---

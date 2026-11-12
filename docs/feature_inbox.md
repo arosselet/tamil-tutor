@@ -10,7 +10,6 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-- Podcast structure for the Room (2026-11-10, Rio): docs/podcast_structure_for_room_2026-11-10.md — see doc.
 - For the Oracle (2026-11-09, Fable's examination): do `nee vaangina / nee senja / nee pona` mean "you bought / did / went", as the 10-31 soak sheet has it, or "if you buy / do / go"? And is `freeya vidunga` Kovai or an English calque (the judge and Anna disagree)? awaiting Andrew (2026-11-10): his to carry.
 - A lane list before anything is parked (2026-11-10, Andrew's ruling): he plays the unasked tapes sometimes, unrated, so they keep running. @build looks at rotation, soak, drill, the overheard tape, the reflection, the commission router and live, and brings him a list. Known already: the rotation lane never reads the household, and `mandates.py` still defines a tape as overheard. awaiting @build.
 - Why the rating shortcut goes unused (2026-11-10, Andrew: ratings stay the ear's measure; no questions at the end of an episode): six ratings ever, none since 10-16. Diagnose before building. awaiting @build.

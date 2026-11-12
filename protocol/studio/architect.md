@@ -122,7 +122,7 @@ Write Tamil in plausible spoken register — close to how Coimbatore actually so
 
 **`narrated_drama` takes no Breakdown** (2026-08-05, Andrew): the Narrator already carried the English inside the scene, so a Breakdown is the same gloss twice. Spend the length on payload items instead.
 
-- **English banter that unlocks the Intercept.** Maya and Raj talk about what they just heard, **in English** — the Intercept was the immersion; this is the key that makes it land. They play back snippets, react, joke about the characters' decisions. Tamil appears as the quoted snippet, never as the medium.
+- **English banter that unlocks the Intercept.** Maya and Raj talk about what they just heard, **in English** — the Intercept was the immersion; this is the key that makes it land. They play back snippets, react, joke about the characters' decisions. Tamil appears as the quoted snippet, never as the medium. **Raj asks, Maya explains** (`hosts.md`): his questions are the listener's, and once per Breakdown he gets one wrong and is corrected.
 - **Follow what makes the exchange interesting.** Pick one or two beats — a double meaning, a sound, a cultural tell, why someone said it that way. Explain a blocking word or ending when it makes the scene clearer, then replay the snippet in context. Keep the discovery and banter; avoid a payload inventory or closing word-list. The audio may teach: understanding must not depend on Andrew attending a later chat. Captions and in-scene scaffolding can carry the remaining new material.
 - **Energy:** NotebookLM-style curiosity and banter, in English around the Tamil snippets. A full Breakdown may occupy much of the episode, but its English explanation is not Tamil listening time. In `vignette` the Intercept stands on its own.
 
