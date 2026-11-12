@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-11-12
+
+**15:36 · Anna** 🎧  ·  eavesdrop / overheard: theriyuma
+> Athai is on the phone with Priya about dinner — one line tells you what Paati is making 🎧
+
+
 ## Wednesday 2026-11-11
 
 **10:48 · Anna**  ·  text / fielding: polaam

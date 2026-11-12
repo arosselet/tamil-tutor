@@ -10059,5 +10059,24 @@
     "rationale": "Polaam is still waiting for an answer from earlier today, and irukku and ulla are on the 7d over-asked list; holding silence until tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-12T13:24:47.046607+00:00"
+  },
+  {
+    "date": "2026-11-12",
+    "timestamp": "2026-11-12T20:36:15.862402+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: theriyuma",
+    "rationale": "Afternoon reach via [arc] overheard tape featuring 'தெரியுமா?' with Athai gossiping to Priya about Paati cooking dinner for Andrew.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-13T00:36:15.862402+00:00",
+    "body": "Athai is on the phone with Priya about dinner — one line tells you what Paati is making 🎧",
+    "body_script": "Athai is on the phone with Priya about dinner — one line tells you what Paati is making 🎧",
+    "expected_target": "தெரியுமா?",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-12T20-36.mp3",
+    "memo_script": "ஆமா பிரியா, ஆண்ட்ரூ மேல ரூம்ல தான் இருக்காரு. சாயங்காலம் காபி குடுத்துட்டு வந்தேன். பாட்டி இன்னைக்கு என்ன பண்ணிருக்காங்க தெரியுமா?\n\nகாலையில கார்த்தி கிட்ட சொல்லி, ராகி மாவு வாங்கிட்டு வர வச்சாங்க. ஆண்ட்ரூக்கு ராகி தோசை ரொம்ப பிடிக்குமாம்! மாமா பாத்துட்டு, 'அவருக்கு இதெல்லாம் பழக்கம் இருக்கா'ன்னு கேக்குறாரு.\n\nஆனா ஆண்ட்ரூ நல்லா சாப்பிடுவாருன்னு பிரியா நீதானே சொன்ன... பாட்டி இப்போ அடுப்படியில உக்காந்து தோசை சுட்டுட்டு இருக்காங்க. சரி சரி, நீ வீட்டுக்கு வந்து பாரு.",
+    "mp3": "published_audio/knocks/knock_2026-11-12T20-36.mp3"
   }
 ]

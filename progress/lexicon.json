@@ -3620,9 +3620,9 @@
       82,
       83
     ],
-    "last_surfaced": "2026-11-06",
+    "last_surfaced": "2026-11-12",
     "direction": "catch",
-    "exposures": 4,
+    "exposures": 5,
     "register": "gossip",
     "taught_on": null
   },

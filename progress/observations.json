@@ -26651,5 +26651,17 @@
     "medium": "audio",
     "source": "drill_2026-11-11_1549",
     "note": ""
+  },
+  {
+    "id": "2f6d2af7f10c",
+    "at": "2026-11-12T20:37:05Z",
+    "word": "தெரியுமா?",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-12T20:36:15.862402+00:00",
+    "note": ""
   }
 ]
