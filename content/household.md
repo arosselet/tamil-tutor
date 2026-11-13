@@ -63,7 +63,7 @@ overheard aunty on every tape is this aunty.
 ### The visitor — Andrew (ஆண்ட்ரூ)
 
 Approved by Andrew 2026-11-09. He is himself: a friend of Priya's husband, from
-Canada, staying in the unfinished upstairs room for a few months, learning Tamil. Not family. **He has no voice in audio**: people speak
+Canada, staying in the unfinished upstairs room for a few months, learning Tamil. Not family. **He has no voice in audio**, and a recording speaks to him without his name (2026-11-12): people speak
 to him and about him, and his lines are his own to say. The stakes of a scene are
 what these people want from him and make of him, never a bigger plot.
 

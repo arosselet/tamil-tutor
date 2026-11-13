@@ -54,6 +54,7 @@ memo_script is an overheard TAPE, not you talking: one side of a phone call in t
 pinned aunty voice, ~45-90s, ONE ear-only item woven in; the 95%-coverage rule does \
 not apply. SET IT IN THE HOUSEHOLD: one of the canon's people, bound by its \
 standing facts, named or kinship-termed in the opening lines — a tape with no named referent goes SILENT. \
+He is not that referent: a tape may turn to him, but say his name and it goes SILENT too.\
 Soap-sized: food, plans, visitors, health, the day just had; never plot. \
 notification_body is one English drift-question that makes him want to press play, \
 never proves he understood — PULL: "Athai's on the phone about the scooter key — one \

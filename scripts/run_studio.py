@@ -98,8 +98,8 @@ You are ONE pass of the Studio pipeline (protocol/studio/studio.md) for the
 Tamil learning repo in the current directory. You are print-only: PRINT your
 artifact as your response. Write NO files, run NO commands, touch NO git —
 Python persists your output and runs the next pass. The household may speak to
-the visitor and say his name (content/household.md); he never has a line, and
-the hosts never address the listener (protocol/studio/hosts.md).
+the visitor, without saying his name (content/household.md); he never has a line,
+and the hosts never address the listener (protocol/studio/hosts.md).
 """
 
 DIRECTOR = PREAMBLE + """
@@ -553,16 +553,21 @@ VOICE_CARRIES = 0.50
 
 
 def fourth_wall(script: str, learner: str) -> list[str]:
-    """HE MAY BE NAMED; HE NEVER SPEAKS (2026-11-10, Andrew). The 11-09 canon seats
-    him in the house as the visitor people talk to, and the old check still failed
-    any script holding his name: M99, the first episode ordered from a session, died
-    on it. What stays refused is a line of his own, under his name or a LEARNER label."""
+    """SPOKEN TO, NEVER NAMED, NEVER SPEAKING. 2026-11-10 lifted the name ban so the
+    household could talk to him; M99 named him four times and he called it jarring
+    (2026-11-12, Andrew: no name in any recording). The scene may still turn to him,
+    without the name; a line of his own, under his name or a LEARNER label, stays
+    refused."""
     who = "|".join(["learner", "student"] + ([re.escape(learner)] if learner else []))
+    out = []
     if re.search(rf"^\s*(?:\*\s*)?\*\*\s*(?:the\s+)?(?:{who})\b", script,
                  re.IGNORECASE | re.MULTILINE):
-        return ["fourth wall: a speaker is labeled as the learner — "
-                "self-insert characters break the podcast's own world"]
-    return []
+        out.append("fourth wall: a speaker is labeled as the learner — "
+                   "self-insert characters break the podcast's own world")
+    if household.names_the_visitor(script) or (learner and re.search(rf"\b{re.escape(learner)}\b", script, re.I)):
+        out.append(f"script says the learner's name ({learner or 'the visitor'}) — a recording "
+                   "may speak to him, never by name (2026-11-12)")
+    return out
 
 
 def lint(n: int, baseline: set[str] | None = None) -> list[str]:

@@ -134,7 +134,8 @@ CODE_BUDGETS = {
     # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.
     # 510 -> 513 (2026-11-09): LIVE_MANDATE's brief and beat lines.
     # 513 -> 515 (2026-11-10): LIVE_MANDATE's early-answer line.
-    "scripts/mandates.py": 516,
+    # 516 -> 517 (2026-11-12, Andrew: no name in any recording): the overheard tape is told it may not say his name. Retires the 11-10 permission to name him.
+    "scripts/mandates.py": 517,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).
@@ -251,7 +252,8 @@ CODE_BUDGETS = {
     # nothing. The writer's prompt is now one function the repair pass shares.
     # 430 -> 410 (2026-10-15): the shelf (`--if-short`, its gate) moved out to shelf.py; re-censused down, not held.
     # 410 -> 429 (2026-11-10, Andrew): `people` and the household in the movement prompt; scenes and the call are cast from the canon. Retires nameless per-movement scene voices (kept only as the empty-cast fallback).
-    "scripts/render_rotation.py": 429,
+    # 429 -> 434 (2026-11-12, Andrew: no name in any recording): a dialogue movement that says his name does not play. Retires the 11-10 permission to name him.
+    "scripts/render_rotation.py": 434,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     # 195 -> 211 (2026-10-12, Andrew): the judge seat. Retires the unchecked hand-off
     # from the writer to the TTS — the focus brief invited novel inflections and
@@ -307,7 +309,8 @@ CODE_BUDGETS = {
     # 480 -> 495 (the judge seat (2026-10-12, Andrew)): one repair pass on the Producer's script,
     # before the caption pass so captions follow what is spoken.
     # 495 -> 497 (2026-11-10, Andrew): `fourth_wall`, split out so it can be tested. Retires the ban on his name in a script.
-    "scripts/run_studio.py": 497,
+    # 497 -> 501 (2026-11-12, Andrew: no name in any recording): `fourth_wall` refuses his name again, both spellings. Retires the 11-10 permission to name him.
+    "scripts/run_studio.py": 501,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
     # rather than the 55 census: headroom for diagnosis, not for a second job —
     # what happens IN the household is Anna's and the Architect's, and the day

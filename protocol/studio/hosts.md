@@ -12,7 +12,7 @@ Two episode segments. Four voices. Each segment has its own pair.
 
 **The Intercept is performed by the household cast.** `content/household.md` is
 the canon: who they are, how each one talks, and the TTS voice pinned to each.
-The visitor (`content/household.md`) may be spoken to and named; he has no line of his own, and the hosts never address the listener.
+The visitor (`content/household.md`) may be spoken to, without his name (2026-11-12, Andrew: hearing it on a tape was jarring); he has no line of his own, and the hosts never address the listener.
 
 **Tagging convention:** the character's name plus a gender marker —
 `**Paati (F):**`, `**Karthi (M):**`. The gender tag is always present; the
@@ -54,7 +54,7 @@ version in the outreach mandate.
   (`suggest_targets.scene_spec`). The household is a setting; it is never a reason
   to repeat a register, a form or a dramatic ingredient.
 - **Anna is not in it.** He talks *about* the household like a show the two of
-  them follow. The fourth wall stays up and his name never appears in a script.
+  them follow. The fourth wall stays up and Anna's name stays out of every script.
 
 ---
 

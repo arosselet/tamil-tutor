@@ -1167,22 +1167,26 @@ def s97_a_commission_brief_is_not_material(sb: Path):
 
 
 def s162_an_episode_may_name_the_visitor(sb: Path):
-    """He may be named; he never speaks (2026-11-10, Andrew). The 11-09 canon has
-    the household speak to him, and the episode checker failed any script that
-    held his name, so the first episode ordered from a session (M99) was written
-    in full and then refused.
+    """Spoken to, never named, never speaking. 2026-11-10 let episodes name him so
+    the household could talk to him; on 11-12 he called M99's naming jarring and
+    ruled: no name in any recording. The function keeps its 11-10 name so the
+    history reads in order.
 
-    Gate 7.2, out loud: the silent failure runs both ways. A checker that still
-    refuses the name kills every episode the canon asks for; a checker that lets
-    him speak hands him a voice the canon denies him. Both are asserted on the
-    function the lint calls, and the three prompts that told writers otherwise
-    are read."""
+    Gate 7.2, out loud: the silent failure runs both ways. A checker that refuses
+    any address kills every scene the canon asks for; a checker that misses the
+    Tamil spelling (an ending fuses onto it) lets the jarring line through. Both
+    spellings, a fused ending and a plain address are asserted on the function the
+    lint calls, and the prompts are read."""
     print("")
-    print("162. An episode may name the visitor, and he never speaks (2026-11-10)")
+    print("162. An episode speaks to the visitor, never by name, and he never speaks (2026-11-12)")
     rs = importlib.import_module("run_studio")
-    said_to = "**Karthi (M):** நாம மேல போலாமா, Andrew?\n**Analyst Maya (F):** Even Andrew is counted in."
-    check("a script where the household says his name passes",
-          rs.fourth_wall(said_to, "Andrew") == [], str(rs.fourth_wall(said_to, "Andrew")))
+    to_him = "**Karthi (M):** நாம மேல போலாமா?\n**Analyst Maya (F):** Even the visitor is counted in."
+    check("a script where the household speaks to him without the name passes",
+          rs.fourth_wall(to_him, "Andrew") == [], str(rs.fourth_wall(to_him, "Andrew")))
+    check("his English name in a script is refused",
+          rs.fourth_wall("**Analyst Maya (F):** Even Andrew is counted in.", "Andrew") != [])
+    check("...and his Tamil name, with an ending fused on",
+          rs.fourth_wall("**Paati (F):** ஆண்ட்ரூவுக்கு காபி குடு.", "Andrew") != [])
     check("a line spoken under his name is refused",
           rs.fourth_wall("**Andrew (M):** ஆமா, சாப்பிட்டேன்.", "Andrew") != [])
     check("...and so is a speaker labelled as the learner",
@@ -1190,8 +1194,8 @@ def s162_an_episode_may_name_the_visitor(sb: Path):
     hosts = (REAL_BASE / "protocol" / "studio" / "hosts.md").read_text(encoding="utf-8")
     agent = (REAL_BASE / ".claude" / "agents" / "studio.md").read_text(encoding="utf-8")
     check("the writers are told the same thing the checker enforces",
-          all("never has a line" in t for t in (rs.PREAMBLE, agent)) and "no line of his own" in hosts
-          and "never an addressee" not in hosts and "never address the learner" not in rs.PREAMBLE + agent)
+          all("without saying his name" in t for t in (rs.PREAMBLE, agent)) and "without his name" in hosts
+          and "say his name" not in rs.PREAMBLE + agent and "and named" not in hosts)
 
 
 def s163_the_breakdown_has_an_asker(sb: Path):

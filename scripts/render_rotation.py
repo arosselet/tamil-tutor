@@ -428,8 +428,9 @@ def movement_system(mv: dict) -> str:
     repair pass, so a mended line is written in the voice the movement was."""
     who = mv.get("people") or []
     cast = (f"\n\nTHE HOUSEHOLD (content/household.md):\n{household.load()}\n\nTHIS MOVEMENT'S PEOPLE: "
-            + (f'{who[0]} speaks as "a" and {who[1]} as "b". They may talk to Andrew, the visitor '
-               "upstairs; he has no line." if len(who) == 2 else f"{who[0]} is the one on the phone.")
+            + (f'{who[0]} speaks as "a" and {who[1]} as "b". They may talk to the visitor '
+               "upstairs, without saying his name; he has no line." if len(who) == 2
+               else f"{who[0]} is the one on the phone, and does not say the visitor's name.")
             ) if who else ""
     return f"{voice_canon()}\n\n---\n\n{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}{cast}"
 
@@ -459,6 +460,12 @@ def judge_movement(mv: dict, sheet: dict, held: list) -> dict:
     if h:
         print(f"   ⚖️  {len(h)} line(s) held from a '{mv['shape']}' movement")
     held.extend(h)
+    # No name in a recording (2026-11-12, Andrew). A dialogue that says it does not
+    # play: a cut line breaks the conversation, and a spoken name is the whole defect.
+    if mv["shape"] in DIALOGUE_SHAPES and household.names_the_visitor(
+            " ".join((b.get("say") or "") + " " + (b.get("en") or "") for b in sheet["beats"])):
+        print(f"   ⚠ a '{mv['shape']}' movement says the visitor's name — it does not play")
+        sheet["beats"] = []
     return sheet
 
 

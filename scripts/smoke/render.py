@@ -458,6 +458,22 @@ def s164_rotation_scenes_live_in_the_household(sb: Path):
     sheet = {"frame": "x", "beats": [{"say": "ம்", "en": "", "who": "a"}, {"say": "ம்", "en": "", "who": "b"}]}
     asyncio.run(rl.render_movement(Tape(), mv, sheet, 3))
     check("each person is voiced by their own pin", voices == [pins["Paati"], pins["Deepa"]], str(voices))
+    # No name in a recording (2026-11-12, Andrew).
+    check("the writer is told to speak to him without his name",
+          "without saying his name" in system and "Andrew" not in system.split("THIS MOVEMENT'S PEOPLE:")[1])
+    named = {"frame": "x", "beats": [{"say": "ஆண்ட்ரூவுக்கு காபி", "en": "", "who": "a"}]}
+    orig = rl.check_script
+    try:
+        rl.check_script = lambda says, system: (says, [])
+        out = rl.judge_movement(mv, named, [])
+    finally:
+        rl.check_script = orig
+    check("a scene that says his name does not play", out["beats"] == [], str(out["beats"]))
+    mk = importlib.import_module("morning_knock")
+    d = mk.normalize_decision({"act": True, "modality": "eavesdrop", "thread": "arc", "stance": "ask",
+                               "memo_script": "பாட்டி இருக்காங்கல, ஆண்ட்ரூ சாப்டானா?", "expected_target": "x"})
+    check("an overheard phone tape that says his name is refused to silence",
+          d["modality"] == "silence" and not d["act"], str({k: d.get(k) for k in ("modality", "act")}))
 
 
 def s57_rotation_tape(sb: Path):

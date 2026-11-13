@@ -78,6 +78,30 @@ def names(text: str | None = None) -> set[str]:
     return out
 
 
+_VISITOR_RE = re.compile(r"^### The visitor — (?P<name>[^(\n]+?)\s*(?:\((?P<tamil>[^)\n]+)\))?\s*$", re.MULTILINE)
+
+
+def visitor_names(text: str | None = None) -> set[str]:
+    """Every spelling of the visitor's name, English and Tamil, off the canon's heading."""
+    m = _VISITOR_RE.search(text or load())
+    return {s.strip() for s in (m["name"], m["tamil"]) if s and s.strip()} if m else set()
+
+
+def names_the_visitor(script: str, text: str | None = None) -> bool:
+    """NO NAME IN A RECORDING (2026-11-12, Andrew, after M99: "jarring"). The 11-09 seat
+    has the household speak to him; hearing his own name in the third person on a tape
+    he listens to is what jarred. Every recording lane asks here: episodes, rotation
+    scenes, and the phone's overheard and fielding tapes. Live and text, where he is in
+    the conversation, may still say it. Whole word for the English, substring for the
+    Tamil (an ending fuses onto it: ஆண்ட்ரூவுக்கு)."""
+    for n in visitor_names(text):
+        hit = (n in script) if re.search(r"[^\x00-\x7f]", n) else \
+            re.search(rf"\b{re.escape(n)}\b", script, re.IGNORECASE)
+        if hit:
+            return True
+    return False
+
+
 def problem(text: str | None = None) -> str:
     """Why the canon cannot be used, in one sentence, or "" when it can.
 

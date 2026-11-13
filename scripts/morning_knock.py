@@ -620,6 +620,12 @@ def normalize_decision(d: dict, volley_menu: list | None = None,
             d["modality"], d["act"] = "silence", False
         else:
             d["target_revealed"] = False  # the tape plays Tamil, but the ask is comprehension
+    # No name in a recording (2026-11-12, Andrew, after the 11-10 and 11-12 tapes named
+    # him three times each): a household voice on a tape may turn to him, never by name.
+    # Refused like a tape that names nobody: a lost dose is cheaper than a jarring one.
+    if d["modality"] in ("eavesdrop", "fielding") and household.names_the_visitor(d.get("memo_script") or ""):
+        print("   ⚠ the tape says his name — refused (a recording speaks to him without it)")
+        d["modality"], d["act"] = "silence", False
     if d["modality"] == "fielding":
         if (d.get("memo_script") or "").strip():
             d["target_revealed"] = False  # the question plays Tamil; the ANSWER was never shown
