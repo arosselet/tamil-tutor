@@ -102,7 +102,8 @@ BOOK_SHAPES = {
 # The learner's structured fields. A field absent is fine (day zero has few);
 # a field PRESENT in the wrong type is a corrupted book, whatever parsed.
 LEARNER_FIELDS = {"soak_order": dict, "slip_closes": dict, "slip_commissions": dict,
-                  "ladder": dict, "month": dict, "learner": str, "timezone": str}
+                  "ladder": dict, "month": dict, "learner": str, "timezone": str,
+                  "learning_now": str}
 
 
 def book_problem(path: Path, data) -> str:

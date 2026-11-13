@@ -547,7 +547,11 @@ def cmd_open(_args):
     # mentioned). The date alone answers "what happened since".
     print(f"Last here: {last or 'never'}")
     print(f"\nStory so far: {learner.get('last_debrief') or '(none yet)'}")
-    since = [k for k in knocks_since(klog, last) if k.get("acted")]
+    # Said to him in the opening, in phonetics, every session (2026-11-12, Andrew):
+    # visible so he can correct it. A blank one is said out loud too, so it gets set.
+    print(f"\nLEARNING NOW (say it in the opening; if he corrects it, close with --learning-now): "
+          f"{learner.get('learning_now') or '(not set — set it at this close)'}")
+    since =[k for k in knocks_since(klog, last) if k.get("acted")]
     if since:
         print("\nPhone since then (answered ones are judged — never re-collect):")
         for k in since:

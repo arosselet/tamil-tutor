@@ -570,6 +570,20 @@ def fourth_wall(script: str, learner: str) -> list[str]:
     return out
 
 
+SPEAKER_RE = re.compile(r"^\s*\*\*(?P<who>[^*:]+?)\s*(?:\([FM]\))?:\*\*", re.MULTILINE)
+
+
+def opens_on_focus(script: str) -> list[str]:
+    """WHAT HE IS LEARNING, FIRST (2026-11-12, Andrew: "Invisible, it drifts and I
+    don't notice"). An episode with analysts opens on one of them naming the
+    pattern and its words, before the scene; a form with no analysts is exempt."""
+    who = [m["who"].strip() for m in SPEAKER_RE.finditer(script)]
+    if any(w.startswith("Analyst") for w in who) and not who[0].startswith("Analyst"):
+        return [f"the first spoken line is {who[0]}'s — an analyst opens by saying what "
+                "this episode works on (the pattern and its words), then the scene"]
+    return []
+
+
 def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     """Deterministic post-checks — every rule here earned its place from an
     observed failure mode (2026-07-09: the probe broke the fourth wall by
@@ -630,7 +644,7 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
                 f"narrating, so the Tamil is quoted evidence rather than the scene")
     learner = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
                .get("learner") or "")
-    problems += fourth_wall(script, learner)
+    problems += fourth_wall(script, learner) + opens_on_focus(script)
 
     # Payload fidelity — the check both 2026-07-09 bad samples earned: every
     # lexicon item the sidecar claims must appear in the script VERBATIM

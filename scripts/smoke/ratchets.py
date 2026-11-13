@@ -310,7 +310,8 @@ CODE_BUDGETS = {
     # before the caption pass so captions follow what is spoken.
     # 495 -> 497 (2026-11-10, Andrew): `fourth_wall`, split out so it can be tested. Retires the ban on his name in a script.
     # 497 -> 501 (2026-11-12, Andrew: no name in any recording): `fourth_wall` refuses his name again, both spellings. Retires the 11-10 permission to name him.
-    "scripts/run_studio.py": 501,
+    # 501 -> 508 (2026-11-12, Andrew: what he is learning, visible so he can correct it): `opens_on_focus`: an episode with analysts opens on one naming what it works on. Retires nothing; a new surface he asked for.
+    "scripts/run_studio.py": 508,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
     # rather than the 55 census: headroom for diagnosis, not for a second job —
     # what happens IN the household is Anna's and the Architect's, and the day
@@ -328,7 +329,8 @@ CODE_BUDGETS = {
     # The next raise is the split signal: the book check is the seam.
     # 157 -> 158 (same day): POLICY_PATH, the outreach policy book.
     # 158 -> 160 (2026-10-26, Andrew): LIVE_SESSION_PATH and its book shape.
-    "scripts/state_io.py": 160,
+    # 160 -> 161 (2026-11-12, Andrew: what he is learning, visible so he can correct it): `learning_now` joins the learner's typed fields. Retires nothing; a new surface he asked for.
+    "scripts/state_io.py": 161,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     # 35 -> 36 (2026-10-15): APPLE_PODCAST_ID, the show's directory listing,
     # which the show-notes links return to. Retires the bare `podcasts://`.
@@ -367,7 +369,8 @@ CODE_BUDGETS = {
     # 297 -> 302 (2026-10-19, Andrew): `open` prints the map when it is due.
     # 302 -> 304 (2026-10-20, Andrew): the soak order names its NOT TAUGHT YET words.
     # Retires Anna reading taught-ness off the row by eye (Ep 98's three).
-    "scripts/session_brief.py": 304,
+    # 304 -> 306 (2026-11-12, Andrew: what he is learning, visible so he can correct it): the opener prints LEARNING NOW for Anna to say. Retires nothing; a new surface he asked for.
+    "scripts/session_brief.py": 306,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still

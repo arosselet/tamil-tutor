@@ -596,6 +596,14 @@ def cmd_update(args):
     # `--listened` retired 2026-09-10: a listen is evidenced by the rating lane
     # (`rate-episode` exposes the mission's words) — self-report had no other reader.
 
+    # WHAT HE IS LEARNING NOW (2026-11-12, Andrew: "Invisible, it drifts and I don't
+    # notice"). One plain line, written by Anna at a close, said by Anna at the next
+    # opening, and corrected by him when it is wrong. A visible claim he can dispute
+    # is the point; it moves no rung. getattr: hand-built Namespaces in the suite.
+    if (getattr(args, "learning_now", None) or "").strip():
+        learner["learning_now"] = args.learning_now.strip()
+        print(f"  Learning now: {learner['learning_now']}")
+
     # Next engine focus — the frame to unlock next, surfaced in the ticket and digest.
     if args.next_engine:
         learner["next_engine"] = args.next_engine
@@ -1393,6 +1401,9 @@ def main():
                     help="Word(s) produced only after a hint (production axis)")
     up.add_argument("--debrief", type=str, default=None,
                     help="Running 'story so far' — rewrite cumulatively (carry what matters, prune what resolved); Anna's persistent narrative memory, not a one-line log")
+    up.add_argument("--learning-now", type=str, default=None,
+                    help="One plain line: the pattern and three to five words he is learning now. Anna says it "
+                         "at the opening; he corrects it when it is wrong (2026-11-12)")
     up.add_argument("--next-engine", type=str, default=None,
                     help="Frame key to set as the engine to unlock next (e.g. 'frame:polite-nga')")
     up.add_argument("--quiet-until", type=str, default=None, metavar="YYYY-MM-DD|''",

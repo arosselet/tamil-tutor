@@ -231,6 +231,7 @@ def main():
         run(knock.s111_the_reveal_check_reads_the_script, mk, kr, pq, sb)
         run(state.s112_the_month_is_the_arc, sb)
         run(state.s113_the_ladder_is_a_stated_lean_not_a_meter, sb)
+        run(state.s165_what_he_is_learning_is_said_and_correctable, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
         run(state.s120_the_ticket_survives_the_first_check, sb)

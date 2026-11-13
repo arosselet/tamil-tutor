@@ -3795,6 +3795,54 @@ def s99_a_declared_channel_never_votes(sb: Path):
           str(lv.divergence(lex, watched)))
 
 
+def s165_what_he_is_learning_is_said_and_correctable(sb: Path):
+    """What he is learning now, visible (2026-11-12, Andrew: "Invisible, it drifts
+    and I don't notice"). One plain line, set by Anna at a close, said by Anna at
+    the next opening, and opened by an analyst at the top of an episode.
+
+    Gate 7.2, out loud: the silent failures are a line written and wiped by the
+    learner writer, a line stored and never printed where Anna reads, and an
+    episode that buries it after the scene. So the close is driven through the
+    real update, the file is re-read, the opener's output is read, and the
+    episode check is run on both orders."""
+    print("")
+    print("165. What he is learning now is said, and he can correct it (2026-11-12)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    sb_brief = importlib.import_module("session_brief")
+    learner_path = sb / "progress" / "learner.json"
+    saved = learner_path.read_bytes()
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    next_engine=None, debrief=None, no_commission="smoke sandbox")
+    try:
+        line = "who did it, from the ending: -en me, -om we; naama, naanga, polaam, ponom"
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults, "learning_now": line}))
+            ss.cmd_update(_ap.Namespace(**{**defaults, "debrief": "a later close that sets nothing"}))
+        check("the close stores the line, and a later close does not wipe it",
+              read_json(learner_path).get("learning_now") == line, str(read_json(learner_path).get("learning_now")))
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            try:
+                sb_brief.cmd_open(None)
+            except SystemExit:
+                pass
+        check("the opener prints it where Anna reads, with the instruction to say it",
+              "LEARNING NOW (say it in the opening" in out.getvalue() and line in out.getvalue())
+    finally:
+        learner_path.write_bytes(saved)
+    rs = importlib.import_module("run_studio")
+    NL = chr(10)
+    good = "# T" + NL + "**Analyst Raj (M):** This one is about -om, we." + NL + "**Paati (F):** வா." + NL + "**Analyst Maya (F):** ok"
+    bad = "# T" + NL + "**Paati (F):** வா." + NL + "**Analyst Maya (F):** This one was about -om."
+    check("an episode that opens on an analyst naming the focus passes", rs.opens_on_focus(good) == [])
+    check("...one that buries it after the scene is refused", rs.opens_on_focus(bad) != [])
+    check("...and a form with no analysts is exempt", rs.opens_on_focus("# T" + NL + "**Paati (F):** வா.") == [])
+
+
 def s100_the_live_lexicon_is_the_fold_of_its_log():
     """Phase 3's guarantee, held on the REAL tree (2026-09-10): every evidence
     field on every live row equals the fold of `observations.json`. A writer

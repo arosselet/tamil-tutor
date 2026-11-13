@@ -17,6 +17,12 @@ The script's **very first line** must be the H1 title — `# Tier 2, Mission {n}
 
 ---
 
+## The First Spoken Line Says What He Is Learning
+
+**Before the scene, one analyst says in one plain English sentence what this episode works on: the pattern and three to five of its words** (2026-11-12, Andrew: kept invisible, it drifts unnoticed). It is the soak order's focus in his terms, so he can tell whether it is the thing he thinks he is learning. One line, then the scene. A form with no analysts (`vignette`, `narrated_drama`) skips it.
+
+---
+
 ## The Cast
 
 The Intercept is performed by the **household cast** (`content/household.md`), tagged by name and gender — `**Paati (F):**`, `**Karthi (M):**`. The Breakdown analysts are Maya (F) and Raj (M). See `protocol/studio/hosts.md` for the conventions and `content/household.md` for who these people are. Gender tag on every line. Do NOT write a Voice Map — Python injects it from the canon.
