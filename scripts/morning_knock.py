@@ -367,7 +367,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     changed is the population: the 83-row container retired and the ordering it
     carried (`register` → the lead rank) moved onto the rows, so the menu is drawn
     from the whole pool instead of from a set with an expiry date."""
-    from suggest_targets import ASK_COOLDOWN_DAYS, drill_menu, ear_targets
+    from suggest_targets import ASK_COOLDOWN_DAYS, drill_menu, ear_targets, recent_ask_counts
     lex = load_json(LEXICON_PATH) or {}
     menu = drill_menu(lex, max_n=max_fire)
     if not menu:
@@ -390,7 +390,13 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     # entirely. That is the starvation the reservation was built to end, running
     # the other way. The queue owns the ORDER; two slots is this caller's budget,
     # and how it spends them is its own call.
-    _ear = ear_targets(lex)["pending"]
+    # THE EAR QUEUE GETS THE ASK COOLDOWN TOO (2026-11-12, Rio's script audit).
+    # தெரியுமா? was the overheard tape's target six times (08-01 to 11-12), twice in
+    # six days, never taught and never caught: KF-6 again, on the queue the 07-25
+    # cooldown never reached. An unanswered tape sets no `last_surfaced`, so the row
+    # stayed maximally stale and first in `coverage_key` for ever.
+    _asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
+    _ear = [t for t in ear_targets(lex)["pending"] if not _asked.get(t["word"])]
     _machines = [t for t in _ear if not t.get("ear_only")]
     _catch = [t for t in _ear if t.get("ear_only")]
     _picked = [q[0] for q in (_machines, _catch) if q][:max_catch]

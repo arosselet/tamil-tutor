@@ -106,6 +106,7 @@ def main():
         run(knock.s11_capped_graduation, kr, sb)
         run(knock.s12_volley, mk, kr, sb)
         run(knock.s13_eavesdrop, mk, kr, sb)
+        run(knock.s166_the_overheard_target_cools_down, mk, sb)
         run(knock.s14_reply_correlation, kr)
         run(state.s16_stale_clone_gates, sb)
         run(knock.s17_campaign_digest, mk, sb)

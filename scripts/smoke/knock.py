@@ -706,6 +706,52 @@ def s12_volley(mk, kr, sb: Path):
     check("original volley ask survives on record", entry.get("expected_target") == w1)
 
 
+def s166_the_overheard_target_cools_down(mk, sb: Path):
+    """The ear queue gets the ask cooldown (2026-11-12, Rio's script audit). The
+    overheard tape targeted தெரியுமா? six times from 08-01 to 11-12, twice in six
+    days, untaught and never caught: an unanswered tape sets no `last_surfaced`, so
+    the row stayed first in the coverage order for ever (KF-6 on the ear queue).
+
+    Gate 7.2, out loud: the silent failure is a menu that prints the same ear-only
+    item every tick while every instrument reads green. So the menu Anna is handed
+    is read with and without a fresh tape in the knock log, and again once the
+    tape is older than the cooldown."""
+    print("")
+    print("166. The overheard tape's target cools down (2026-11-12)")
+    from datetime import datetime, timedelta, timezone
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    saved = (lex_path.read_bytes(), klog_path.read_bytes() if klog_path.exists() else None)
+    st = importlib.import_module("suggest_targets")
+    try:
+        lex = read_json(lex_path)
+        lex = {k: v for k, v in lex.items() if v.get("direction") != "catch"}
+        lex["தெரியுமா?"] = lex_row(gloss="do you know?", direction="catch")
+        lex["வெளிய"] = lex_row(gloss="outside", recognition="comfortable", taught_on="2026-10-01")   # the menu prints only with something to drill
+        write_json(lex_path, lex)
+        write_json(klog_path, [])
+        head = next((t for t in st.ear_targets(lex)["pending"] if t["ear_only"]), None)
+        check("the one ear-only row heads the ear-only queue", head and head["word"] == "தெரியுமா?", str(head))
+        w = "தெரியுமா?"
+        check("with no recent tape, the menu offers it", f"[ear-only] {w}" in mk.due_menu_block())
+
+        def tape(days_ago):
+            ts = (datetime.now(timezone.utc) - timedelta(days=days_ago)).strftime("%Y-%m-%dT%H:%M:%S+00:00")
+            return [{"timestamp": ts, "date": ts[:10], "acted": True, "modality": "eavesdrop",
+                     "move": "overheard: x", "expected_target": w, "body": "", "memo_script": w}]
+        write_json(klog_path, tape(6))
+        check("a tape on it six days ago keeps it off the menu", f"[ear-only] {w}" not in mk.due_menu_block(),
+              mk.due_menu_block())
+        write_json(klog_path, tape(8))
+        check("...and past the cooldown it may come back", f"[ear-only] {w}" in mk.due_menu_block())
+    finally:
+        lex_path.write_bytes(saved[0])
+        if saved[1] is None:
+            klog_path.unlink(missing_ok=True)
+        else:
+            klog_path.write_bytes(saved[1])
+
+
 def s13_eavesdrop(mk, kr, sb: Path):
     """#6 (2026-07-09): the catch-axis knock. An eavesdrop reply is judged on
     the drift mandate and moves RECOGNITION one rung per catch (upgrades only,
