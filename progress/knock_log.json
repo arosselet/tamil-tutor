@@ -10088,5 +10088,21 @@
     "rationale": "20:36 EST with today's eavesdrop still untouched; let the house sleep and check fresh tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-13T13:06:52.453681+00:00"
+  },
+  {
+    "date": "2026-11-13",
+    "timestamp": "2026-11-13T16:57:54.952579+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one-try: ulla",
+    "rationale": "Midday reach after yesterday's quiet tape: a single, crisp text tug for ulla with Deepa's shoes — text has our highest return and ulla hasn't had a clean production try since the 11-09 no-tap.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-13T21:27:54.952579+00:00",
+    "body": "Deepa's looking for her shoes — 'inside'. Sollu 👟",
+    "body_script": "Deepa's looking for her shoes — 'inside'. சொல்லு 👟",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false
   }
 ]

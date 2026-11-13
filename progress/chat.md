@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-11-13
+
+**11:57 · Anna**  ·  text / one-try: ulla
+> Deepa's looking for her shoes — 'inside'. Sollu 👟
+
+
 ## Thursday 2026-11-12
 
 **15:36 · Anna** 🎧  ·  eavesdrop / overheard: theriyuma
