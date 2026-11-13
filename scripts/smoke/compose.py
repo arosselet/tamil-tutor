@@ -1214,6 +1214,8 @@ def s163_the_breakdown_has_an_asker(sb: Path):
           "One asks, one explains" in carried and "gets something wrong" in carried)
     check("...and the Breakdown section names it where the structure is set",
           "Raj asks, Maya explains" in carried)
+    check("...and a quoted line is followed by its own meaning, back to back (2026-11-12)",
+          "A quoted line, then its meaning, back to back" in carried and "never forced" in carried)
 
 
 def s114_the_studio_lives_in_the_household(sb: Path):
