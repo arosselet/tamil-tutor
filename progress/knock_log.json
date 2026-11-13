@@ -10104,5 +10104,15 @@
     "stance": "ask",
     "thread": "word:உள்ள",
     "target_revealed": false
+  },
+  {
+    "date": "2026-11-13",
+    "timestamp": "2026-11-13T22:23:32.807110+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "rest: evening pause",
+    "rationale": "Two unanswered reaches running and irukku is barred by the already-asked rail; stepping back until Saturday morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-14T13:23:32.807110+00:00"
   }
 ]
