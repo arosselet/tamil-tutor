@@ -10,6 +10,7 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
+- Script audit of the recent feed (2026-11-12, Rio): docs/script_audit_2026-11-12.md.
 - Episode 99 feedback (2026-11-12, Andrew via Rio): docs/episode_99_feedback_2026-11-12.md — see doc.
 - For the Oracle (2026-11-09, Fable's examination): do `nee vaangina / nee senja / nee pona` mean "you bought / did / went", as the 10-31 soak sheet has it, or "if you buy / do / go"? And is `freeya vidunga` Kovai or an English calque (the judge and Anna disagree)? awaiting Andrew (2026-11-10): his to carry.
 
