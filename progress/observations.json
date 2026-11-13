@@ -26795,5 +26795,53 @@
     "medium": "audio",
     "source": "rating:tier2_mission99",
     "note": ""
+  },
+  {
+    "id": "a3c052dc27c6",
+    "at": "2026-11-13T16:59:21Z",
+    "word": "இருக்கு",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-11-13_1659",
+    "note": ""
+  },
+  {
+    "id": "fc762cd6664d",
+    "at": "2026-11-13T16:59:21Z",
+    "word": "கனடாவுல இருக்கோம்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-11-13_1659",
+    "note": ""
+  },
+  {
+    "id": "1d7fca3a108c",
+    "at": "2026-11-13T16:59:21Z",
+    "word": "கிட்ட இருக்கு",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-11-13_1659",
+    "note": ""
+  },
+  {
+    "id": "41ba5193d724",
+    "at": "2026-11-13T16:59:21Z",
+    "word": "இருக்கேன்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-11-13_1659",
+    "note": ""
   }
 ]

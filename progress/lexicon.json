@@ -335,8 +335,8 @@
       34,
       77
     ],
-    "last_surfaced": "2026-11-10",
-    "exposures": 3,
+    "last_surfaced": "2026-11-13",
+    "exposures": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null,
@@ -3295,9 +3295,9 @@
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-11-10",
+    "last_surfaced": "2026-11-13",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "register": "faq",
     "taught_on": "2026-09-25",
     "heard_times": 1,
@@ -4095,10 +4095,10 @@
     "seen_in": [
       64
     ],
-    "last_surfaced": "2026-11-11",
+    "last_surfaced": "2026-11-13",
     "taught_on": "2026-09-21",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "இல்லன்னா": {
     "gloss": "otherwise / if not",
@@ -4616,9 +4616,9 @@
     "seen_in": [
       99
     ],
-    "last_surfaced": "2026-11-12",
+    "last_surfaced": "2026-11-13",
     "reps": 1,
-    "exposures": 5,
+    "exposures": 6,
     "taught_on": "2026-11-11",
     "heard_times": 1
   },
