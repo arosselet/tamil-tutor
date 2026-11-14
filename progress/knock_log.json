@@ -10115,5 +10115,15 @@
     "rationale": "Two unanswered reaches running and irukku is barred by the already-asked rail; stepping back until Saturday morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-14T13:23:32.807110+00:00"
+  },
+  {
+    "date": "2026-11-14",
+    "timestamp": "2026-11-14T16:17:15.631332+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "rest: weekend midday",
+    "rationale": "Two unanswered reaches in a row and live word threads are in ALREADY ASKED; pause until late afternoon.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-14T20:47:15.631332+00:00"
   }
 ]
