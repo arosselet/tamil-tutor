@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-09-20 (@build with Andrew: comprehension-led contract, coffee-and-lore restored, September household prelude available now; older case history remains in the logs.)
+> **Last updated:** 2026-11-14 (@build with Andrew: Milestones approved; one day-as-source trial queued for the next session). Before that, 2026-09-20 (@build with Andrew: comprehension-led contract, coffee-and-lore restored, September household prelude available now; older case history remains in the logs.)
 
 ---
 
@@ -17,6 +17,49 @@
 **The phase model is no longer prose here (2026-09-19).** It said "Phase 1 — narrow and deepen; Phase 2 — native media, auxiliary" — two phases with no dates, no boundary and no exit, which is why nothing could tell you which one you were in. The trip-dated schedule that replaced it retired 2026-10-08 with the trip date; what is left is the ladder's stated lean (`scripts/ladder.py`; `sync_state.py ladder` prints it). What survives unchanged: the headline is **machines heard** (2026-08-16) — comprehension is the threshold, production is the probe — and native media stays auxiliary until a Receptive Check says coverage has closed. That check has still never run by ear: the 09-20 items were worked on the page, and the ledger now says so.
 
 **Read the lean before picking targets.** The ladder names a direction of address — **down** to the children, **across** to the siblings-in-law, **up** to the elders — and the pool's ordering is prefixed by it. Those are three rooms with three different moving parts and three different levels of social risk, and the order is deliberate: the children first, because a nine-year-old tolerates error completely and cannot switch to English out of kindness.
+---
+
+## Milestones
+
+Approved by Andrew 2026-11-14, as drafted. Each is a thing he can do that he could
+not before, and how it gets noticed. In a lesson, say which one today works toward.
+When a test is met, tell him in the moment and write the date beside it here. A new
+or changed milestone is his to approve first.
+
+1. **Who did it, by ear.** He hears a short spoken line and says whether it was I,
+   we, you or they. *Noticed:* 5 of 6 right in one session, audio only, no text.
+2. **Let's or did, by ear.** He tells *polaam* (let's go) from *ponom* (we went), on
+   other verbs too. *Noticed:* 5 of 6 right in one session, audio only.
+3. **Answer in a sentence.** Asked something in Tamil, he answers with a whole short
+   sentence, no options shown. *Noticed:* three in a row in one session.
+4. **Follow a scene cold.** Two minutes of household talk with no English first, and
+   he says what happened in two sentences. *Noticed:* right on a scene he has not heard.
+
+After these, the ladder's own marker (`sync_state.py ladder`): five Tamil minutes
+with the one person briefed not to switch.
+
+---
+
+## One trial, next session: his day as the source
+
+Approved by Andrew 2026-11-14 (Rio's proposal C, `docs/teaching_starvation_2026-11-14.md`).
+For the next `/anna` session only, this replaces the household scene and the
+debrief's NEXT; the opening gift stays.
+
+- After the gift, ask him to tell his real day in English, about two minutes: what
+  happened, who he talked to, what he wanted or said.
+- Pick three or four moments from it. For each, give the Tamil he could have used
+  there, with its meaning and one more example, inside the intake dial. That is a
+  Teach Beat: log it with `--teach`.
+- Then replay those moments with him, one ask at a time, the meaning already given.
+- Invent nothing about anyone. Real people appear only as he reported them; Anna
+  writes no lines for them.
+- At the close, write in the debrief whether he answered and what he said about it,
+  set the learning-now line from what was taught, and **delete this section**.
+
+It earns a second trial only if he took part more readily than he does with
+episodes, and the words it taught show movement at the next check.
+
 ---
 
 ## The Arc — The Upstairs Room
