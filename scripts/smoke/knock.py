@@ -726,7 +726,7 @@ def s166_the_overheard_target_cools_down(mk, sb: Path):
     try:
         lex = read_json(lex_path)
         lex = {k: v for k, v in lex.items() if v.get("direction") != "catch"}
-        lex["தெரியுமா?"] = lex_row(gloss="do you know?", direction="catch")
+        lex["தெரியுமா?"] = lex_row(gloss="do you know?", direction="catch", taught_on="2026-10-01")
         lex["வெளிய"] = lex_row(gloss="outside", recognition="comfortable", taught_on="2026-10-01")   # the menu prints only with something to drill
         write_json(lex_path, lex)
         write_json(klog_path, [])
@@ -744,6 +744,15 @@ def s166_the_overheard_target_cools_down(mk, sb: Path):
               mk.due_menu_block())
         write_json(klog_path, tape(8))
         check("...and past the cooldown it may come back", f"[ear-only] {w}" in mk.due_menu_block())
+        # 2026-11-14 (Andrew, on the census): ten tapes asked `frame:cant-முடியல`,
+        # never taught, and none was answered. The tape takes a taught row only.
+        lex[w]["taught_on"] = None
+        write_json(lex_path, lex)
+        write_json(klog_path, [])
+        check("an untaught row stays off the tape with no tape behind it",
+              f"[ear-only] {w}" not in mk.due_menu_block(), mk.due_menu_block())
+        check("...and it is still in the ear queue, so the cadence warning can count it",
+              any(t["word"] == w for t in st.ear_targets(lex)["pending"]))
     finally:
         lex_path.write_bytes(saved[0])
         if saved[1] is None:

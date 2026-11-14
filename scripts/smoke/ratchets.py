@@ -1538,6 +1538,8 @@ TOMBSTONES = (
      ("the ONE relation the schema carries",
       "never quiz the catch half alone",
       "drill the PAIR")),
+    ("2026-11-14 The overheard tape targets a taught word only",
+     ("the eavesdrop dose IS its first contact",)),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

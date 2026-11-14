@@ -395,8 +395,17 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     # six days, never taught and never caught: KF-6 again, on the queue the 07-25
     # cooldown never reached. An unanswered tape sets no `last_surfaced`, so the row
     # stayed maximally stale and first in `coverage_key` for ever.
+    #
+    # AND ONLY A TAUGHT ROW (2026-11-14, Andrew, on the teaching-starvation census).
+    # From 09-15 to 11-14 the tape asked 23 times, 14 of them about a row with no
+    # `taught_on` (`frame:cant-முடியல` ten times, five to seven days apart, so the
+    # cooldown above would mostly have let it through), and he answered none of the
+    # 14. An untaught row now waits for a Teach Beat he was there for, or a right
+    # answer at the check. The filter sits HERE and never in `ear_targets`:
+    # `remaining_room` counts that queue to say a tape is overdue, and emptying it
+    # is the silent warning its docstring records.
     _asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
-    _ear = [t for t in ear_targets(lex)["pending"] if not _asked.get(t["word"])]
+    _ear = [t for t in ear_targets(lex)["pending"] if not _asked.get(t["word"]) and (lex.get(t["word"]) or {}).get("taught_on")]
     _machines = [t for t in _ear if not t.get("ear_only")]
     _catch = [t for t in _ear if t.get("ear_only")]
     _picked = [q[0] for q in (_machines, _catch) if q][:max_catch]

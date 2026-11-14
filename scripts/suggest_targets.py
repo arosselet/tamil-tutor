@@ -512,11 +512,15 @@ def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
     met-only rule (tried and reverted 2026-08-25, caught by the s-cadence case before
     it shipped). A callback is a RETURN clock, so it returns what was met. This is a
     COVERAGE queue — `coverage_key` leads with fewest-lifetime-reps precisely so the
-    never-worked row sorts to the head — and for a catch row, never-worked is not a
-    row awaiting first contact elsewhere: the eavesdrop dose IS its first contact,
-    and it advances through that dose and no other. Excluding them emptied the pool
+    never-worked row sorts to the head. Excluding them emptied the pool
     that `morning_knock.remaining_room` reads to decide the eavesdrop cadence is
     overdue, which is a warning going silent, behind a bare `except: pass`.
+
+    AN UNTAUGHT ROW IS IN THE QUEUE AND OFF THE TAPE (2026-11-14, Andrew). This
+    docstring used to say a catch row met the ear for the first time on the tape
+    itself. Ten tapes on one untaught frame went unanswered, and
+    `morning_knock.due_menu_block` now offers the tape taught rows only. The row
+    still counts here, so the cadence warning and the coverage order are unmoved.
 
     Was the catch half of `deck_status` (retired 2026-08-18); the catch tag alone
     until 2026-08-25 — see EAR_PATTERN_SLOTS for what that cost."""

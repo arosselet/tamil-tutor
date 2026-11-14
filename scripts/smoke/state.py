@@ -490,6 +490,9 @@ def s33_seed_deck_lands_static_fields(mk, sb: Path):
         cp = [t for t in ear["pending"] if t["word"] == prompt]
         check("the catch line still reaches the ear queue, as ear-only",
               cp and cp[0]["ear_only"] and "pairs_with" not in cp[0], f"got {cp}")
+        # Taught first (2026-11-14): the tape takes a taught row only (s166).
+        lex[prompt]["taught_on"] = "2026-08-01"
+        write_json(lex_path, lex)
         check("the knock menu lists it as ear-only, with no pair branch",
               "[ear-only]" in mk.due_menu_block() and "[pair]" not in mk.due_menu_block(),
               f"got {mk.due_menu_block()}")
@@ -2756,10 +2759,11 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
     # THE MET-ONLY RULE, TRIED AND REVERTED THE SAME DAY. Excluding never-surfaced
     # rows (the callbacks' rule) emptied the pool `remaining_room` reads to decide
     # the eavesdrop cadence is overdue — a warning going silent behind a bare
-    # `except: pass`. A catch row's first contact IS the eavesdrop dose.
+    # `except: pass`. Since 2026-11-14 the tape itself takes taught rows only
+    # (s166); the queue, and so the warning, still holds the untaught one.
     unmet = {"catch:new": lex_row(direction="catch", recognition="struggled",
                                   production="none", last_surfaced=None)}
-    check("a never-surfaced catch row stays in the queue — eavesdrop is its first contact",
+    check("a never-surfaced catch row stays in the queue",
           [t["word"] for t in st.ear_targets(unmet, today=today)["pending"]] == ["catch:new"])
     check("...and it is still what the cadence warning counts",
           "1 catch item(s) pending" in _room_for(mk, sb, unmet),
@@ -2769,7 +2773,7 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
     # fire word or `due_menu_block` returns empty and both checks below pass on a
     # string that was never rendered — a green case proving nothing, which is the
     # very shape this file exists to refuse.
-    menu_lex = dict(lex)
+    menu_lex = {k: {**v, "taught_on": v.get("taught_on") or "2026-08-01"} for k, v in lex.items()}   # the tape takes taught rows only (s166)
     menu_lex["smoke:fire"] = lex_row(recognition="comfortable", production="none",
                                      register="survival", last_surfaced="2026-08-01")
     menu = _menu_for(mk, sb, menu_lex)
