@@ -10,7 +10,7 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-- Teaching starvation (2026-11-14, Andrew via Rio): `docs/teaching_starvation_2026-11-14.md` — awaiting @build.
+- Teaching starvation (2026-11-14, Andrew via Rio): `docs/teaching_starvation_2026-11-14.md`. The census (A) is run and its results are in the doc; B (no ask without teaching) and C (his day as the source) are awaiting Andrew (2026-11-14).
 - Milestones (2026-11-12, Andrew's ruling on the episode 99 feedback): a short list of milestones, each a thing he can do that he could not before and how it would be noticed, for him to approve before anything is built. The "learning now" line shipped first. awaiting @build.
 - For the Oracle (2026-11-09, Fable's examination): do `nee vaangina / nee senja / nee pona` mean "you bought / did / went", as the 10-31 soak sheet has it, or "if you buy / do / go"? And is `freeya vidunga` Kovai or an English calque (the judge and Anna disagree)? awaiting Andrew (2026-11-10): his to carry.
 

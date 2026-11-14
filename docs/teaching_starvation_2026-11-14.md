@@ -89,3 +89,49 @@ No new format, no new host or lane, no model swap, no density dial, no change
 to "hearing is not knowing." If A, B and C all fail their own tests, the
 starvation claim itself needs re-examining — that is the drift test for the
 whole filing.
+
+## Census results (proposal A, run 2026-11-14 at the drain)
+
+Read-only, replayed from `progress/observations.json` and `progress/knock_log.json`
+with the fold's own rules (`lexicon_view.derive`). "Taught" below means `taught_on`
+was set on the day of the ask; "shipped only" means a recording carried a Teach Beat
+and nothing shows he heard it; "never" means no Teach Beat anywhere.
+
+**Where the 431 rows are parked.**
+
+| Gate | Rows |
+|---|---|
+| Never taught, never tested | 61 |
+| A Teach Beat shipped in a recording, no sign he heard it, never tested | 137 |
+| Tested, but still not counted as taught | 29 |
+| Taught, never tested | 28 |
+| Recognition moved, production never | 60 |
+| Production moved, recognition never | 36 |
+| Both moved | 80 |
+
+**Answered tests, 2026-09-15 to 11-14 (142).** Taught 93, shipped only 36, never 13:
+35% were on words he had not provably been taught. By lane: check 62 / 33 / 6,
+session 13 / 3 / 5, text 9 / 0 / 2, the rest all taught. He was wrong on 19% of the
+taught asks, 47% of the shipped-only asks and 31% of the never-taught asks. 39 of the
+49 untaught asks came from the check, which asks untaught rows on purpose (DECISIONS
+10-05, "all you had to do was ask"); outside the check it is 10 of 41.
+
+**Knocks that asked, answered or not, same window (53).** Text 20, fielding 8 and
+volley 2 all asked taught words. The overheard tape asked 23 times, 14 of them on
+untaught targets: `frame:cant-முடியல` ten times (never taught as a frame; he produced
+it once, 08-25) and `தெரியுமா?` four times. None of those 14 was answered. The 11-12
+cooldown (7 days) covers `தெரியுமா?`; the முடியல tapes ran five to seven days apart
+and would mostly pass it.
+
+**The taught gate is the choke.** Since 09-01, recordings shipped 244 word-level
+Teach Beats and 44 were discharged by a listen. Live sessions, the one channel whose
+teaching counts at once, taught 26 words in that time, across 12 sessions. Over the
+same 60 days 61 of 86 knocks went unanswered, and 11 of the last 12.
+
+**What the census cannot see.** A demand that left no test event: an episode payoff
+that presupposes a word, or an ask inside a session that Anna did not log. M99's
+"lost the thread" rating is that kind of evidence and is not counted here.
+
+**Reading.** B's premise holds in two places, the overheard tape and the check, and
+not in text, fielding or volley. The larger number is the 137: the named risk in B is
+real, and an invariant that only forbids would leave most lanes little they may ask.
