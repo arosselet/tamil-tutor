@@ -10135,5 +10135,24 @@
     "rationale": "Two unanswered reaches in a row and live word threads are on cooldown; holding silence through Saturday evening.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-15T13:02:17.873593+00:00"
+  },
+  {
+    "date": "2026-11-15",
+    "timestamp": "2026-11-15T16:00:12.528395+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: summa solraanga",
+    "rationale": "Over 3 days since last eavesdrop with catch backlog pending; Athai catching Karthi in a fib introduces ear-only 'சும்மா சொல்றாங்க'.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-15T20:30:12.528395+00:00",
+    "body": "Athai's on the phone about Karthi's 'office meeting' — one line gives away what he's actually doing 🎧",
+    "body_script": "Athai's on the phone about Karthi's 'office meeting' — one line gives away what he's actually doing 🎧",
+    "expected_target": "சும்மா சொல்றாங்க",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-15T16-00.mp3",
+    "memo_script": "ஹலோ, பிரியா... ஆமாடி, நான் தான் பேசறேன். கார்த்தி காலையிலயே கிளம்பி போயிட்டான். உங்க மாமாகிட்ட ஏதோ ஆபீஸ்ல அவசர வேலைன்னு சொல்லிட்டு போறான்.\n\nஆனா பக்கத்து வீட்டு மாமி என்ன சொன்னாங்க தெரியுமா? பஸ் ஸ்டாண்ட் பக்கத்துல பிரண்ட்ஸோட நின்னு பேசிட்டு இருக்கானாம்! கேட்டா பெரிய வேலைன்னு சும்மா சொல்றாங்க. ஒன்னும் வேலையெல்லாம் இல்ல, வண்டி ரிப்பேர்னு சொல்லிட்டு சுத்திகிட்டு இருக்கான். சரி சரி, நீ கிளம்பி வா, அப்புறம் பேசலாம்.",
+    "mp3": "published_audio/knocks/knock_2026-11-15T16-00.mp3"
   }
 ]

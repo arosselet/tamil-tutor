@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-11-15
+
+**11:00 · Anna** 🎧  ·  eavesdrop / eavesdrop: summa solraanga
+> Athai's on the phone about Karthi's 'office meeting' — one line gives away what he's actually doing 🎧
+
+
 ## Friday 2026-11-13
 
 **11:57 · Anna**  ·  text / one-try: ulla

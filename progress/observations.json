@@ -26843,5 +26843,17 @@
     "medium": "audio",
     "source": "soak_2026-11-13_1659",
     "note": ""
+  },
+  {
+    "id": "b5eafad8c7ca",
+    "at": "2026-11-15T16:00:59Z",
+    "word": "சும்மா சொல்றாங்க",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-15T16:00:12.528395+00:00",
+    "note": ""
   }
 ]
