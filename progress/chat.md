@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-11-16
+
+**12:44 · Anna**  ·  text / map: week 3
+> Nov wk 3: naama and polaam in play, irukku almost yours. Upstairs room continues 🗺️
+
+
 ## Sunday 2026-11-15
 
 **11:00 · Anna** 🎧  ·  eavesdrop / eavesdrop: summa solraanga
