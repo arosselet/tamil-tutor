@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.
 
+**13:58 · Anna**  ·  text / one try: canada-la
+> Neighbour asks where you two are based — 'we live in Canada'. Sollu 🍁
+
 
 ## Monday 2026-11-16
 
