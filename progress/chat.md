@@ -4,6 +4,15 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-11-17
+
+**10:55 · Andrew** — **CHAT**  ·  ↩ 11-16 20:24 · line check
+> Ack
+
+**Anna ↩**
+> Good, line works. All clear da.
+
+
 ## Monday 2026-11-16
 
 **12:44 · Anna**  ·  text / map: week 3

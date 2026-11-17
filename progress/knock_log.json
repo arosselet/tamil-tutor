@@ -10196,6 +10196,31 @@
     "expected_target": "",
     "stance": "give",
     "thread": "",
-    "target_revealed": true
+    "target_revealed": true,
+    "response": "reply",
+    "reply": "Ack",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Good, line works. All clear da.",
+    "reply_line": "Good, line works. All clear da.",
+    "reply_at": "2026-11-17T15:55:21Z",
+    "exchanges": [
+      {
+        "at": "2026-11-17T15:55:21Z",
+        "reply": "Ack",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Good, line works. All clear da.",
+        "reply_line_script": "Good, line works. All clear da.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
