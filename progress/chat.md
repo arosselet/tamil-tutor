@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:44 · Anna**  ·  text / map: week 3
 > Nov wk 3: naama and polaam in play, irukku almost yours. Upstairs room continues 🗺️
 
+**20:24 · Anna**  ·  text / line check
+> Line check: nothing from your phone has reached Anna since 2026-11-10. If you tapped or replied, the reply token has expired (HA doc, section 10).
+
 
 ## Sunday 2026-11-15
 

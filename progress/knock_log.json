@@ -10181,5 +10181,21 @@
     "stance": "give",
     "thread": "map",
     "target_revealed": false
+  },
+  {
+    "date": "2026-11-17",
+    "timestamp": "2026-11-17T01:24:30.596279+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "line check",
+    "rationale": "5 reaches and nothing inbound since 2026-11-10",
+    "decide_model": "python",
+    "next_check": "2026-11-17T04:24:30.596279+00:00",
+    "body": "Line check: nothing from your phone has reached Anna since 2026-11-10. If you tapped or replied, the reply token has expired (HA doc, section 10).",
+    "body_script": "Line check: nothing from your phone has reached Anna since 2026-11-10. If you tapped or replied, the reply token has expired (HA doc, section 10).",
+    "expected_target": "",
+    "stance": "give",
+    "thread": "",
+    "target_revealed": true
   }
 ]
