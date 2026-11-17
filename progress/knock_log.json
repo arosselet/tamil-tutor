@@ -10180,7 +10180,32 @@
     "expected_target": "",
     "stance": "give",
     "thread": "map",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "This is weird I have these two cold",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.",
+    "reply_line": "Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.",
+    "reply_at": "2026-11-17T15:55:59Z",
+    "exchanges": [
+      {
+        "at": "2026-11-17T15:55:59Z",
+        "reply": "This is weird I have these two cold",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.",
+        "reply_line_script": "Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   },
   {
     "date": "2026-11-17",

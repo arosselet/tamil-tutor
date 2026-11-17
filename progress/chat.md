@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Good, line works. All clear da.
 
+**10:55 · Andrew** — **CHAT**  ·  ↩ 11-16 12:44 · map: week 3
+> This is weird I have these two cold
+
+**Anna ↩**
+> Noted da — tracker is lagging behind what's already settled in your head. I'll test them clean in the wild so the map catches up.
+
 
 ## Monday 2026-11-16
 
