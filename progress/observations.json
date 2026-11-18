@@ -27299,5 +27299,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-11-15_1601",
     "note": ""
+  },
+  {
+    "id": "0bdd624d905f",
+    "at": "2026-11-18T18:34:22Z",
+    "word": "அலைச்சல்",
+    "channel": "eavesdrop",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-18T18:33:39.827889+00:00",
+    "note": ""
   }
 ]

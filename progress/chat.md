@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-11-18
+
+**13:33 · Anna** 🎧  ·  eavesdrop / eavesdrop: alaichal
+> Athai's on the phone about Mama's trip into town — one line tells you how the bank visit went 🎧
+
+
 ## Tuesday 2026-11-17
 
 **10:55 · Andrew** — **CHAT**  ·  ↩ 11-16 20:24 · line check

@@ -10273,5 +10273,24 @@
     "rationale": "It is 20:33 EST, right against the 21:00 window close, with today's afternoon tug still untouched.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-18T13:03:16.278053+00:00"
+  },
+  {
+    "date": "2026-11-18",
+    "timestamp": "2026-11-18T18:33:39.827889+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: alaichal",
+    "rationale": "Overheard cadence due after 3d; Athai venting about Mama's bank run weaves in ear-only அலைச்சல்.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-18T23:03:39.827889+00:00",
+    "body": "Athai's on the phone about Mama's trip into town — one line tells you how the bank visit went 🎧",
+    "body_script": "Athai's on the phone about Mama's trip into town — one line tells you how the bank visit went 🎧",
+    "expected_target": "அலைச்சல்",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-18T18-33.mp3",
+    "memo_script": "ஆமாங்க, இவரு காலையிலயே கிளம்பி போனாரு. மாமா கிட்ட நான் அப்பவே சொன்னேன், இந்த பேங்க் வேலைக்கு இன்னைக்கு போகாதீங்கன்னு. கேக்கவே இல்ல.\n\nஅங்க போனா சர்வர் டவுன்-னு சொல்லிட்டாங்களாம். அப்புறம் அங்க இருந்து போஸ்ட் ஆபீஸ் போயிருக்காரு. அங்கயும் வேலை முடியல. ஒரே அலைச்சல் தான். கார்த்தி வேற வண்டிய எடுத்துட்டு போயிட்டான். இவரு பஸ்ல ஏறி இறங்கி வந்து... பாவம், இந்த வயசுல இவருக்கு இந்த அலைச்சல் தேவையா சொல்லுங்க? வீட்டுக்கு வந்து டயர்டா உக்காந்திருக்காரு. இன்னும் காபி கூட குடிக்கல.",
+    "mp3": "published_audio/knocks/knock_2026-11-18T18-33.mp3"
   }
 ]
