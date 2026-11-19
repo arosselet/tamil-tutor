@@ -10302,5 +10302,24 @@
     "rationale": "Two unanswered reaches and window closing in an hour; hold tonight and wake fresh tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-19T13:24:03.886293+00:00"
+  },
+  {
+    "date": "2026-11-19",
+    "timestamp": "2026-11-19T17:54:02.140954+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: irukku",
+    "rationale": "Mama asks after the upstairs room; tests irukku on an 'it' rather than irukken without prompting in English.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-19T22:24:02.140954+00:00",
+    "body": "Room nalla irukka? — answer Mama 🛏️",
+    "body_script": "ரூம் நல்லா இருக்கா? — answer Mama 🛏️",
+    "expected_target": "இருக்கு",
+    "stance": "ask",
+    "thread": "word:இருக்கு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-19T17-54.mp3",
+    "memo_script": "ரூம் நல்லா இருக்கா?",
+    "mp3": "published_audio/knocks/knock_2026-11-19T17-54.mp3"
   }
 ]
