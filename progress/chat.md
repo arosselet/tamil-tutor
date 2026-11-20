@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-11-20
+
+**17:54 · Anna**  ·  text / one try: naama
+> Deepa asks if you two should go up to the terrace — which 'we' includes her too? sollu 🪜
+
+
 ## Thursday 2026-11-19
 
 **12:54 · Anna** 🎧  ·  fielding / fielding: irukku
