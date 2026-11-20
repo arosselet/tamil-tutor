@@ -10332,5 +10332,15 @@
     "rationale": "Three unanswered tugs in a row and evening winding down; holding off until morning to give him room.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-20T13:09:59.871398+00:00"
+  },
+  {
+    "date": "2026-11-20",
+    "timestamp": "2026-11-20T16:41:54.669460+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "hold: midday pause",
+    "rationale": "Three pushes unanswered and naama was flagged as cold; holding quiet to give breathing room rather than forcing a stale thread.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-20T22:11:54.669460+00:00"
   }
 ]
