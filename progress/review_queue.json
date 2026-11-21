@@ -450,5 +450,31 @@
     "source": "rotation_machines_2026-11-18_1834",
     "queued_at": "2026-11-18T18:39:43",
     "status": "pending"
+  },
+  {
+    "id": "47d213d034",
+    "form": "ரொம்ப நாளாச்சு, வந்துட்டேன், எப்படி இருக்கீங்க?",
+    "en": "finally arrived, how are you",
+    "unattested": [],
+    "where": "item",
+    "reason": "unsure: phrase combination for 'finally arrived' is awkward, needs native check",
+    "lane": "rotation",
+    "source": "rotation_room_2026-11-21_1845",
+    "queued_at": "2026-11-21T18:50:07",
+    "status": "pending"
+  },
+  {
+    "id": "aa84f1aa59",
+    "form": "நல்லா இருக்கீங்களா, எப்படி இருக்கீங்க?",
+    "en": "doing good, how are you",
+    "unattested": [
+      "இருக்கீங்களா"
+    ],
+    "where": "item",
+    "reason": "wrong: நல்லா இருக்கீங்களா is a question ('are you well?'), not the statement 'doing good'; should be நல்லா இருக்கேன்",
+    "lane": "rotation",
+    "source": "rotation_room_2026-11-21_1845",
+    "queued_at": "2026-11-21T18:50:07",
+    "status": "pending"
   }
 ]
