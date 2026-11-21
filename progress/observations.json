@@ -27479,5 +27479,17 @@
     "medium": "audio",
     "source": "rotation_machines_2026-11-18_1834",
     "note": ""
+  },
+  {
+    "id": "ea185f9aab4d",
+    "at": "2026-11-21T18:45:00Z",
+    "word": "இன்னும் கொஞ்சம் சாப்பிடுங்க",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-21T18:43:16.808161+00:00",
+    "note": ""
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-11-21
+
+**13:43 · Anna** 🎧  ·  eavesdrop / eavesdrop: saapidunga
+> Athai's on the phone while serving lunch — one line tells you who isn't escaping seconds 🎧
+
+
 ## Friday 2026-11-20
 
 **17:54 · Anna**  ·  text / one try: naama
