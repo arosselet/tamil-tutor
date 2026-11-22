@@ -10387,5 +10387,21 @@
     "rationale": "Five consecutive unanswered reaches; stepping back for Saturday evening to let the line breathe until Sunday morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-22T13:40:13.250184+00:00"
+  },
+  {
+    "date": "2026-11-22",
+    "timestamp": "2026-11-22T20:12:18.703249+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "line check",
+    "rationale": "5 reaches and nothing inbound since 2026-11-17",
+    "decide_model": "python",
+    "next_check": "2026-11-22T23:12:18.703249+00:00",
+    "body": "Line check: nothing from your phone has reached Anna since 2026-11-17. If you tapped or replied, the reply token has expired (HA doc, section 10).",
+    "body_script": "Line check: nothing from your phone has reached Anna since 2026-11-17. If you tapped or replied, the reply token has expired (HA doc, section 10).",
+    "expected_target": "",
+    "stance": "give",
+    "thread": "",
+    "target_revealed": true
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-11-22
+
+**15:12 · Anna**  ·  text / line check
+> Line check: nothing from your phone has reached Anna since 2026-11-17. If you tapped or replied, the reply token has expired (HA doc, section 10).
+
+
 ## Saturday 2026-11-21
 
 **13:43 · Anna** 🎧  ·  eavesdrop / eavesdrop: saapidunga
