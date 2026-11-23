@@ -3,16 +3,16 @@
   "history": [],
   "proposals": [],
   "digest": {
-    "at": "2026-11-16",
+    "at": "2026-11-23",
     "window_days": 28,
-    "reaches": 28,
-    "return_per_reach": 0.75,
-    "learning_per_reach": 0.143,
+    "reaches": 24,
+    "return_per_reach": 0.542,
+    "learning_per_reach": 0.042,
     "lines": [
-      "Return per reach: 75% of 28 reaches over 28d were followed by contact within 2d · learning per reach: 0.14 (target tested right within 7d) · 11 slips logged.",
-      "By kind of reach: text 77% (13) · eavesdrop 60% (10) · 5 more in groups under 8.",
-      "By time of day: evening 80% (10) · afternoon 75% (8) · morning 70% (10).",
-      "Weekend vs weekday: weekday 75% (24) · 4 more in groups under 8."
+      "Return per reach: 54% of 24 reaches over 28d were followed by contact within 2d · learning per reach: 0.04 (target tested right within 7d) · 7 slips logged.",
+      "By kind of reach: text 55% (11) · eavesdrop 44% (9) · 4 more in groups under 8.",
+      "By time of day: evening 62% (8) · afternoon 44% (9) · 7 more in groups under 8.",
+      "Weekend vs weekday: weekday 55% (22) · 2 more in groups under 8."
     ]
   }
 }
