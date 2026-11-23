@@ -10414,5 +10414,21 @@
     "rationale": "Six unanswered reaches and a line check already sent today; holding silence into Sunday night.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-23T13:19:09.113556+00:00"
+  },
+  {
+    "date": "2026-11-23",
+    "timestamp": "2026-11-23T22:22:11.813496+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "map: week 4",
+    "rationale": "Monday evening give: show Week 4 map with zero pressure while the line is quiet.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-24T13:22:11.813496+00:00",
+    "body": "Week 4 map: naama in play, irukku almost yours. Working across with the cousins 🗺️",
+    "body_script": "Week 4 map: நாம in play, இருக்கு almost yours. Working across with the cousins 🗺️",
+    "expected_target": "",
+    "stance": "give",
+    "thread": "map",
+    "target_revealed": false
   }
 ]

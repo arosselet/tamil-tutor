@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-11-23
+
+**17:22 · Anna**  ·  text / map: week 4
+> Week 4 map: naama in play, irukku almost yours. Working across with the cousins 🗺️
+
+
 ## Sunday 2026-11-22
 
 **15:12 · Anna**  ·  text / line check
