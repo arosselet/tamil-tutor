@@ -10404,5 +10404,15 @@
     "stance": "give",
     "thread": "",
     "target_revealed": true
+  },
+  {
+    "date": "2026-11-23",
+    "timestamp": "2026-11-23T01:19:09.113556+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "hold: evening quiet",
+    "rationale": "Six unanswered reaches and a line check already sent today; holding silence into Sunday night.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-23T13:19:09.113556+00:00"
   }
 ]
