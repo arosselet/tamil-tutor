@@ -2657,9 +2657,9 @@
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-11-10",
+    "last_surfaced": "2026-11-24",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "register": "gossip",
     "taught_on": "2026-10-15",
     "reps": 1
@@ -2678,9 +2678,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-11-11",
+    "last_surfaced": "2026-11-24",
     "direction": "fire",
-    "exposures": 5,
+    "exposures": 6,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2711,9 +2711,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-11",
+    "last_surfaced": "2026-11-24",
     "direction": "fire",
-    "exposures": 4,
+    "exposures": 5,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2891,9 +2891,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-24",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -2923,9 +2923,9 @@
       70,
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-24",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -5587,10 +5587,10 @@
     "seen_in": [
       98
     ],
-    "last_surfaced": "2026-10-31",
+    "last_surfaced": "2026-11-24",
     "taught_on": "2026-10-16",
     "reps": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "வாங்கினோம்": {
     "gloss": "We bought (it)",
@@ -5687,9 +5687,9 @@
     "seen_in": [
       99
     ],
-    "last_surfaced": "2026-11-12",
+    "last_surfaced": "2026-11-24",
     "taught_on": "2026-11-11",
-    "exposures": 1,
+    "exposures": 2,
     "heard_times": 1
   },
   "இன்னைக்கு வர முடியாது": {
@@ -5699,9 +5699,9 @@
     "seen_in": [
       99
     ],
-    "last_surfaced": "2026-11-12",
+    "last_surfaced": "2026-11-24",
     "taught_on": "2026-11-11",
-    "exposures": 1,
+    "exposures": 2,
     "heard_times": 1
   }
 }
