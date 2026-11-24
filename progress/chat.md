@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-11-24
+
+**13:32 · Anna** 🎧  ·  eavesdrop / overheard: summa solraanga
+> Athai's on the phone laughing off the neighborhood gossip — catch what she thinks of the rumors 🎧
+
+
 ## Monday 2026-11-23
 
 **17:22 · Anna**  ·  text / map: week 4

@@ -27611,5 +27611,17 @@
     "medium": "audio",
     "source": "rotation_room_2026-11-21_1845",
     "note": ""
+  },
+  {
+    "id": "eebbf34cb097",
+    "at": "2026-11-24T18:33:18Z",
+    "word": "சும்மா சொல்றாங்க",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-24T18:32:23.800275+00:00",
+    "note": ""
   }
 ]
