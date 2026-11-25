@@ -10465,6 +10465,35 @@
     "expected_target": "கனடாவுல இருக்கோம்",
     "stance": "ask",
     "thread": "word:கனடாவுல இருக்கோம்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Canada la veedu",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "வீடு"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Canada-la veedu definitely lands at the table! You could also say `கனடாவுல இருக்கோம்`.",
+    "reply_line": "Canada-la veedu definitely lands at the table! You could also say `Canadavula irukkom`.",
+    "reply_at": "2026-11-25T21:07:06Z",
+    "exchanges": [
+      {
+        "at": "2026-11-25T21:07:06Z",
+        "reply": "Canada la veedu",
+        "verdict": "cold",
+        "fired": [
+          "வீடு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Canada-la veedu definitely lands at the table! You could also say `Canadavula irukkom`.",
+        "reply_line_script": "Canada-la veedu definitely lands at the table! You could also say `கனடாவுல இருக்கோம்`.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

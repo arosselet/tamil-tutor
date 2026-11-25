@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:05 · Anna**  ·  text / one try: irukkom
 > Mama asks where you two are based — 'We live in Canada'. sollu 🍁
 
+**16:07 · Andrew** — **COLD**
+> Canada la veedu
+
+**Anna ↩**
+> Canada-la veedu definitely lands at the table! You could also say `Canadavula irukkom`.
+
 
 ## Tuesday 2026-11-24
 
