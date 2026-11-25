@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-11-25
+
+**16:05 · Anna**  ·  text / one try: irukkom
+> Mama asks where you two are based — 'We live in Canada'. sollu 🍁
+
+
 ## Tuesday 2026-11-24
 
 **13:32 · Anna** 🎧  ·  eavesdrop / overheard: summa solraanga
