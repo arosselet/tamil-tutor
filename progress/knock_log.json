@@ -10495,5 +10495,15 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-11-26",
+    "timestamp": "2026-11-26T22:44:09.313012+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "overheard: alaichal",
+    "rationale": "held by the judge seat (1 line(s)): Overheard tape on [arc] weaving ear-only அலைச்சல் into Athai's venting about Mama's bank trip.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-27T12:44:09.313012+00:00"
   }
 ]
