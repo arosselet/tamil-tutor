@@ -10505,5 +10505,24 @@
     "rationale": "held by the judge seat (1 line(s)): Overheard tape on [arc] weaving ear-only அலைச்சல் into Athai's venting about Mama's bank trip.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-27T12:44:09.313012+00:00"
+  },
+  {
+    "date": "2026-11-27",
+    "timestamp": "2026-11-27T14:34:29.545837+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: alaichal",
+    "rationale": "Cadence calls for an eavesdrop tape; weaving ear-only அலைச்சல் into Athai's phone call about Mama running town errands by bus.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-27T19:04:29.545837+00:00",
+    "body": "Athai's on the phone about Mama's trip into town — catch what wore him out 🎧",
+    "body_script": "Athai's on the phone about Mama's trip into town — catch what wore him out 🎧",
+    "expected_target": "அலைச்சல்",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-27T14-34.mp3",
+    "memo_script": "ஆமாங்க அக்கா, கார்த்தி இன்னைக்கு காலையிலயே கிளம்பிட்டான். அந்த வண்டிய வேற இன்னும் சரி பண்ணலையா, மாமா டவுனுக்கு பஸ்லதான் போனாரு.\n\nகாந்திபுரம் போயிட்டு, அப்புறம் ஆபிஸ் வேலை முடிச்சுட்டு, அந்த வெயில்ல மளிகை சாமான் வாங்கிட்டு வரதுக்குள்ள… பஸ்ல ஏறி இறங்கி போயிட்டு வந்ததே பெரிய அலைச்சல். அவருக்கு கால் வலி வேற வந்துடுச்சு.\n\nநான் அப்பவே சொன்னேன், சாயங்காலமா போகலாம்னு. கேட்டாத்தானே? இப்போ வந்து படுத்துட்டாரு. சரிங்க அக்கா, நான் அப்புறம் கூப்பிடறேன், அவருக்கு கொஞ்சம் காபி போட்டு குடுக்கணும்.",
+    "mp3": "published_audio/knocks/knock_2026-11-27T14-34.mp3"
   }
 ]

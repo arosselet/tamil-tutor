@@ -27719,5 +27719,17 @@
     "medium": "audio",
     "source": "drill_2026-11-24_1833",
     "note": ""
+  },
+  {
+    "id": "1f89a7151e5e",
+    "at": "2026-11-27T14:35:03Z",
+    "word": "அலைச்சல்",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-27T14:34:29.545837+00:00",
+    "note": ""
   }
 ]
