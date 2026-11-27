@@ -2534,9 +2534,9 @@
       74,
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "catch",
-    "exposures": 2,
+    "exposures": 3,
     "register": "mil-table",
     "taught_on": "2026-07-18",
     "reps": 1,
@@ -2657,9 +2657,9 @@
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "register": "gossip",
     "taught_on": "2026-10-15",
     "reps": 1
@@ -2678,9 +2678,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 6,
+    "exposures": 7,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2695,9 +2695,9 @@
       84,
       88
     ],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "catch",
-    "exposures": 2,
+    "exposures": 3,
     "register": "gossip",
     "heard_on": "2026-08-09",
     "taught_on": "2026-08-05",
@@ -2711,9 +2711,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 5,
+    "exposures": 6,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2891,9 +2891,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -2907,9 +2907,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
     "register": "social",
     "taught_on": null
@@ -2923,9 +2923,9 @@
       70,
       82
     ],
-    "last_surfaced": "2026-11-24",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -2979,9 +2979,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "social",
     "taught_on": null
   },
@@ -3401,9 +3401,9 @@
       88,
       89
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "register": "antifreeze",
     "reps": 2,
     "taught_on": "2026-08-10",
@@ -3438,10 +3438,10 @@
       85,
       89
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
     "reps": 4,
-    "exposures": 6,
+    "exposures": 7,
     "register": "antifreeze",
     "taught_on": "2026-07-23",
     "heard_on": "2026-08-26"
@@ -3551,9 +3551,9 @@
       82,
       86
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 4,
+    "exposures": 1,
     "register": "social",
     "taught_on": "2026-08-05",
     "reps": 1,
@@ -3568,10 +3568,10 @@
       81,
       82
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1,
+    "exposures": 2,
     "register": "social",
     "taught_on": null
   },
@@ -3671,9 +3671,9 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "register": "social",
     "taught_on": "2026-08-14",
     "reps": 1,
@@ -3846,9 +3846,9 @@
       60,
       86
     ],
-    "last_surfaced": "2026-11-21",
+    "last_surfaced": "2026-11-27",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "register": "social",
     "taught_on": "2026-07-13",
     "reps": 1,
