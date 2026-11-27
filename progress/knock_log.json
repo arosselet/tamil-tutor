@@ -10524,5 +10524,21 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-27T14-34.mp3",
     "memo_script": "ஆமாங்க அக்கா, கார்த்தி இன்னைக்கு காலையிலயே கிளம்பிட்டான். அந்த வண்டிய வேற இன்னும் சரி பண்ணலையா, மாமா டவுனுக்கு பஸ்லதான் போனாரு.\n\nகாந்திபுரம் போயிட்டு, அப்புறம் ஆபிஸ் வேலை முடிச்சுட்டு, அந்த வெயில்ல மளிகை சாமான் வாங்கிட்டு வரதுக்குள்ள… பஸ்ல ஏறி இறங்கி போயிட்டு வந்ததே பெரிய அலைச்சல். அவருக்கு கால் வலி வேற வந்துடுச்சு.\n\nநான் அப்பவே சொன்னேன், சாயங்காலமா போகலாம்னு. கேட்டாத்தானே? இப்போ வந்து படுத்துட்டாரு. சரிங்க அக்கா, நான் அப்புறம் கூப்பிடறேன், அவருக்கு கொஞ்சம் காபி போட்டு குடுக்கணும்.",
     "mp3": "published_audio/knocks/knock_2026-11-27T14-34.mp3"
+  },
+  {
+    "date": "2026-11-27",
+    "timestamp": "2026-11-27T23:07:44.898191+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: naama",
+    "rationale": "First try from his phone on inclusive naama from the upstairs room session; evening reach.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-28T14:07:44.898191+00:00",
+    "body": "Deepa's pulling you to the terrace. What's the 'we' that means both of you together? Sollu 🏃",
+    "body_script": "Deepa's pulling you to the terrace. What's the 'we' that means both of you together? சொல்லு 🏃",
+    "expected_target": "நாம",
+    "stance": "ask",
+    "thread": "word:நாம",
+    "target_revealed": false
   }
 ]
