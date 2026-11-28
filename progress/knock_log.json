@@ -10540,5 +10540,24 @@
     "stance": "ask",
     "thread": "word:நாம",
     "target_revealed": false
+  },
+  {
+    "date": "2026-11-28",
+    "timestamp": "2026-11-28T14:52:29.223008+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: irukku",
+    "rationale": "Fresh fielding modality on the 'irukku' thread to test his upstairs room response with Mama.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-28T18:52:29.223008+00:00",
+    "body": "Room nalla irukka? — Mama at the door. Answer him 🚪",
+    "body_script": "ரூம் நல்லா இருக்கா? — Mama at the door. Answer him 🚪",
+    "expected_target": "இருக்கு",
+    "stance": "ask",
+    "thread": "word:இருக்கு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-28T14-52.mp3",
+    "memo_script": "என்ன, ரூம் நல்லா இருக்கா?",
+    "mp3": "published_audio/knocks/knock_2026-11-28T14-52.mp3"
   }
 ]

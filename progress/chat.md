@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-11-28
+
+**09:52 · Anna** 🎧  ·  fielding / fielding: irukku
+> Room nalla irukka? — Mama at the door. Answer him 🚪
+
+
 ## Friday 2026-11-27
 
 **09:34 · Anna** 🎧  ·  eavesdrop / overheard: alaichal
